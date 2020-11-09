@@ -1,0 +1,6 @@
+app:
+  datasource:
+    jdbc-url: jdbc:postgresql://localhost:5433/customer_management
+    username: postgres
+    password: customer-management
+    pool-size: 30
