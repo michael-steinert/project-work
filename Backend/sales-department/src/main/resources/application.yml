@@ -1,0 +1,6 @@
+app:
+  datasource:
+    jdbc-url: jdbc:postgresql://localhost:5434/sales_department
+    username: postgres
+    password: sales-department
+    pool-size: 30
