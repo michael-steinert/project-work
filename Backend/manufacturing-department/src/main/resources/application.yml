@@ -1,0 +1,6 @@
+app:
+  datasource:
+    jdbc-url: jdbc:postgresql://localhost:5435/manufacturing_department
+    username: postgres
+    password: manufacturing-department
+    pool-size: 30
