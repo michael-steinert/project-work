@@ -1,0 +1,2 @@
+customer-management:
+    endpoint: /api/v1/customers
