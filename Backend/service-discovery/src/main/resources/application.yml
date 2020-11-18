@@ -1,0 +1,9 @@
+# Disable Service Discovery act as a client
+eureka:
+  client:
+    fetchRegistry: false
+    registerWithEureka: false
+  server:
+    waitTimeInMsWhenSyncEmpty: 5
+server:
+  port: 8761
