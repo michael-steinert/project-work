@@ -81,7 +81,7 @@ Das System besteht aus drei Microservices, welche aus einem Backend, Frontend un
 ## Einrichtung
 ### Anwendungsserver:
 
-Die kompilierten Microservices enthalten bereist deren Anwendungsserver und können direkt innerhalb eines Containers ausgeführt werden, welcher die Java-Version 15 installiert hat. Das sind folgende Schritte notwendig:
+* Die kompilierten Microservices enthalten bereist deren Anwendungsserver und können direkt innerhalb eines Containers ausgeführt werden, welcher die Java-Version 15 installiert hat. Das sind folgende Schritte notwendig:
 
 `
 FROM openjdk:7
