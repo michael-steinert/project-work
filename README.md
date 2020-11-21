@@ -4,21 +4,21 @@
 
 ## Description of the System
 
-The System consists of three Microservices, consisting of a Backend, Frontend and Datastorage, a server for Service-Discovery and a Server for the Configuration of the individual Microservices.
+The System consists of three Microservices, consisting of a Backend, Frontend and Datastorage, a server for Service-Discovery and a Server for the Configuration of the individual [Microservices](backend/microservices).
 
 ![cover](https://user-images.githubusercontent.com/29623199/99527045-7638c100-299c-11eb-8039-1526bafe157d.png)
 
 ## Choice of technology
 
-* Service discovery on the server is realized with the help of Eureka and on the individual microservices with the help of Ribbon.
+* The [Service Discovery](backend/service-discovery) on the Server is realized with the help of Eureka and on the individual [Microservice](backend/microservices) with the help of Ribbon.
 
-* The server for the configuration is realized with the help of Config Server.
+* The [Configuration Server](backend/configuration-server) for the Configuration is realized with the help of Config Server.
 
-* The backend of the individual microservices is realized with the help of the Spring Framework, especially Spring Boot and Spring Cloud.
+* The Backend of the individual [Microservices](backend/microservices) is realized with the help of the Spring Framework, especially Spring Boot and Spring Cloud.
 
-* The frontend of the individual microservices is realized with the help of the React Framework and the framework Material-UI.
+* The Frontend of the individual [Microservices](backend/microservices) is realized with the help of the React Framework and the Framework Material-UI.
 
-* Each of these microservices has its own data management, which is realized with the help of PostgreSQL.
+* Each of these [Microservice](backend/microservices) has its own Data Management, which is realized with the help of PostgreSQL.
 ___
 
 # Projektarbeit
@@ -27,16 +27,16 @@ ___
 
 ## Beschreibung des Systems
 
-Das System besteht aus drei Microservices, welche aus einem Backend, Frontend und einer Datenhaltung bestehen, einem Server für die Service-Discovery und einem Server für die Konfiguration der einzelnen Microservices.
+Das System besteht aus drei [Microservices](backend/microservices), welche aus einem Backend, Frontend und einer Datenhaltung bestehen, einem Server für die Service-Discovery und einem Server für die Konfiguration der einzelnen Microservices.
 
 ## Wahl der Technologien
 
-* Die Service-Discovery auf dem Server wird mit Hilfe von Eureka und auf den einzelnen Microservices mit Hilfe von Ribbon realisiert.
+* Die [Service-Discovery](backend/service-discovery) auf dem Server wird mit Hilfe von Eureka und auf den einzelnen Microservices mit Hilfe von Ribbon realisiert.
 
-* Der Server für die Konfiguration wird mit Hilfe von Config Server realisiert.
+* Der [Konfigurations-Server](backend/configuration-server) für die Konfiguration wird mit Hilfe von Config Server realisiert.
 
-* Das Backend der einzelnen Microservices wird mit Hilfe des Spring Frameworks insbesondere mit Spring Boot und Spring Cloud realisiert.
+* Das Backend der einzelnen [Microservices](backend/microservices) wird mit Hilfe des Spring Frameworks insbesondere mit Spring Boot und Spring Cloud realisiert.
 
-* Das Frontend der einzelnen Microservices wird mit Hilfe des React Framework und dem Framework Material-UI realisiert.
+* Das Frontend der einzelnen [Microservices](backend/microservices) wird mit Hilfe des React Framework und dem Framework Material-UI realisiert.
 
-* Jeder dieser Microservices verfügt über eine eigene Datenhaltung, welche mit Hilfe von PostgreSQL realisiert wird.
+* Jeder dieser [Microservices](backend/microservices) verfügt über eine eigene Datenhaltung, welche mit Hilfe von PostgreSQL realisiert wird.

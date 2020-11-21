@@ -1,12 +1,12 @@
 ## Configuration Repository
 
-* The repository contains Configurations for the individual [Microservices](../blob/master/backend/microservices).
+* The repository contains Configurations for the individual [Microservice](../microservices).
 
-* The Configurations are provided by the [Configuration Server](../blob/master/backend/config-server).
+* The Configurations are provided by the [Configuration Server](../config-server).
 ___
 
 ## Konfigurations-Repository
 
-* Das Repository enthält Konfigurationen zu den einzelnen [Microservices](../blob/master/backend/microservices).
+* Das Repository enthält Konfigurationen zu den einzelnen [Microservice](../microservices).
 
-* Die Konfigurationen werden vom [Konfigurations-Server](../blob/master/backend/config-server) zur Verfügung gestellt.
+* Die Konfigurationen werden vom [Konfigurations-Server](../config-server) zur Verfügung gestellt.
