@@ -1,8 +1,0 @@
-eureka:
-  client:
-    fetchRegistry: true
-  instance:
-    preferIpAddress: true
-spring:
-  application:
-    name: customer-management-microservice
