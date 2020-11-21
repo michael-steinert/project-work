@@ -19,6 +19,9 @@ The System consists of three [Microservices](backend/microservices), consisting 
 * The Frontend of the individual [Microservices](backend/microservices) is realized with the help of the React Framework and the Framework Material-UI.
 
 * Each of these [Microservice](backend/microservices) has its own Data Management, which is realized with the help of PostgreSQL.
+
+## UML Class Diagram
+![cover](https://user-images.githubusercontent.com/29623199/99886578-e31eb600-2c3d-11eb-9a41-022bacb58f94.png)
 ___
 
 # Projektarbeit
@@ -28,6 +31,8 @@ ___
 ## Beschreibung des Systems
 
 Das System besteht aus drei [Microservices](backend/microservices), welche aus einem Backend, Frontend und einer Datenhaltung bestehen, einem Server für die Service-Discovery und einem Server für die Konfiguration der einzelnen Microservices.
+
+![cover](https://user-images.githubusercontent.com/29623199/99527045-7638c100-299c-11eb-8039-1526bafe157d.png)
 
 ## Wahl der Technologien
 
@@ -40,3 +45,6 @@ Das System besteht aus drei [Microservices](backend/microservices), welche aus e
 * Das Frontend der einzelnen [Microservices](backend/microservices) wird mit Hilfe des React Framework und dem Framework Material-UI realisiert.
 
 * Jeder dieser [Microservices](backend/microservices) verfügt über eine eigene Datenhaltung, welche mit Hilfe von PostgreSQL realisiert wird.
+
+## UML Klassendiagramm
+![cover](https://user-images.githubusercontent.com/29623199/99886578-e31eb600-2c3d-11eb-9a41-022bacb58f94.png)
