@@ -1,12 +1,12 @@
 ## Configuration Repository
 
-* The repository contains Configurations for the individual [Microservice](../backend/microservices).
+* The repository contains Configurations for the individual Microservice.
 
-* The Configurations are provided by the [Configuration Server](../backend/config-server).
+* The Configurations are provided by the Configuration Server.
 ___
 
 ## Konfigurations-Repository
 
-* Das Repository enthält Konfigurationen zu den einzelnen [Microservice](../backend/microservices).
+* Das Repository enthält Konfigurationen zu den einzelnen Microservice.
 
-* Die Konfigurationen werden vom [Konfigurations-Server](../backend/config-server) zur Verfügung gestellt.
+* Die Konfigurationen werden vom Konfigurations-Server zur Verfügung gestellt.

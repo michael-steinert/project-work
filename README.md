@@ -4,7 +4,7 @@
 
 ## Description of the System
 
-The System consists of three Microservices, consisting of a Backend, Frontend and Datastorage, a server for Service-Discovery and a Server for the Configuration of the individual [Microservices](backend/microservices).
+The System consists of three [Microservices](backend/microservices), consisting of a Backend, Frontend and Datastorage, a server for Service-Discovery and a Server for the Configuration of the individual [Microservices](backend/microservices).
 
 ![cover](https://user-images.githubusercontent.com/29623199/99527045-7638c100-299c-11eb-8039-1526bafe157d.png)
 
