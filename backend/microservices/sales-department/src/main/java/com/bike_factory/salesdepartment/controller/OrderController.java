@@ -22,6 +22,7 @@ public class OrderController {
     @GetMapping
     public List<Order> getAllOrders() {
         // throw new ApiRequestException("Order Exception");
+        orderService.fetchCustomer();
         return orderService.getAllOrders();
     }
 

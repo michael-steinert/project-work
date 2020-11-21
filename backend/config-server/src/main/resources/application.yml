@@ -1,8 +1,12 @@
 server:
   port: 8888
 spring:
+  security:
+    user:
+      name: root
+      password: s3cr3t
   cloud:
     config:
       server:
         git:
-          uri: C:/Users/stein/Desktop/Project work/Backend/config-repository
+          uri: C:/Users/stein/Desktop/project-work/backend/config-repository

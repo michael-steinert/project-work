@@ -1,2 +1,2 @@
-customer-management:
-    endpoint: /api/v1/customers
+sales-department:
+    endpoint: http://localhost:8081/api/v1/customers

@@ -1,6 +1,7 @@
 package com.bike_factory.salesdepartment.service;
 
 import com.bike_factory.salesdepartment.dao.OrderDao;
+import com.bike_factory.salesdepartment.model.Customer;
 import com.bike_factory.salesdepartment.model.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,5 +45,11 @@ public class OrderService {
 
     public int insertOrder(Order order) {
         return orderDao.insertOrder(Order.newOrder(UUID.randomUUID(), order));
+    }
+
+    public void fetchCustomer() {
+        for(Customer customer: orderDao.fetchCustomer()) {
+            System.out.println(customer);
+        }
     }
 }

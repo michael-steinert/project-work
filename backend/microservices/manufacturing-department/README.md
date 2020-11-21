@@ -1,6 +1,6 @@
 ## Setup
 
-### Application-Server:
+### Application Server:
 * The compiled Microservice *Manufacturing-Department* already contains the Application Server and can be executed directly inside a Container that has Java version 15 installed. The following Steps are necessary:
 
 ```sh

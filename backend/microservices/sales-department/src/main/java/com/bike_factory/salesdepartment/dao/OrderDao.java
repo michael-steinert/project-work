@@ -1,5 +1,6 @@
 package com.bike_factory.salesdepartment.dao;
 
+import com.bike_factory.salesdepartment.model.Customer;
 import com.bike_factory.salesdepartment.model.Order;
 
 import java.util.List;
@@ -11,4 +12,5 @@ public interface OrderDao {
     int insertOrder(Order order);
     int updateOrder(Order order);
     int deleteOrderByOrderUid(UUID orderUid);
+    List<Customer> fetchCustomer();
 }

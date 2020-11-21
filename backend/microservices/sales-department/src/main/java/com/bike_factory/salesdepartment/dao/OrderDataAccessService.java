@@ -1,10 +1,16 @@
 package com.bike_factory.salesdepartment.dao;
 
+import com.bike_factory.salesdepartment.model.Customer;
 import com.bike_factory.salesdepartment.model.Order;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -13,6 +19,9 @@ import java.util.UUID;
 @Repository
 public class OrderDataAccessService implements OrderDao {
     private final JdbcTemplate jdbcTemplate;
+
+    //@Value("${customer-management.endpoint}")
+    //private String endpoint;
 
     @Autowired
     public OrderDataAccessService(JdbcTemplate jdbcTemplate) {
@@ -42,6 +51,14 @@ public class OrderDataAccessService implements OrderDao {
     public int deleteOrderByOrderUid(UUID orderUid) {
         String sql = "DELETE FROM orders where order_id = ?";
         return jdbcTemplate.update(sql, orderUid);
+    }
+
+    public List<Customer> fetchCustomer() {
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<List<Customer>> response = restTemplate
+            .exchange("http://localhost:8081/api/v1/customers" , HttpMethod.GET, null, new ParameterizedTypeReference<List<Customer>>() {});
+        //System.out.println("Boom der Endpoint-: " + endpoint);
+        return response.getBody();
     }
 
     private RowMapper<Order> mapOrderFromDb() {
