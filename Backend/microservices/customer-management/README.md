@@ -1,7 +1,7 @@
 ## Setup
 
 ### Application-Server:
-* The compiled microservices already contain their application servers and can be executed directly inside a container that has Java version 15 installed. The following steps are necessary:
+* The compiled Microservice *Customer-Management* already contains the Application Server and can be executed directly inside a Container that has Java version 15 installed. The following Steps are necessary:
 
 ```sh
 FROM openjdk:15
@@ -16,17 +16,19 @@ $ docker build -t customer-management-app .
 $ docker run -it --rm --name running-customer-management-app customer-management-app
 ```
 
+* The running Microservices is available at the URL http://localhost:8081.
+
 ### Database:
 
-* The Microservice Customer-Management needs its own database. For this Purpose, an instance of the PostgreSQL Database must be set up on a container. The following Steps are necessary::
+* The Microservice *Customer-Management* needs its own Database. Therefore an Instance of the PostgreSQL Database is set up on a Container. The following steps are necessary:
 
-* The PostgreSQL Version *alpine* is installed inside a Container:
+* The PostgreSQL Version *alpine* is installed inside the Container *postgres-customer-management-container*:
 
 ```sh
 $ docker run --name postgres-customer-management-container -e POSTGRES_PASSWORD=customer-management -d -p 5433:5432 postgres:alpine
 ```
 
-* A new Database must be created within the Container:
+* A new Database is created within the Container *postgres-customer-management-container*:
 
 ```sh
 docker exec -it postgres-customer-management-container /bin/bash
@@ -38,7 +40,7 @@ ___
 ## Einrichtung
 ### Anwendungsserver:
 
-* Die kompilierten Microservices enthalten bereist deren Anwendungsserver und können direkt innerhalb eines Containers ausgeführt werden, welcher die Java-Version 15 installiert hat. Das sind folgende Schritte notwendig:
+* Der kompilierte Microservice *Customer-Management* enthält bereist den Anwendungsserver und kann direkt innerhalb eines Containers ausgeführt werden, welcher die Java-Version 15 installiert hat. Dazu sind folgende Schritte notwendig:
 
 ```sh
 FROM openjdk:15
@@ -53,17 +55,19 @@ $ docker build -t customer-management-app .
 $ docker run -it --rm --name running-customer-management-app customer-management-app
 ```
 
+* Der laufende Microservices ist erreichbar unter der URL http://localhost:8081.
+
 ### Datenbank:
 
-* Der Microservice Customer-Management benötigt seine eigene Datenbank. Dafür muss auf einem Container eine Instanz der Datenbank PostgreSQL eingerichtet werden. Dazu sind folgende Schritte notwendig:
+* Der Microservice *Customer-Management* benötigt seine eigene Datenbank. Dafür wird auf einem Container eine Instanz der Datenbank PostgreSQL eingerichtet. Dazu sind folgende Schritte notwendig:
 
-* Die PostgreSQL Version *alpine* wird innerhalb eines Containers installiert:
+* Die PostgreSQL Version *alpine* wird innerhalb eines Containers *postgres-customer-management-container* installiert:
 
 ```sh
 $ docker run --name postgres-customer-management-container -e POSTGRES_PASSWORD=customer-management -d -p 5433:5432 postgres:alpine
 ```
 
-* Es muss eine neue Datenbank innerhalb des Containers angelegt:
+* Es wird eine neue Datenbank innerhalb des Containers *postgres-customer-management-container* angelegt:
 
 ```sh
 docker exec -it postgres-customer-management-container /bin/bash

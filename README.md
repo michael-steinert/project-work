@@ -19,43 +19,6 @@ The System consists of three Microservices, consisting of a Backend, Frontend an
 * The frontend of the individual microservices is realized with the help of the React Framework and the framework Material-UI.
 
 * Each of these microservices has its own data management, which is realized with the help of PostgreSQL.
-
-## Setup
-
-### Application-Server:
-* The compiled microservices already contain their application servers and can be executed directly inside a container that has Java version 15 installed. The following steps are necessary:
-
-`
-FROM openjdk:7
-COPY . /usr/src/myapp
-WORKDIR /usr/src/myapp
-RUN javac Main.java
-CMD ["java", "Main"]
-`
-
-`
-$ docker build -t my-java-app .
-$ docker run -it --rm --name my-running-app my-java-app
-`
-
-### Database:
-
-* Every single Microservice needs its own Database. Therefore an instance of the PostgreSQL Database must be created on a Container. This requires the following steps, which are explained using the Customer-Management Microservice as an example:
-
-* The PostgreSQL version alpine is installed inside a container:
-
-`
-$ docker run --name postgres-customer-management-container -e POSTGRES_PASSWORD=customer-management -d -p 5433:5432 postgres:alpine
-`
-
-* A new Database must be created within the Container:
-
-`
-docker exec -it postgres-customer-management-container /bin/bash
-psql -U postgres
-CREATE DATABASE customer_management;
-`
-
 ___
 
 # Projektarbeit
@@ -77,39 +40,3 @@ Das System besteht aus drei Microservices, welche aus einem Backend, Frontend un
 * Das Frontend der einzelnen Microservices wird mit Hilfe des React Framework und dem Framework Material-UI realisiert.
 
 * Jeder dieser Microservices verfügt über eine eigene Datenhaltung, welche mit Hilfe von PostgreSQL realisiert wird.
-
-## Einrichtung
-### Anwendungsserver:
-
-* Die kompilierten Microservices enthalten bereist deren Anwendungsserver und können direkt innerhalb eines Containers ausgeführt werden, welcher die Java-Version 15 installiert hat. Das sind folgende Schritte notwendig:
-
-`
-FROM openjdk:7
-COPY . /usr/src/myapp
-WORKDIR /usr/src/myapp
-RUN javac Main.java
-CMD ["java", "Main"]
-`
-
-`
-$ docker build -t my-java-app .
-$ docker run -it --rm --name my-running-app my-java-app
-`
-
-### Datenbank:
-
-* Jeder einzelne Microservice benötigt seine eigene Datenbank. Dafür muss auf einem Container eine Instanz der Datenbank PostgreSQL eingerichtet werden. Dazu sind folgende Schritte, welche beispielhaft an dem Customer-Management-Microservice erklärt werden, notwendig:
-
-* Die PostgreSQL Version alpine wird innerhalb eines Containers installiert:
-
-`
-$ docker run --name postgres-customer-management-container -e POSTGRES_PASSWORD=customer-management -d -p 5433:5432 postgres:alpine
-`
-
-* Es muss eine neue Datenbank innerhalb des Containers angelegt:
-
-`
-docker exec -it postgres-customer-management-container /bin/bash
-psql -U postgres
-CREATE DATABASE customer_management;
-`
