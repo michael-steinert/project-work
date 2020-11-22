@@ -1,2 +1,0 @@
-customer-management:
-  endpoint: http://localhost:8081/api/v1/customers

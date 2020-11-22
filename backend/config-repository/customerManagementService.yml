@@ -1,2 +1,0 @@
-sales-department:
-    endpoint: http://localhost:8081/api/v1/customers

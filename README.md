@@ -6,7 +6,7 @@
 
 The System consists of three [Microservices](backend/microservices), consisting of a Backend, Frontend and Datastorage, a server for Service-Discovery and a Server for the Configuration of the individual [Microservices](backend/microservices).
 
-![cover](https://user-images.githubusercontent.com/29623199/99527045-7638c100-299c-11eb-8039-1526bafe157d.png)
+![cover](https://user-images.githubusercontent.com/29623199/99902995-c88e2080-2cc1-11eb-9ad8-14a4cc736000.png)
 
 ## Choice of technology
 
@@ -32,7 +32,7 @@ ___
 
 Das System besteht aus drei [Microservices](backend/microservices), welche aus einem Backend, Frontend und einer Datenhaltung bestehen, einem Server für die Service-Discovery und einem Server für die Konfiguration der einzelnen Microservices.
 
-![cover](https://user-images.githubusercontent.com/29623199/99527045-7638c100-299c-11eb-8039-1526bafe157d.png)
+![cover](https://user-images.githubusercontent.com/29623199/99902995-c88e2080-2cc1-11eb-9ad8-14a4cc736000.png)
 
 ## Wahl der Technologien
 

@@ -20,9 +20,6 @@ import java.util.UUID;
 public class OrderDataAccessService implements OrderDao {
     private final JdbcTemplate jdbcTemplate;
 
-    //@Value("${customer-management.endpoint}")
-    //private String endpoint;
-
     @Autowired
     public OrderDataAccessService(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -57,7 +54,6 @@ public class OrderDataAccessService implements OrderDao {
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<List<Customer>> response = restTemplate
             .exchange("http://localhost:8081/api/v1/customers" , HttpMethod.GET, null, new ParameterizedTypeReference<List<Customer>>() {});
-        //System.out.println("Boom der Endpoint-: " + endpoint);
         return response.getBody();
     }
 
