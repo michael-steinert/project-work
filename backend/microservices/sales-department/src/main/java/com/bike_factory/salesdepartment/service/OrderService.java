@@ -20,8 +20,8 @@ public class OrderService {
         this.orderDao = orderDao;
     }
 
-    public List<Order> getAllOrders() {
-        return orderDao.selectAllOrders();
+    public Optional<List<Order>> getAllOrders() {
+        return Optional.ofNullable(orderDao.selectAllOrders());
     }
 
     public Optional<Order> getOrder(UUID orderUid) {

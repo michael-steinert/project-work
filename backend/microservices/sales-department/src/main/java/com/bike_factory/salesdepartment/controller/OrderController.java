@@ -23,7 +23,7 @@ public class OrderController {
     public List<Order> getAllOrders(/*@RequestHeader("Authorization") String jsonWebToken*/) {
         // throw new ApiRequestException("Order Exception");
         //orderService.fetchCustomer(jsonWebToken);
-        return orderService.getAllOrders();
+        return orderService.getAllOrders().get();
     }
 
     @PostMapping
