@@ -3,16 +3,15 @@ package com.bike_factory.salesdepartment.dao;
 import com.bike_factory.salesdepartment.model.Customer;
 import com.bike_factory.salesdepartment.model.Order;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -50,10 +49,15 @@ public class OrderDataAccessService implements OrderDao {
         return jdbcTemplate.update(sql, orderUid);
     }
 
-    public List<Customer> fetchCustomer() {
+    public List<Customer> fetchCustomer(String jsonWebToken) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", jsonWebToken);
+        headers.setAccept(Arrays.asList(new MediaType[] { MediaType.APPLICATION_JSON }));
+        //headers.setContentType(MediaType.APPLICATION_JSON); Actualy only Get-Method and not Post-Method
+        HttpEntity<String> httpEntity = new HttpEntity<>(headers);
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<List<Customer>> response = restTemplate
-            .exchange("http://localhost:8081/api/v1/customers" , HttpMethod.GET, null, new ParameterizedTypeReference<List<Customer>>() {});
+            .exchange("http://localhost:8081/api/v1/customers", HttpMethod.GET, httpEntity, new ParameterizedTypeReference<List<Customer>>() {});
         return response.getBody();
     }
 

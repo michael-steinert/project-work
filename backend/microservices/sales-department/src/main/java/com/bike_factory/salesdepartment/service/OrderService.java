@@ -47,9 +47,11 @@ public class OrderService {
         return orderDao.insertOrder(Order.newOrder(UUID.randomUUID(), order));
     }
 
-    public void fetchCustomer() {
-        for(Customer customer: orderDao.fetchCustomer()) {
+    public void fetchCustomer(String jsonWebToken) {
+        /*
+        for(Customer customer: orderDao.fetchCustomer(jsonWebToken)) {
             System.out.println(customer);
         }
+        */
     }
 }

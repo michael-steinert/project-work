@@ -12,5 +12,5 @@ public interface OrderDao {
     int insertOrder(Order order);
     int updateOrder(Order order);
     int deleteOrderByOrderUid(UUID orderUid);
-    List<Customer> fetchCustomer();
+    List<Customer> fetchCustomer(String jsonWebToken);
 }
