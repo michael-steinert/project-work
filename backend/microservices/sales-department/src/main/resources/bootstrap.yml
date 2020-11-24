@@ -1,13 +1,9 @@
 spring:
   application:
     name: sales-department-service
-  profiles:
-    active: development
   cloud:
     config:
       uri: http://localhost:8888
-      username: root
-      password: s3cr3t
 
 eureka:
   client:

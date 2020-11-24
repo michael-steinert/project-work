@@ -3,6 +3,7 @@ package com.bike_factory.salesdepartment.controller;
 import com.bike_factory.salesdepartment.model.Order;
 import com.bike_factory.salesdepartment.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -13,6 +14,9 @@ import java.util.List;
 @RequestMapping("api/v1/orders")
 public class OrderController {
     private final OrderService orderService;
+    
+    @Value("${customer.endpoint}")
+    private String endpoint;
 
     @Autowired
     public OrderController(OrderService orderService) {
@@ -23,6 +27,7 @@ public class OrderController {
     public List<Order> getAllOrders(/*@RequestHeader("Authorization") String jsonWebToken*/) {
         // throw new ApiRequestException("Order Exception");
         //orderService.fetchCustomer(jsonWebToken);
+
         return orderService.getAllOrders().get();
     }
 

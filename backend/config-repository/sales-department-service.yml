@@ -1,2 +1,2 @@
-customer-management:
-  endpoint:/customer-management-endpoint
+customer:
+  endpoint: customer-management-endpoint
