@@ -5,7 +5,7 @@ eureka:
     preferIpAddress: true
 spring:
   application:
-    name: manufacturingDepartmentService
+    name: manufacturing-department-service
   cloud:
     config:
       uri: http://localhost:8888
