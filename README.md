@@ -6,13 +6,13 @@
 
 The System consists of three [Microservices](backend/microservices), consisting of a Backend, Frontend and Datastorage, a server for Service-Discovery and a Server for the Configuration of the individual [Microservices](backend/microservices).
 
-![cover](https://user-images.githubusercontent.com/29623199/99902995-c88e2080-2cc1-11eb-9ad8-14a4cc736000.png)
+![cover](https://user-images.githubusercontent.com/29623199/100121183-1bf69f00-2e79-11eb-8fbc-7ba27a0320c9.png)
 
 ## Choice of technology
 
-* The [Service Discovery](backend/service-discovery) on the Server is realized with the help of Eureka and on the individual [Microservice](backend/microservices) with the help of Ribbon.
+* The [Service Discovery](backend/service-discovery) on the Server is realized with the help of Eureka and on the individual [Microservice](backend/microservices) with the help of Ribbon. A Service Discovery ensures that the individual Microservices can find each other. Due to its dynamic Nature, it allows scaling the Application by adding individual Microservices.
 
-* The [Configuration Server](backend/configuration-server) for the Configuration is realized with the help of Config Server.
+* The [Configuration Server](backend/configuration-server) for the Configuration is realized with the help of Config Server. A Configuration Server facilitates the Storage and Transfer of Configuration Data to the individual Microservices. Spring Cloud Config has a REST-API that provides Configuration Data from a local GIT-Repository.
 
 * The Backend of the individual [Microservices](backend/microservices) is realized with the help of the Spring Framework, especially Spring Boot and Spring Cloud.
 
@@ -32,13 +32,13 @@ ___
 
 Das System besteht aus drei [Microservices](backend/microservices), welche aus einem Backend, Frontend und einer Datenhaltung bestehen, einem Server für die Service-Discovery und einem Server für die Konfiguration der einzelnen Microservices.
 
-![cover](https://user-images.githubusercontent.com/29623199/99902995-c88e2080-2cc1-11eb-9ad8-14a4cc736000.png)
+![cover](https://user-images.githubusercontent.com/29623199/100121183-1bf69f00-2e79-11eb-8fbc-7ba27a0320c9.png)
 
 ## Wahl der Technologien
 
-* Die [Service-Discovery](backend/service-discovery) auf dem Server wird mit Hilfe von Eureka und auf den einzelnen Microservices mit Hilfe von Ribbon realisiert.
+* Die [Service-Discovery](backend/service-discovery) auf dem Server wird mit Hilfe von Eureka und auf den einzelnen Microservices mit Hilfe von Ribbon realisiert. Eine Service-Discovery stellt sicher, dass sich die einzelnen Microservices gegenseitig finden können. Durch ihre dynamische Art, erlaubt sie das Skalieren der Anwendung durch die Hinzunahme einzelner Microservices.
 
-* Der [Konfigurations-Server](backend/configuration-server) für die Konfiguration wird mit Hilfe von Config Server realisiert.
+* Der [Konfigurations-Server](backend/configuration-server) für die Konfiguration wird mit Hilfe von Config Server realisiert. Ein Konfigurations-Server erleichtert das Speichern und Übergeben der Konfigurationsdaten an die einzelnen Microservice. Spring Cloud Config hat eine REST-API, die die Konfigurationsdaten aus einem lokalen Git-Repository zur Verfügung stellt.
 
 * Das Backend der einzelnen [Microservices](backend/microservices) wird mit Hilfe des Spring Frameworks insbesondere mit Spring Boot und Spring Cloud realisiert.
 
