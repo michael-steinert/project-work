@@ -1,7 +1,7 @@
-package com.bike_factory.usermanagement.controller;
+package com.bike_factory.customermanagement.controller;
 
-import com.bike_factory.usermanagement.model.Customer;
-import com.bike_factory.usermanagement.service.CustomerService;
+import com.bike_factory.customermanagement.model.Customer;
+import com.bike_factory.customermanagement.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +23,7 @@ public class CustomerController {
     @GetMapping
     public List<Customer> getAllCustomers() {
         // throw new ApiRequestException("Custom Exception");
-        return customerService.getAllCustomers();
+        return customerService.getAllCustomers().get();
     }
 
     /*

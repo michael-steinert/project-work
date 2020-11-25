@@ -1,6 +1,6 @@
-package com.bike_factory.usermanagement.dao;
+package com.bike_factory.customermanagement.dao;
 
-import com.bike_factory.usermanagement.model.Customer;
+import com.bike_factory.customermanagement.model.Customer;
 
 import java.util.List;
 import java.util.UUID;

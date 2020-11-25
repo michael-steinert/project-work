@@ -1,4 +1,4 @@
-package com.bike_factory.usermanagement.model;
+package com.bike_factory.customermanagement.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

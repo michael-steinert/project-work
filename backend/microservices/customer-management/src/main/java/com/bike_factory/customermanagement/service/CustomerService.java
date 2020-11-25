@@ -1,7 +1,7 @@
-package com.bike_factory.usermanagement.service;
+package com.bike_factory.customermanagement.service;
 
-import com.bike_factory.usermanagement.dao.CustomerDao;
-import com.bike_factory.usermanagement.model.Customer;
+import com.bike_factory.customermanagement.dao.CustomerDao;
+import com.bike_factory.customermanagement.model.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,7 +9,6 @@ import javax.ws.rs.NotFoundException;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class CustomerService {
@@ -21,8 +20,8 @@ public class CustomerService {
         this.customerDao = customerDao;
     }
 
-    public List<Customer> getAllCustomers() {
-        return customerDao.selectAllCustomers();
+    public Optional<List<Customer>> getAllCustomers() {
+        return Optional.ofNullable(customerDao.selectAllCustomers());
     }
 
     public Optional<Customer> getCustomer(UUID customerUid) {

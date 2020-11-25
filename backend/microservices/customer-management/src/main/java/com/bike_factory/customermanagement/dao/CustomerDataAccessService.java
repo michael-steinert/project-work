@@ -1,6 +1,6 @@
-package com.bike_factory.usermanagement.dao;
+package com.bike_factory.customermanagement.dao;
 
-import com.bike_factory.usermanagement.model.Customer;
+import com.bike_factory.customermanagement.model.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
