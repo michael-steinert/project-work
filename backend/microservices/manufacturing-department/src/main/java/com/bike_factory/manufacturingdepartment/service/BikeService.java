@@ -19,8 +19,8 @@ public class BikeService {
         this.bikeDao = bikeDao;
     }
 
-    public List<Bike> getAllBikes() {
-        return bikeDao.selectAllBikes();
+    public Optional<List<Bike>> getAllBikes() {
+        return Optional.ofNullable(bikeDao.selectAllBikes());
     }
 
     public Optional<Bike> getBike(UUID bikeUid) {

@@ -22,7 +22,7 @@ public class BikeController {
     @GetMapping
     public List<Bike> getAllBikes() {
         // throw new ApiRequestException("Bike Exception");
-        return bikeService.getAllBikes();
+        return bikeService.getAllBikes().get();
     }
 
     @PostMapping
