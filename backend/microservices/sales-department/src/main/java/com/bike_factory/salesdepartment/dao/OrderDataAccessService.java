@@ -3,6 +3,7 @@ package com.bike_factory.salesdepartment.dao;
 import com.bike_factory.salesdepartment.model.Customer;
 import com.bike_factory.salesdepartment.model.Order;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -17,6 +18,8 @@ import java.util.UUID;
 
 @Repository
 public class OrderDataAccessService implements OrderDao {
+    @Value("${customer-management.endpoint}")
+    private String customerManagementEndpoint;
     private final JdbcTemplate jdbcTemplate;
 
     @Autowired
@@ -49,7 +52,8 @@ public class OrderDataAccessService implements OrderDao {
         return jdbcTemplate.update(sql, orderUid);
     }
 
-    public List<Customer> fetchCustomer(String jsonWebToken) {
+    public List<Customer> fetchCustomer(/*String jsonWebToken*/) {
+        /*
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", jsonWebToken);
         headers.setAccept(Arrays.asList(new MediaType[] { MediaType.APPLICATION_JSON }));
@@ -57,7 +61,11 @@ public class OrderDataAccessService implements OrderDao {
         HttpEntity<String> httpEntity = new HttpEntity<>(headers);
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<List<Customer>> response = restTemplate
-            .exchange("http://localhost:8081/api/v1/customers", HttpMethod.GET, httpEntity, new ParameterizedTypeReference<List<Customer>>() {});
+            .exchange(customerManagementEndpoint, HttpMethod.GET, httpEntity, new ParameterizedTypeReference<List<Customer>>() {});
+        */
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<List<Customer>> response = restTemplate
+                .exchange(customerManagementEndpoint, HttpMethod.GET, null, new ParameterizedTypeReference<List<Customer>>() {});
         return response.getBody();
     }
 
