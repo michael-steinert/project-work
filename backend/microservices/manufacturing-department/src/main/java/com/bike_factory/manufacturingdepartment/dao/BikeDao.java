@@ -9,6 +9,6 @@ public interface BikeDao {
     List<Bike> selectAllBikes();
     Bike selectBikeByBikeUid(UUID bikeUid);
     int insertBike(Bike bike);
-    int updateBike(Bike bike);
+    int updateBike(UUID bikeUid, Bike bike);
     int deleteBikeByBikeUid(UUID bikeUid);
 }

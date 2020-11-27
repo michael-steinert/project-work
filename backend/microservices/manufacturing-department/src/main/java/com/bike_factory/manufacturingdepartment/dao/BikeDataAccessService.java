@@ -33,9 +33,9 @@ public class BikeDataAccessService implements BikeDao {
         return jdbcTemplate.update(sql, bike.getBikeUid(), bike.getBikeName(), bike.getDescription(), bike.getShortDescription(), bike.getBikeType().name().toUpperCase(), bike.getPrice());
     }
 
-    public int updateBike(Bike bike) {
-        String sql = "INSERT INTO bike (bike_id, bike_name, description, short_description, bike_type, price) VALUES (?, ?, ?, ?, ?, ?)";
-        return jdbcTemplate.update(sql, bike.getBikeUid(), bike.getBikeName(), bike.getDescription(), bike.getShortDescription(), bike.getBikeType().name().toUpperCase(), bike.getPrice());
+    public int updateBike(UUID bikeUid, Bike bike) {
+        String sql = "UPDATE bike SET bike_name = ?, description = ?, short_description = ?, bike_type = ?, price = ? WHERE bike_id = ?";
+        return jdbcTemplate.update(sql, bike.getBikeName(), bike.getDescription(), bike.getShortDescription(), bike.getBikeType().name().toUpperCase(), bike.getPrice(), bikeUid);
     }
 
     public int deleteBikeByBikeUid(UUID bikeUid) {

@@ -27,10 +27,10 @@ public class BikeService {
         return Optional.ofNullable(bikeDao.selectBikeByBikeUid(bikeUid));
     }
 
-    public int updateBike(Bike bike) {
-        Optional<Bike> optionalBike = getBike(bike.getBikeUid());
+    public int updateBike(UUID bikeUid, Bike bike) {
+        Optional<Bike> optionalBike = getBike(bikeUid);
         if (optionalBike.isPresent()) {
-            return bikeDao.updateBike(bike);
+            return bikeDao.updateBike(bikeUid, bike);
         }
         throw new NotFoundException("Bike " + bike.getBikeUid() + " not found.");
     }
