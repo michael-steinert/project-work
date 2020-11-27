@@ -84,6 +84,12 @@ CREATE DATABASE customer_management;
 ```
 
 ### Schnittstelle des Microservices
+
+| First Header  | Second Header |
+| ------------- | ------------- |
+| Content Cell  | Content Cell  |
+| Content Cell  | Content Cell  |
+
 | HTTP-Methode | URL | Ergebnis |
 | GET | /customerUid | liefert den Kunden mit der entsprechenden customerUid |
 | GET /customers | liefert alle Kunden des Systems |
