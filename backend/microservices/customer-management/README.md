@@ -38,6 +38,7 @@ CREATE DATABASE customer_management;
 
 ### API of Microservices
 | HTTP-Method | URL | Result |
+| --- | --- | --- |
 | GET | /customerUid | returns the Customer with the corresponding customerUid |
 | GET | /customers | returns all Customers of the System |
 | POST | - | legt einen neuen Nutzer im System an |
@@ -88,7 +89,7 @@ CREATE DATABASE customer_management;
 | HTTP-Methode | URL | Ergebnis |
 | --- | --- | --- |
 | GET | /customerUid | liefert den Kunden mit der entsprechenden customerUid |
-| GET /customers | liefert alle Kunden des Systems |
+| GET | /customers | liefert alle Kunden des Systems |
 | POST | - | legt einen neuen Kunden im System an |
 | PUT | /customerUid | ändert den Kunden mit der entsprechenden customerUid |
 | DELETE | /customerUid | löscht den Kunden mit der entsprechenden customerUid |
