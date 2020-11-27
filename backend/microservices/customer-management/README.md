@@ -37,11 +37,14 @@ CREATE DATABASE customer_management;
 ```
 
 ### API of Microservices
+
+http://localhost:8081/api/v1/customer/
+
 | HTTP-Method | URL | Result |
 | --- | --- | --- |
 | GET | /customerUid | returns the Customer with the corresponding customerUid |
 | GET | /customers | returns all Customers of the System |
-| POST | - | legt einen neuen Nutzer im System an |
+| POST | - | creates a new Customer in the System  |
 | PUT | /customerUid | changes the Customer with the corresponding customerUid |
 | DELETE | /customerUid | deletes the Customer with the corresponding customerUid |
 ___
@@ -85,6 +88,8 @@ CREATE DATABASE customer_management;
 ```
 
 ### Schnittstelle des Microservices
+
+http://localhost:8081/api/v1/customer/
 
 | HTTP-Methode | URL | Ergebnis |
 | --- | --- | --- |

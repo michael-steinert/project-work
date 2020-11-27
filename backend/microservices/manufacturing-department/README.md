@@ -35,6 +35,18 @@ docker exec -it postgres-manufacturing-department-container /bin/bash
 psql -U postgres
 CREATE DATABASE manufacturing-department;
 ```
+
+### API of Microservices
+
+http://localhost:8083/api/v1/bike/
+
+| HTTP-Method | URL | Result |
+| --- | --- | --- |
+| GET | /bikeUid | returns the Bike with the corresponding bikeUid |
+| GET | /bikes | returns all Bikes of the System |
+| POST | - | creates a new Bike in the System |
+| PUT | /bikeUid | changes the Bike with the corresponding bikeUid |
+| DELETE | /bikeUid | deletes the Bike with the corresponding bikeUid |
 ___
 
 ## Einrichtung
@@ -74,3 +86,15 @@ docker exec -it postgres-manufacturing-department-container /bin/bash
 psql -U postgres
 CREATE DATABASE manufacturing-department;
 ```
+
+### Schnittstelle des Microservices
+
+http://localhost:8083/api/v1/bike/
+
+| HTTP-Methode | URL | Ergebnis |
+| --- | --- | --- |
+| GET | /bikeUid | liefert das Fahrrad mit der entsprechenden bikeUid |
+| GET | /bikes | liefert alle Fahrräder des Systems |
+| POST | - | legt einen neues Fahrrad im System an |
+| PUT | /bikeUid | ändert das Fahrrad mit der entsprechenden bikeUid |
+| DELETE | /bikeUid | löscht das Fahrrad mit der entsprechenden bikeUid |

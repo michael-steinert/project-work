@@ -35,6 +35,18 @@ docker exec -it postgres-sales-department-container /bin/bash
 psql -U postgres
 CREATE DATABASE sales-department;
 ```
+
+### API of Microservices
+
+http://localhost:8082/api/v1/order/
+
+| HTTP-Method | URL | Result |
+| --- | --- | --- |
+| GET | /orderUid | returns the Order with the corresponding orderUid |
+| GET | /orders | returns all Orders of the System |
+| POST | - | creates a new Order in the System |
+| PUT | /orderUid | changes the Order with the corresponding orderUid |
+| DELETE | /orderUid | deletes the Order with the corresponding orderUid |
 ___
 
 ## Einrichtung
@@ -74,3 +86,15 @@ docker exec -it postgres-sales-departmentt-container /bin/bash
 psql -U postgres
 CREATE DATABASE sales-department;
 ```
+
+### Schnittstelle des Microservices
+
+http://localhost:8082/api/v1/order/
+
+| HTTP-Methode | URL | Ergebnis |
+| --- | --- | --- |
+| GET | /orderUid | liefert die Bestellung mit der entsprechenden orderUid |
+| GET | /orders | liefert alle Bestellungen des Systems |
+| POST | - | legt eine neue Bestellung im System an |
+| PUT | /orderUid | ändert die Bestellung mit der entsprechenden orderUid |
+| DELETE | /orderUid | löscht die Bestellung mit der entsprechenden orderUid |
