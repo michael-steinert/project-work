@@ -10,7 +10,7 @@ public interface OrderDao {
     List<Order> selectAllOrders();
     Order selectOrderByOrderUid(UUID orderUid);
     int insertOrder(Order order);
-    int updateOrder(Order order);
+    int updateOrder(UUID orderUid, Order order);
     int deleteOrderByOrderUid(UUID orderUid);
     List<Customer> fetchCustomer(/*String jsonWebToken*/);
 }

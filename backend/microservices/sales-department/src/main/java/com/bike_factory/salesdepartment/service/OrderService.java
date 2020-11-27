@@ -28,12 +28,12 @@ public class OrderService {
         return Optional.ofNullable(orderDao.selectOrderByOrderUid(orderUid));
     }
 
-    public int updateOrder(Order order) {
-        Optional<Order> optionalOrder = getOrder(order.getOrderUid());
+    public int updateOrder(UUID orderUid, Order order) {
+        Optional<Order> optionalOrder = getOrder(orderUid);
         if (optionalOrder.isPresent()) {
-            return orderDao.updateOrder(order);
+            return orderDao.updateOrder(orderUid, order);
         }
-        throw new NotFoundException("Order " + order.getOrderUid() + " not found.");
+        throw new NotFoundException("Order " + orderUid + " not found.");
     }
 
     public int removeOrder(UUID uid) {

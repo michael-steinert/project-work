@@ -42,9 +42,9 @@ public class OrderDataAccessService implements OrderDao {
         return jdbcTemplate.update(sql, order.getOrderUid(), order.getCustomerUid(), order.getBikeUid(), order.getTotalPrice(), order.getOrderDate());
     }
 
-    public int updateOrder(Order order) {
-        String sql = "INSERT INTO orders (order_id, customer_id, bike_id, total_price, order_date) VALUES ((?, ?, ?, ?, ?)";
-        return jdbcTemplate.update(sql, order.getOrderUid(), order.getCustomerUid(), order.getBikeUid(), order.getTotalPrice(), order.getOrderDate());
+    public int updateOrder(UUID orderUid, Order order) {
+        String sql = "UPDATE orders SET customer_id = ?, bike_id = ?, total_price = ?, order_date = ? WHERE order_id = ?";
+        return jdbcTemplate.update(sql, order.getCustomerUid(), order.getBikeUid(), order.getTotalPrice(), order.getOrderDate(), orderUid);
     }
 
     public int deleteOrderByOrderUid(UUID orderUid) {

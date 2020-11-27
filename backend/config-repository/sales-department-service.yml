@@ -1,2 +1,2 @@
 customerManagement:
-  endpoint: http://localhost:8081/api/v1/customers
+  endpoint: http://localhost:8081/api/v1/customer/customers
