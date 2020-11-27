@@ -28,12 +28,12 @@ public class CustomerService {
         return Optional.ofNullable(customerDao.selectCustomerByCustomerUid(customerUid));
     }
 
-    public int updateCustomer(Customer customer) {
-        Optional<Customer> optionalCustomer = getCustomer(customer.getCustomerUid());
+    public int updateCustomer(UUID customerUid, Customer customer) {
+        Optional<Customer> optionalCustomer = getCustomer(customerUid);
         if (optionalCustomer.isPresent()) {
-            return customerDao.updateCustomer(customer);
+            return customerDao.updateCustomer(customerUid, customer);
         }
-        throw new NotFoundException("Customer " + customer.getCustomerUid() + " not found.");
+        throw new NotFoundException("Customer " + customerUid + " not found.");
     }
 
     public int removeCustomer(UUID uid) {

@@ -34,9 +34,9 @@ public class CustomerDataAccessService implements CustomerDao {
         return jdbcTemplate.update(sql, customer.getCustomerUid(), customer.getFirstName(), customer.getLastName(), customer.getGender().name().toUpperCase(), customer.getEmail(), customer.getStreet(), customer.getHouseNumber(), customer.getZipCode(), customer.getCity());
     }
 
-    public int updateCustomer(Customer customer) {
-        String sql = "INSERT INTO customer (customer_id, first_name, last_name, gender, email, street, house_number, zip_code, city) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        return jdbcTemplate.update(sql, customer.getCustomerUid(), customer.getFirstName(), customer.getLastName(), customer.getGender().name().toUpperCase(), customer.getEmail(), customer.getStreet(), customer.getHouseNumber(), customer.getZipCode(), customer.getCity());
+    public int updateCustomer(UUID customerUid, Customer customer) {
+        String sql = "UPDATE customer SET first_name = ?, last_name = ?, gender = ?, email = ?, street = ?, house_number = ?, zip_code = ?, city = ? WHERE customer_id = ?";
+        return jdbcTemplate.update(sql, customer.getFirstName(), customer.getLastName(), customer.getGender().name().toUpperCase(), customer.getEmail(), customer.getStreet(), customer.getHouseNumber(), customer.getZipCode(), customer.getCity(), customerUid);
     }
 
     public int deleteCustomerByCustomerUid(UUID customerUid) {

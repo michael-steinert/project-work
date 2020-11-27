@@ -32,7 +32,7 @@ public class BikeService {
         if (optionalBike.isPresent()) {
             return bikeDao.updateBike(bikeUid, bike);
         }
-        throw new NotFoundException("Bike " + bike.getBikeUid() + " not found.");
+        throw new NotFoundException("Bike " + bikeUid + " not found.");
     }
 
     public int removeBike(UUID uid) {

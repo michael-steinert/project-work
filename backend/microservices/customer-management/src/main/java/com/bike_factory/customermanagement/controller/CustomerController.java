@@ -3,14 +3,17 @@ package com.bike_factory.customermanagement.controller;
 import com.bike_factory.customermanagement.model.Customer;
 import com.bike_factory.customermanagement.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.ws.rs.NotFoundException;
 import java.util.List;
+import java.util.UUID;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
-@RequestMapping("api/v1/customers")
+@RequestMapping("api/v1/customer")
 public class CustomerController {
 
     private final CustomerService customerService;
@@ -20,21 +23,37 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @GetMapping
-    public List<Customer> getAllCustomers() {
+    @GetMapping(path = "{customerUid}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Customer fetchCustomer(@PathVariable("customerUid") UUID customerUid) {
+        return customerService.getCustomer(customerUid).orElseThrow(() -> new NotFoundException("Customer " + customerUid + " not found."));
+    }
+
+    @GetMapping(path = "/customers", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Customer> fetchCustomers() {
         // throw new ApiRequestException("Custom Exception");
         return customerService.getAllCustomers().get();
     }
 
-    /*
-    @GetMapping(path= "{customerId}/orders")
-    public List<Order> getAllOrdersForCustomer(@PathVariable("customerId") UUID customerId) {
-        return customerService.getAllOrdersForCustomer(customerId);
-    }
-    */
-
-    @PostMapping
-    public void addNewCustomer(@RequestBody @Valid Customer customer) {
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void insertCustomer(@RequestBody @Valid Customer customer) {
         customerService.insertCustomer(customer);
     }
+
+    @PutMapping(path = "{customerUid}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Integer updateCustomer(@PathVariable("customerUid") UUID customerUid, @RequestBody @Valid Customer customer) {
+        return customerService.updateCustomer(customerUid, customer);
+    }
+
+    @DeleteMapping(path = "{customerUid}")
+    public Integer deleteCustomer(@PathVariable("customerUid") UUID customerUid) {
+        return customerService.removeCustomer(customerUid);
+    }
+
+    /*
+    TODO
+    @GetMapping(path= "{customerId}/orders")
+    public List<Order> fetchOrdersForCustomer(@PathVariable("customerUid") UUID customerUid) {
+        return customerService.getAllOrdersForCustomer(customerUid);
+    }
+    */
 }
