@@ -1,0 +1,11 @@
+zuul:
+  routes:
+    customer-management-service:
+      path: /api/v1/customer/**
+      url: http://localhost:8081/api/v1/customer
+    sales-department-service:
+      path: /api/v1/order/**
+      url: http://localhost:8082/api/v1/order
+    manufacturing-department-service:
+      path: /api/v1/bike/**
+      url: http://localhost:8083/api/v1/bike
