@@ -7,7 +7,12 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import axios from "axios";
+import {getAllCustomers, createNewCustomer, deleteCustomerById} from "./Client";
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
+import AddIcon from '@material-ui/icons/Add';
+import SearchIcon from '@material-ui/icons/Search';
+import {Button, TableFooter} from "@material-ui/core";
 
 const useStyles = makeStyles({
     table: {
@@ -15,23 +20,45 @@ const useStyles = makeStyles({
     },
 });
 
-const api = axios.create({
-    baseURL: 'http://localhost:8080/api/v1/customer',
-    headers: {
-        'Content-Type': 'application/json'
-    }
-});
-
 class CustomerList extends Component {
-    state = {customers: []}
 
-    constructor() {
-        super();
-        this.getCustomers();
+    constructor(props) {
+        super(props);
+        this.state = {
+            customers: [],
+            createCustomerFeedback: 0
+        };
+        this.readAllCustomersFromApi();
     }
 
-    getCustomers = async () => {
-        await api.get('/customers').then(res => this.setState({customers: res.data})).catch(e => console.log(e))
+    readAllCustomersFromApi() {
+        getAllCustomers().then(data => this.setState({customers:data}));
+    }
+
+    readCustomerByIdFromApi(customerUid, customer) {
+
+    }
+
+    createCustomerFromApi() {
+        const data = {
+            firstName: "Marie",
+            lastName: "Schmdit",
+            gender: "FEMALE",
+            email: "marie-schmidt@gmx.de",
+            street: "Schmidtstraße",
+            houseNumber: "4a",
+            zipCode: 58720,
+            city: "Menden"
+        }
+        createNewCustomer(data).then(data => this.setState({createCustomerFeedback:data}));
+    }
+
+    updateCustomerByIdFromApi(customerUid) {
+
+    }
+
+    deleteCustomerByIdFromApi(customerUid) {
+        deleteCustomerById(customerUid.customerUid)
     }
 
     render() {
@@ -48,6 +75,8 @@ class CustomerList extends Component {
                             <TableCell>House&nbsp;Number</TableCell>
                             <TableCell>Zip&nbsp;Code</TableCell>
                             <TableCell>City</TableCell>
+                            <TableCell>Edit</TableCell>
+                            <TableCell>Remove</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -61,9 +90,34 @@ class CustomerList extends Component {
                                 <TableCell>{customer.houseNumber}</TableCell>
                                 <TableCell>{customer.zipCode}</TableCell>
                                 <TableCell>{customer.city}</TableCell>
+                                <TableCell>
+                                    <Button aria-label="Edit Customer" onClick="">
+                                        <EditIcon/>
+                                    </Button>
+                                </TableCell>
+                                <TableCell>
+                                    <Button aria-label="Delete Customer" onClick={() => this.deleteCustomerByIdFromApi({customerUid : customer.customerUid})}>
+                                        <DeleteIcon/>
+                                    </Button>
+                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
+                    <TableFooter>
+                        <TableRow>
+                            <TableCell>
+                                <Button aria-label="Delete Customer" onClick={() => this.createCustomerByIdFromApi()}>
+                                    <AddIcon/>
+                                </Button>
+                                <Button aria-label="Delete Customer" onClick={() => this.readCustomerByIdFromApi()}>
+                                    <SearchIcon/>
+                                </Button>
+                                <div>
+                                    Der State: {this.state.createCustomerFeedback}
+                                </div>
+                            </TableCell>
+                        </TableRow>
+                    </TableFooter>
                 </Table>
             </TableContainer>
         )
