@@ -34,8 +34,8 @@ public class BikeController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void insertBike(@RequestBody @Valid Bike bike) {
-        bikeService.insertBike(bike);
+    public Integer insertBike(@RequestBody @Valid Bike bike) {
+        return bikeService.insertBike(bike);
     }
 
     @PutMapping(path = "{bikeUid}", consumes = MediaType.APPLICATION_JSON_VALUE)

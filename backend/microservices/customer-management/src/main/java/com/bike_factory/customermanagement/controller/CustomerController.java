@@ -35,8 +35,8 @@ public class CustomerController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void insertCustomer(@RequestBody @Valid Customer customer) {
-        customerService.insertCustomer(customer);
+    public Integer insertCustomer(@RequestBody @Valid Customer customer) {
+        return customerService.insertCustomer(customer);
     }
 
     @PutMapping(path = "{customerUid}", consumes = MediaType.APPLICATION_JSON_VALUE)

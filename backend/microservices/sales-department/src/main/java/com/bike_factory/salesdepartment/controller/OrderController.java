@@ -36,8 +36,8 @@ public class OrderController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void insertOrder(@RequestBody @Valid Order order) {
-        orderService.insertOrder(order);
+    public Integer insertOrder(@RequestBody @Valid Order order) {
+        return orderService.insertOrder(order);
     }
 
     @PutMapping(path = "{orderUid}", consumes = MediaType.APPLICATION_JSON_VALUE)
