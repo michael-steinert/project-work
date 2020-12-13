@@ -7,7 +7,12 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import axios from "axios";
+import {createNewBike, deleteBikeById, getAllBikes} from "./Client";
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
+import AddIcon from '@material-ui/icons/Add';
+import SearchIcon from '@material-ui/icons/Search';
+import {Button, TableFooter} from "@material-ui/core";
 
 const useStyles = makeStyles({
     table: {
@@ -15,23 +20,42 @@ const useStyles = makeStyles({
     },
 });
 
-const api = axios.create({
-    baseURL: 'http://localhost:8080/api/v1/bike',
-    headers: {
-        'Content-Type': 'application/json'
-    }
-});
-
 class BikeList extends Component {
-    state = {bikes: []}
 
-    constructor() {
-        super();
-        this.getBikes();
+    constructor(props) {
+        super(props);
+        this.state = {
+            bikes: [],
+            createBikeFeedback: 0
+        };
+        this.readAllBikesFromApi();
     }
 
-    getBikes = async () => {
-        await api.get('/bikes').then(res => this.setState({bikes: res.data})).catch(e => console.log(e))
+    readAllBikesFromApi() {
+        getAllBikes().then(data => this.setState({bikes:data}));
+    }
+
+    readBikeByIdFromApi(bikeUid) {
+
+    }
+
+    createBikeFromApi() {
+        const data = {
+            bikeName: "Cube GTC Agree",
+            description: "Das Cube Agree GTC ist gedacht für Spaß bei großen Strecken",
+            shortDescription: "Gedacht für Spaß bei großen Strecken",
+            bikeType: "RACINGBIKE",
+            price: 755.29
+        }
+        createNewBike(data).then(data => this.setState({createBikeFeedback:data}));
+    }
+
+    updateBikeByIdFromApi(customerUid, bike) {
+
+    }
+
+    deleteBikeByIdFromApi(bikeUid) {
+        deleteBikeById(bikeUid.bikeUid)
     }
 
     render() {
@@ -55,9 +79,34 @@ class BikeList extends Component {
                                 <TableCell>{bike.shortDescription}</TableCell>
                                 <TableCell>{bike.bikeType}</TableCell>
                                 <TableCell>{bike.price}</TableCell>
+                                <TableCell>
+                                    <Button aria-label="Edit Bike" onClick="">
+                                        <EditIcon/>
+                                    </Button>
+                                </TableCell>
+                                <TableCell>
+                                    <Button aria-label="Delete Bike" onClick={() => this.deleteBikeByIdFromApi({bikeUid : bike.bikeUid})}>
+                                        <DeleteIcon/>
+                                    </Button>
+                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
+                    <TableFooter>
+                        <TableRow>
+                            <TableCell>
+                                <Button aria-label="Delete Bike" onClick={() => this.createBikeFromApi()}>
+                                    <AddIcon/>
+                                </Button>
+                                <Button aria-label="Delete Bike" onClick={() => this.readBikeByIdFromApi()}>
+                                    <SearchIcon/>
+                                </Button>
+                                <div>
+                                    Der State: {this.state.createBikeFeedback}
+                                </div>
+                            </TableCell>
+                        </TableRow>
+                    </TableFooter>
                 </Table>
             </TableContainer>
         )
