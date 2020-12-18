@@ -1,11 +1,24 @@
-zuul:
-  routes:
-    customer-management-service:
-      path: /api/v1/customer/**
-      url: http://localhost:8081/api/v1/customer
-    sales-department-service:
-      path: /api/v1/order/**
-      url: http://localhost:8082/api/v1/order
-    manufacturing-department-service:
-      path: /api/v1/bike/**
-      url: http://localhost:8083/api/v1/bike
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      routes:
+        - id: customer_route
+          predicates:
+            - Path=/customer/**
+          filters:
+            - RewritePath=/customer/(?<segment>.*), /api/v1/customer/$\{segment}
+          uri: http://localhost:8081
+        - id: order_route
+          predicates:
+            - Path=/order/**
+          filters:
+            - RewritePath=/order/(?<segment>.*), /api/v1/order/$\{segment}
+          uri: http://localhost:8082
+        - id: bike_route
+          predicates:
+            - Path=/bike/**
+          filters:
+            - RewritePath=/bike/(?<segment>.*), /api/v1/bike/$\{segment}
+          uri: http://localhost:8083
