@@ -8,6 +8,11 @@ spring:
           uri: lb://CUSTOMER-MANAGEMENT-SERVICE
           predicates:
             - Path=/customer/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: CUSTOMER-MANAGEMENT-SERVICE
+                fallback: forward:/customerServiceFallBack
         - id: order_route
           uri: lb://SALES-DEPARTMENT-SERVICE
           predicates:
@@ -17,7 +22,19 @@ spring:
           predicates:
             - Path=/bike/**
 
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8084/eureka
+server:
+  port: 8091
+
+hystrix:
+  command:
+    fallbackcmd:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 4000
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream
