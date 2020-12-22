@@ -4,5 +4,11 @@ app:
     username: postgres
     password: customer-management
     pool-size: 30
+
 server:
   port : 8081
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8084/eureka

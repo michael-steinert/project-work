@@ -1,0 +1,9 @@
+app:
+  datasource:
+    jdbc-url: jdbc:postgresql://localhost:5433/member_management
+    username: postgres
+    password: customer-management
+    pool-size: 30
+
+jwt:
+  secret-key: secretkey123456789

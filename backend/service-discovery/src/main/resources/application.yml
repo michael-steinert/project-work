@@ -4,7 +4,7 @@ eureka:
     fetchRegistry: false
     registerWithEureka: false
     serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://localhost:8084/eureka/
   server:
     waitTimeInMsWhenSyncEmpty: 5
 
@@ -13,4 +13,4 @@ spring:
     name: eureka-service-discovery
 
 server:
-  port: 8761
+  port: 8084

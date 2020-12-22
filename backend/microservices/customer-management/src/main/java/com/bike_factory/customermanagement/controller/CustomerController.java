@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
-@RequestMapping("api/v1/customer")
+@RequestMapping("customer")
 public class CustomerController {
 
     private final CustomerService customerService;

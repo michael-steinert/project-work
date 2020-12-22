@@ -5,20 +5,19 @@ spring:
     gateway:
       routes:
         - id: customer_route
+          uri: lb://CUSTOMER-MANAGEMENT-SERVICE
           predicates:
             - Path=/customer/**
-          filters:
-            - RewritePath=/customer/(?<segment>.*), /api/v1/customer/$\{segment}
-          uri: http://localhost:8081
         - id: order_route
+          uri: lb://SALES-DEPARTMENT-SERVICE
           predicates:
             - Path=/order/**
-          filters:
-            - RewritePath=/order/(?<segment>.*), /api/v1/order/$\{segment}
-          uri: http://localhost:8082
         - id: bike_route
+          uri: lb://MANUFACTURING-DEPARTMENT-SERVICE
           predicates:
             - Path=/bike/**
-          filters:
-            - RewritePath=/bike/(?<segment>.*), /api/v1/bike/$\{segment}
-          uri: http://localhost:8083
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8084/eureka

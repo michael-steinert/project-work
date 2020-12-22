@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
-@RequestMapping("api/v1/bike")
+@RequestMapping("bike")
 public class BikeController {
     private final BikeService bikeService;
 
