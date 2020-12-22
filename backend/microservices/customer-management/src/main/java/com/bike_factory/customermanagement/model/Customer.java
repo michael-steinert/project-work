@@ -2,6 +2,7 @@ package com.bike_factory.customermanagement.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
@@ -10,6 +11,7 @@ import javax.validation.constraints.NotNull;
 
 import java.util.UUID;
 
+@Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Customer {
     private UUID customerUid;
@@ -56,43 +58,6 @@ public class Customer {
         this.houseNumber = houseNumber;
         this.zipCode = zipCode;
         this.city = city;
-
-    }
-
-    public UUID getCustomerUid() {
-        return customerUid;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public Gender getGender() {
-        return gender;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getStreet() {
-        return street;
-    }
-
-    public String getHouseNumber() {
-        return houseNumber;
-    }
-
-    public Integer getZipCode() {
-        return zipCode;
-    }
-
-    public String getCity() {
-        return city;
     }
 
     public static Customer newCustomer(UUID customerUid, Customer customer) {

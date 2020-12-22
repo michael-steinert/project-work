@@ -15,8 +15,8 @@ public class CustomerManagementApplication {
 		SpringApplication.run(CustomerManagementApplication.class, args);
 	}
 
-	@LoadBalanced
 	@Bean
+	@LoadBalanced
 	public RestTemplate getRestTemplate() {
 		return new RestTemplate();
 	}
