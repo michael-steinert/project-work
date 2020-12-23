@@ -8,3 +8,8 @@ spring:
 hystrix:
   dashboard:
     proxy-stream-allow-list: "*"
+
+turbine:
+  aggregator:
+    clusterConfig: USER-MEETING
+  appConfig: user-meeting
