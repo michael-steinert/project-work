@@ -1,4 +1,4 @@
-package com.example.user_registration.controller;
+package de.share_your_idea.user_registration.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

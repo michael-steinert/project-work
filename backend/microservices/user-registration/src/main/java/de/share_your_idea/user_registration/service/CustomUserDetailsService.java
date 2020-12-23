@@ -1,7 +1,7 @@
-package com.example.user_registration.service;
+package de.share_your_idea.user_registration.service;
 
-import com.example.user_registration.config.CustomUserDetails;
-import com.example.user_registration.entity.UserEntity;
+import de.share_your_idea.user_registration.config.CustomUserDetails;
+import de.share_your_idea.user_registration.entity.UserEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;

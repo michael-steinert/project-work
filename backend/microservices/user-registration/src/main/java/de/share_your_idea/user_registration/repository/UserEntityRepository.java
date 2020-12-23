@@ -1,6 +1,6 @@
-package com.example.user_registration.repository;
+package de.share_your_idea.user_registration.repository;
 
-import com.example.user_registration.entity.UserEntity;
+import de.share_your_idea.user_registration.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;

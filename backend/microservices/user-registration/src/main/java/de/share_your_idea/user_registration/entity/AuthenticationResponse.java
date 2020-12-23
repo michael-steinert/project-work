@@ -1,4 +1,4 @@
-package com.example.user_registration.entity;
+package de.share_your_idea.user_registration.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

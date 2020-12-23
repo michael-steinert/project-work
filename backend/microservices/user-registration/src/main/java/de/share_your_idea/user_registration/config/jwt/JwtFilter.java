@@ -1,7 +1,7 @@
-package com.example.user_registration.config.jwt;
+package de.share_your_idea.user_registration.config.jwt;
 
-import com.example.user_registration.config.CustomUserDetails;
-import com.example.user_registration.service.CustomUserDetailsService;
+import de.share_your_idea.user_registration.config.CustomUserDetails;
+import de.share_your_idea.user_registration.service.CustomUserDetailsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

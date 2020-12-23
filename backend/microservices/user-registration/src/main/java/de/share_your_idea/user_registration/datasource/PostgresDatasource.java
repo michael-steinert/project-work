@@ -1,4 +1,4 @@
-package com.example.user_registration.datasource;
+package de.share_your_idea.user_registration.datasource;
 
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.boot.context.properties.ConfigurationProperties;

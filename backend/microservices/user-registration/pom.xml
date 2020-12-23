@@ -8,11 +8,11 @@
 		<version>2.4.1</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example</groupId>
+	<groupId>de.share_your_idea</groupId>
 	<artifactId>user-registration</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>user-registration</name>
-	<description>User Registration</description>
+	<description>User Registration for the Project Share-Your-Idea!</description>
 
 	<properties>
 		<java.version>15</java.version>

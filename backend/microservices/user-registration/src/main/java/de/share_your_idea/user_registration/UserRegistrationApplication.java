@@ -1,4 +1,4 @@
-package com.example.user_registration;
+package de.share_your_idea.user_registration;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

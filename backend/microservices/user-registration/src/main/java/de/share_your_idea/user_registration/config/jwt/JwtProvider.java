@@ -1,4 +1,4 @@
-package com.example.user_registration.config.jwt;
+package de.share_your_idea.user_registration.config.jwt;
 
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;

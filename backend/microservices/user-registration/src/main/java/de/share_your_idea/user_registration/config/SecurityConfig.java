@@ -1,6 +1,6 @@
-package com.example.user_registration.config;
+package de.share_your_idea.user_registration.config;
 
-import com.example.user_registration.config.jwt.JwtFilter;
+import de.share_your_idea.user_registration.config.jwt.JwtFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

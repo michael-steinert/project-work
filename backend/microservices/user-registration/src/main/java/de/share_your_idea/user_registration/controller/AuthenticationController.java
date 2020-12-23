@@ -1,11 +1,11 @@
-package com.example.user_registration.controller;
+package de.share_your_idea.user_registration.controller;
 
-import com.example.user_registration.config.jwt.JwtProvider;
-import com.example.user_registration.entity.AuthenticationRequest;
-import com.example.user_registration.entity.AuthenticationResponse;
-import com.example.user_registration.entity.RegistrationRequest;
-import com.example.user_registration.entity.UserEntity;
-import com.example.user_registration.service.UserService;
+import de.share_your_idea.user_registration.config.jwt.JwtProvider;
+import de.share_your_idea.user_registration.entity.AuthenticationRequest;
+import de.share_your_idea.user_registration.entity.AuthenticationResponse;
+import de.share_your_idea.user_registration.entity.RegistrationRequest;
+import de.share_your_idea.user_registration.entity.UserEntity;
+import de.share_your_idea.user_registration.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
