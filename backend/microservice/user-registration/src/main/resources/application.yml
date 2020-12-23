@@ -1,6 +1,6 @@
 app:
   datasource:
-    jdbc-url: jdbc:postgresql://localhost:5433/user-registration
+    jdbc-url: jdbc:postgresql://localhost:5433/user_registration
     username: postgres
     password: user-registration
 
