@@ -1,4 +1,4 @@
-package com.bike_factory.servicediscovery;
+package de.share_your_idea.service_discovery;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
