@@ -4,5 +4,14 @@ app:
     username: postgres
     password: user-registration
 
+spring:
+  application:
+    name: user-registration-service
+  zipkin:
+    base-url: http://127.0.0.1:9411/
+
+server:
+  port : 8081
+
 jwt:
   secret-key: secretkey123456789

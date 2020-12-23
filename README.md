@@ -1,12 +1,16 @@
 # Project Work
 
-*The goal of this project work is to achieve the academic degree Master of Science in Computer Science.*
+*The Goal of this Project Work is to achieve the academic Degree Master of Science in Computer Science.*
+
+* The Goal of the Application is to provide a Platform for People to work collaboratively on shared Ideas.
+
+* The Application is based on a Microservice Architecture and the Zoom Interface to enable Users to work well together.
 
 ## Description of the System
 
 The System consists of three [Microservices](backend/microservices), consisting of a Backend, Frontend and Datastorage, a server for Service Discovery, a Gateway Service for dynamic Routing and a Server for the Configuration of the individual [Microservices](backend/microservices).
 
-![cover](https://user-images.githubusercontent.com/29623199/102655142-150a3600-4172-11eb-8686-6e9f4f970eb7.png)
+![cover](https://user-images.githubusercontent.com/29623199/102982439-cca09e80-450a-11eb-9c68-46773b6c0315.png)
 
 ## Choice of technology
 
@@ -30,11 +34,15 @@ ___
 
 *Ziel dieser Projektarbeit ist es, den akademischen Grad Master of Science in der Informatik zu erreichen.*
 
+* Ziel der Anwendung ist es eine Plattform für Menschen bereitzustellen, die eine kollaborative Arbeit an gemeinsamen Ideen zu ermöglichen.
+
+* Die Anwendung basiert auf einer Microservice-Architektur und der Zoom-Schnittstelle, um den Nutzern eine gute Zusammenarbeit zu ermöglichen.
+
 ## Beschreibung des Systems
 
 Das System besteht aus drei [Microservices](backend/microservices), welche aus einem Backend, Frontend und einer Datenhaltung bestehen, einem Server für die Service-Discovery, einem Gateway-Service für das dynamische Routing und einem Server für die Konfiguration der einzelnen Microservices.
 
-![cover](https://user-images.githubusercontent.com/29623199/102655142-150a3600-4172-11eb-8686-6e9f4f970eb7.png)
+![cover](https://user-images.githubusercontent.com/29623199/102982439-cca09e80-450a-11eb-9c68-46773b6c0315.png)
 
 ## Wahl der Technologien
 
