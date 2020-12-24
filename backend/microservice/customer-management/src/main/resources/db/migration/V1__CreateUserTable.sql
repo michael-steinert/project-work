@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS customer (
+CREATE TABLE IF NOT EXISTS userEntity (
     customer_id UUID PRIMARY KEY NOT NULL,
     first_name VARCHAR(250) NOT NULL,
     last_name VARCHAR(250) NOT NULL,

@@ -1,10 +1,10 @@
-package com.bike_factory.customermanagement;
+package de.share_your_idea.user_management;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CustomerManagementApplicationTests {
+class UserManagementApplicationTests {
 
 	@Test
 	void contextLoads() {

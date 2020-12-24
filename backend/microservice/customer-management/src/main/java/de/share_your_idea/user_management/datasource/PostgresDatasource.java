@@ -1,4 +1,4 @@
-package com.bike_factory.customermanagement.datasource;
+package de.share_your_idea.user_management.datasource;
 
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.boot.context.properties.ConfigurationProperties;

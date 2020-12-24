@@ -1,4 +1,4 @@
-package com.bike_factory.configserver;
+package de.share_your_idea.config_server;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

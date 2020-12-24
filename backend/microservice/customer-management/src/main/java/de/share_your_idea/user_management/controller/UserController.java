@@ -1,7 +1,7 @@
-package com.bike_factory.customermanagement.controller;
+package de.share_your_idea.user_management.controller;
 
-import com.bike_factory.customermanagement.model.Customer;
-import com.bike_factory.customermanagement.service.CustomerService;
+import de.share_your_idea.user_management.model.UserEntity;
+import de.share_your_idea.user_management.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -14,39 +14,39 @@ import java.util.UUID;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("customer")
-public class CustomerController {
+public class UserController {
 
-    private final CustomerService customerService;
+    private final UserService userService;
 
     @Autowired
-    public CustomerController(CustomerService customerService) {
-        this.customerService = customerService;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     @GetMapping(path = "{customerUid}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Customer fetchCustomer(@PathVariable("customerUid") UUID customerUid) {
-        return customerService.getCustomer(customerUid).orElseThrow(() -> new NotFoundException("Customer " + customerUid + " not found."));
+    public UserEntity fetchCustomer(@PathVariable("customerUid") UUID customerUid) {
+        return userService.getCustomer(customerUid).orElseThrow(() -> new NotFoundException("Customer " + customerUid + " not found."));
     }
 
     @GetMapping(path = "/customers", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Customer> fetchCustomers() {
+    public List<UserEntity> fetchCustomers() {
         // throw new ApiRequestException("Custom Exception");
-        return customerService.getAllCustomers().get();
+        return userService.getAllCustomers().get();
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Integer insertCustomer(@RequestBody @Valid Customer customer) {
-        return customerService.insertCustomer(customer);
+    public Integer insertCustomer(@RequestBody @Valid UserEntity userEntity) {
+        return userService.insertCustomer(userEntity);
     }
 
     @PutMapping(path = "{customerUid}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Integer updateCustomer(@PathVariable("customerUid") UUID customerUid, @RequestBody @Valid Customer customer) {
-        return customerService.updateCustomer(customerUid, customer);
+    public Integer updateCustomer(@PathVariable("customerUid") UUID customerUid, @RequestBody @Valid UserEntity userEntity) {
+        return userService.updateCustomer(customerUid, userEntity);
     }
 
     @DeleteMapping(path = "{customerUid}")
     public Integer deleteCustomer(@PathVariable("customerUid") UUID customerUid) {
-        return customerService.removeCustomer(customerUid);
+        return userService.removeCustomer(customerUid);
     }
 
     /*

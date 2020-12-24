@@ -1,7 +1,7 @@
-package com.bike_factory.customermanagement.service;
+package de.share_your_idea.user_management.service;
 
-import com.bike_factory.customermanagement.dao.CustomerDao;
-import com.bike_factory.customermanagement.model.Customer;
+import de.share_your_idea.user_management.dao.UserDao;
+import de.share_your_idea.user_management.model.UserEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,48 +14,48 @@ import java.util.UUID;
 
 @Slf4j
 @Service
-public class CustomerService {
+public class UserService {
 
     @Autowired
     private RestTemplate restTemplate;
 
-    private CustomerDao customerDao;
+    private UserDao userDao;
 
     @Autowired
-    public CustomerService(CustomerDao customerDao) {
-        this.customerDao = customerDao;
+    public UserService(UserDao userDao) {
+        this.userDao = userDao;
     }
 
-    public Optional<List<Customer>> getAllCustomers() {
+    public Optional<List<UserEntity>> getAllCustomers() {
         log.info("CustomerService: Select all Customers");
-        return Optional.ofNullable(customerDao.selectAllCustomers());
+        return Optional.ofNullable(userDao.selectAllCustomers());
     }
 
-    public Optional<Customer> getCustomer(UUID customerUid) {
+    public Optional<UserEntity> getCustomer(UUID customerUid) {
         log.info("CustomerService: Select Customer by CustomerUid");
-        return Optional.ofNullable(customerDao.selectCustomerByCustomerUid(customerUid));
+        return Optional.ofNullable(userDao.selectCustomerByCustomerUid(customerUid));
     }
 
-    public int updateCustomer(UUID customerUid, Customer customer) {
-        Optional<Customer> optionalCustomer = getCustomer(customerUid);
+    public int updateCustomer(UUID customerUid, UserEntity userEntity) {
+        Optional<UserEntity> optionalCustomer = getCustomer(customerUid);
         if (optionalCustomer.isPresent()) {
             log.info("CustomerService: Update Customer by CustomerUid");
-            return customerDao.updateCustomer(customerUid, customer);
+            return userDao.updateCustomer(customerUid, userEntity);
         }
         throw new NotFoundException("Customer " + customerUid + " not found.");
     }
 
     public int removeCustomer(UUID uid) {
         UUID userUid = getCustomer(uid)
-                .map(Customer::getCustomerUid)
+                .map(UserEntity::getCustomerUid)
                 .orElseThrow(() -> new NotFoundException("Customer " + uid + " not found."));
         log.info("CustomerService: Delete Customer by CustomerUid");
-        return customerDao.deleteCustomerByCustomerUid(userUid);
+        return userDao.deleteCustomerByCustomerUid(userUid);
     }
 
-    public int insertCustomer(Customer customer) {
+    public int insertCustomer(UserEntity userEntity) {
         log.info("CustomerService: Insert Customer");
-        return customerDao.insertCustomer(Customer.newCustomer(UUID.randomUUID(), customer));
+        return userDao.insertCustomer(UserEntity.newCustomer(UUID.randomUUID(), userEntity));
     }
 
     /*

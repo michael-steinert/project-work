@@ -1,6 +1,6 @@
-package com.bike_factory.customermanagement.dao;
+package de.share_your_idea.user_management.dao;
 
-import com.bike_factory.customermanagement.model.Customer;
+import de.share_your_idea.user_management.model.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -10,33 +10,33 @@ import java.util.List;
 import java.util.UUID;
 
 @Repository
-public class CustomerDataAccessService implements CustomerDao {
+public class UserDataAccessService implements UserDao {
 
     private final JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public CustomerDataAccessService(JdbcTemplate jdbcTemplate) {
+    public UserDataAccessService(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List<Customer> selectAllCustomers() {
+    public List<UserEntity> selectAllCustomers() {
         String sql = "SELECT customer_id, first_name, last_name, gender, email, street, house_number, zip_code, city FROM customer";
         return jdbcTemplate.query(sql, mapCustomerFromDb());
     }
 
-    public Customer selectCustomerByCustomerUid(UUID customerUid) {
+    public UserEntity selectCustomerByCustomerUid(UUID customerUid) {
         String sql = "SELECT customer_id, first_name, last_name, gender, email, street, house_number, zip_code, city FROM customer WHERE customer_id = ?";
         return jdbcTemplate.queryForObject(sql, mapCustomerFromDb(), customerUid);
     }
 
-    public int insertCustomer(Customer customer) {
+    public int insertCustomer(UserEntity userEntity) {
         String sql = "INSERT INTO customer (customer_id, first_name, last_name, gender, email, street, house_number, zip_code, city) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        return jdbcTemplate.update(sql, customer.getCustomerUid(), customer.getFirstName(), customer.getLastName(), customer.getGender().name().toUpperCase(), customer.getEmail(), customer.getStreet(), customer.getHouseNumber(), customer.getZipCode(), customer.getCity());
+        return jdbcTemplate.update(sql, userEntity.getCustomerUid(), userEntity.getFirstName(), userEntity.getLastName(), userEntity.getGender().name().toUpperCase(), userEntity.getEmail(), userEntity.getStreet(), userEntity.getHouseNumber(), userEntity.getZipCode(), userEntity.getCity());
     }
 
-    public int updateCustomer(UUID customerUid, Customer customer) {
+    public int updateCustomer(UUID customerUid, UserEntity userEntity) {
         String sql = "UPDATE customer SET first_name = ?, last_name = ?, gender = ?, email = ?, street = ?, house_number = ?, zip_code = ?, city = ? WHERE customer_id = ?";
-        return jdbcTemplate.update(sql, customer.getFirstName(), customer.getLastName(), customer.getGender().name().toUpperCase(), customer.getEmail(), customer.getStreet(), customer.getHouseNumber(), customer.getZipCode(), customer.getCity(), customerUid);
+        return jdbcTemplate.update(sql, userEntity.getFirstName(), userEntity.getLastName(), userEntity.getGender().name().toUpperCase(), userEntity.getEmail(), userEntity.getStreet(), userEntity.getHouseNumber(), userEntity.getZipCode(), userEntity.getCity(), customerUid);
     }
 
     public int deleteCustomerByCustomerUid(UUID customerUid) {
@@ -44,20 +44,20 @@ public class CustomerDataAccessService implements CustomerDao {
         return jdbcTemplate.update(sql, customerUid);
     }
 
-    private RowMapper<Customer> mapCustomerFromDb() {
+    private RowMapper<UserEntity> mapCustomerFromDb() {
         return (resultSet, i) -> {
             String customerIdStr = resultSet.getString("customer_id");
             UUID customerId = UUID.fromString(customerIdStr);
             String firstName = resultSet.getString("first_name");
             String lastName = resultSet.getString("last_name");
             String genderStr = resultSet.getString("gender").toUpperCase();
-            Customer.Gender gender = Customer.Gender.valueOf(genderStr);
+            UserEntity.Gender gender = UserEntity.Gender.valueOf(genderStr);
             String email = resultSet.getString("email");
             String street = resultSet.getString("street");
             String houseNumber = resultSet.getString("house_number");
             Integer zipCode = Integer.parseInt(resultSet.getString("zip_code"));
             String city = resultSet.getString("city");
-            return new Customer(customerId, firstName, lastName, gender, email, street, houseNumber, zipCode, city);
+            return new UserEntity(customerId, firstName, lastName, gender, email, street, houseNumber, zipCode, city);
         };
     }
 }

@@ -1,4 +1,4 @@
-package com.bike_factory.customermanagement;
+package de.share_your_idea.user_management;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,10 +9,10 @@ import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-public class CustomerManagementApplication {
+public class UserManagementApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CustomerManagementApplication.class, args);
+		SpringApplication.run(UserManagementApplication.class, args);
 	}
 
 	@Bean

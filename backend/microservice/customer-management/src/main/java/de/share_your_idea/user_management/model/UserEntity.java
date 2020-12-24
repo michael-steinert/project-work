@@ -1,4 +1,4 @@
-package com.bike_factory.customermanagement.model;
+package de.share_your_idea.user_management.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Customer {
+public class UserEntity {
     private UUID customerUid;
     @NotNull
     private final String firstName;
@@ -40,15 +40,15 @@ public class Customer {
         FEMALE
     }
 
-    public Customer(@JsonProperty("customerUid") UUID customerUid,
-                    @JsonProperty("firstName") String firstName,
-                    @JsonProperty("lastName") String lastName,
-                    @JsonProperty("gender") Gender gender,
-                    @JsonProperty("email") String email,
-                    @JsonProperty("street") String street,
-                    @JsonProperty("houseNumber") String houseNumber,
-                    @JsonProperty("zipCode") Integer zipCode,
-                    @JsonProperty("city") String city) {
+    public UserEntity(@JsonProperty("customerUid") UUID customerUid,
+                      @JsonProperty("firstName") String firstName,
+                      @JsonProperty("lastName") String lastName,
+                      @JsonProperty("gender") Gender gender,
+                      @JsonProperty("email") String email,
+                      @JsonProperty("street") String street,
+                      @JsonProperty("houseNumber") String houseNumber,
+                      @JsonProperty("zipCode") Integer zipCode,
+                      @JsonProperty("city") String city) {
         this.customerUid = customerUid;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -60,8 +60,8 @@ public class Customer {
         this.city = city;
     }
 
-    public static Customer newCustomer(UUID customerUid, Customer customer) {
-        return new Customer(customerUid, customer.getFirstName(), customer.getLastName(), customer.getGender(), customer.getEmail(), customer.getStreet(), customer.getHouseNumber(), customer.getZipCode(), customer.getCity());
+    public static UserEntity newCustomer(UUID customerUid, UserEntity userEntity) {
+        return new UserEntity(customerUid, userEntity.getFirstName(), userEntity.getLastName(), userEntity.getGender(), userEntity.getEmail(), userEntity.getStreet(), userEntity.getHouseNumber(), userEntity.getZipCode(), userEntity.getCity());
     }
 
     @Override
