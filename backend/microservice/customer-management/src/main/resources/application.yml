@@ -1,15 +1,15 @@
 app:
   datasource:
-    jdbc-url: jdbc:postgresql://localhost:5433/customer_management
+    jdbc-url: jdbc:postgresql://localhost:5434/user_management
     username: postgres
-    password: customer-management
+    password: user-management
     pool-size: 30
 
 spring:
   application:
-    name: customer-management-service
+    name: user-management-service
   zipkin:
     base-url: http://127.0.0.1:9411/
 
 server:
-  port : 8081
+  port : 8082

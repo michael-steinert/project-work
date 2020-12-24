@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
-@RequestMapping("customer")
+@RequestMapping("user")
 public class UserController {
 
     private final UserService userService;
@@ -23,37 +23,37 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping(path = "{customerUid}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public UserEntity fetchCustomer(@PathVariable("customerUid") UUID customerUid) {
-        return userService.getCustomer(customerUid).orElseThrow(() -> new NotFoundException("Customer " + customerUid + " not found."));
+    @GetMapping(path = "{userUid}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public UserEntity fetchUser(@PathVariable("userUid") UUID userUid) {
+        return userService.getUserByUserUid(userUid).orElseThrow(() -> new NotFoundException("User with UserUid " + userUid + " not found."));
     }
 
-    @GetMapping(path = "/customers", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<UserEntity> fetchCustomers() {
+    @GetMapping(path = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<UserEntity> fetchUsers() {
         // throw new ApiRequestException("Custom Exception");
-        return userService.getAllCustomers().get();
+        return userService.getAllUsers().get();
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Integer insertCustomer(@RequestBody @Valid UserEntity userEntity) {
-        return userService.insertCustomer(userEntity);
+    public Integer insertUser(@RequestBody @Valid UserEntity userEntity) {
+        return userService.insertUser(userEntity);
     }
 
-    @PutMapping(path = "{customerUid}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Integer updateCustomer(@PathVariable("customerUid") UUID customerUid, @RequestBody @Valid UserEntity userEntity) {
-        return userService.updateCustomer(customerUid, userEntity);
+    @PutMapping(path = "{userUid}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Integer updateUser(@PathVariable("userUid") UUID userUid, @RequestBody @Valid UserEntity userEntity) {
+        return userService.updateUserByUserUid(userUid, userEntity);
     }
 
-    @DeleteMapping(path = "{customerUid}")
-    public Integer deleteCustomer(@PathVariable("customerUid") UUID customerUid) {
-        return userService.removeCustomer(customerUid);
+    @DeleteMapping(path = "{userUid}")
+    public Integer deleteUser(@PathVariable("userUid") UUID userUid) {
+        return userService.removeUser(userUid);
     }
 
     /*
     TODO
-    @GetMapping(path= "{customerId}/orders")
-    public List<Order> fetchOrdersForCustomer(@PathVariable("customerUid") UUID customerUid) {
-        return customerService.getAllOrdersForCustomer(customerUid);
+    @GetMapping(path= "{userUid}/orders")
+    public List<Order> fetchOrdersForCustomer(@PathVariable("userUid") UUID userUid) {
+        return customerService.getAllOrdersForCustomer(userUid)
     }
     */
 }

@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.UUID;
 
 public interface UserDao {
-    List<UserEntity> selectAllCustomers();
-    UserEntity selectCustomerByCustomerUid(UUID userUid);
-    int insertCustomer(UserEntity userEntity);
-    int updateCustomer(UUID customerUid, UserEntity userEntity);
-    int deleteCustomerByCustomerUid(UUID customerUid);
+    List<UserEntity> selectAllUsers();
+    UserEntity selectUserByUserUid(UUID userUid);
+    int insertUser(UserEntity userEntity);
+    int updateUser(UUID customerUid, UserEntity userEntity);
+    int deleteUserByUserUid(UUID userUid);
 }

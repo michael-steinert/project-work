@@ -16,46 +16,45 @@ import java.util.UUID;
 @Service
 public class UserService {
 
-    @Autowired
-    private RestTemplate restTemplate;
-
-    private UserDao userDao;
+    private final UserDao userDao;
+    private final RestTemplate restTemplate;
 
     @Autowired
-    public UserService(UserDao userDao) {
+    public UserService(UserDao userDao, RestTemplate restTemplate) {
         this.userDao = userDao;
+        this.restTemplate = restTemplate;
     }
 
-    public Optional<List<UserEntity>> getAllCustomers() {
-        log.info("CustomerService: Select all Customers");
-        return Optional.ofNullable(userDao.selectAllCustomers());
+    public Optional<List<UserEntity>> getAllUsers() {
+        log.info("User Service: Select all Users");
+        return Optional.ofNullable(userDao.selectAllUsers());
     }
 
-    public Optional<UserEntity> getCustomer(UUID customerUid) {
-        log.info("CustomerService: Select Customer by CustomerUid");
-        return Optional.ofNullable(userDao.selectCustomerByCustomerUid(customerUid));
+    public Optional<UserEntity> getUserByUserUid(UUID userUid) {
+        log.info("User Service: Select User by UserUid");
+        return Optional.ofNullable(userDao.selectUserByUserUid(userUid));
     }
 
-    public int updateCustomer(UUID customerUid, UserEntity userEntity) {
-        Optional<UserEntity> optionalCustomer = getCustomer(customerUid);
+    public int updateUserByUserUid(UUID userUid, UserEntity userEntity) {
+        Optional<UserEntity> optionalCustomer = getUserByUserUid(userUid);
         if (optionalCustomer.isPresent()) {
-            log.info("CustomerService: Update Customer by CustomerUid");
-            return userDao.updateCustomer(customerUid, userEntity);
+            log.info("User Service: Update User by UserUid");
+            return userDao.updateUser(userUid, userEntity);
         }
-        throw new NotFoundException("Customer " + customerUid + " not found.");
+        throw new NotFoundException("User with UserUid " + userUid + " not found.");
     }
 
-    public int removeCustomer(UUID uid) {
-        UUID userUid = getCustomer(uid)
-                .map(UserEntity::getCustomerUid)
-                .orElseThrow(() -> new NotFoundException("Customer " + uid + " not found."));
-        log.info("CustomerService: Delete Customer by CustomerUid");
-        return userDao.deleteCustomerByCustomerUid(userUid);
+    public int removeUser(UUID userUid) {
+        UUID tmpUserUid = getUserByUserUid(userUid)
+                .map(UserEntity::getUserUid)
+                .orElseThrow(() -> new NotFoundException("User with UserUid " + userUid + " not found."));
+        log.info("User Service: Delete User by UserUid");
+        return userDao.deleteUserByUserUid(tmpUserUid);
     }
 
-    public int insertCustomer(UserEntity userEntity) {
-        log.info("CustomerService: Insert Customer");
-        return userDao.insertCustomer(UserEntity.newCustomer(UUID.randomUUID(), userEntity));
+    public int insertUser(UserEntity userEntity) {
+        log.info("User Service: Insert Customer");
+        return userDao.insertUser(UserEntity.newUser(UUID.randomUUID(), userEntity));
     }
 
     /*

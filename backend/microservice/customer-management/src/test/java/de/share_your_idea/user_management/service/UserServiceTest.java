@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.Optional;
@@ -28,81 +29,69 @@ public class UserServiceTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
-        userService = new UserService(userDao);
+        userService = new UserService(userDao, new RestTemplate());
     }
 
     @Test
     void shouldGetAllCustomers() {
-        UUID customerUid = UUID.randomUUID();
-        UserEntity userEntity = new UserEntity(customerUid, "Michael", "Steinert", UserEntity.Gender.MALE, "steinert-michael@example.org", "Fuchskaute", "4", 58730, "Fröndenberg/ Ruhr");
-        ImmutableList<UserEntity> orderImmutableList = new ImmutableList.Builder<UserEntity>().add(userEntity).build();
+        UUID userUid = UUID.randomUUID();
+        UserEntity userEntity = new UserEntity(userUid, "Micha", "Michael", "Steinert", "steinert-michael@example.org");
+        ImmutableList<UserEntity> userImmutableList = new ImmutableList.Builder<UserEntity>().add(userEntity).build();
 
-        given(userDao.selectAllCustomers()).willReturn(orderImmutableList);
+        given(userDao.selectAllUsers()).willReturn(userImmutableList);
 
-        Optional<List<UserEntity>> allOptionalCustomers = userService.getAllCustomers();
-        List<UserEntity> allUserEntities = allOptionalCustomers.get();
+        Optional<List<UserEntity>> allOptionalUsers = userService.getAllUsers();
+        List<UserEntity> allUserEntities = allOptionalUsers.get();
         UserEntity userEntityFromService = allUserEntities.get(0);
 
-        assertThat(allOptionalCustomers.isPresent()).isTrue();
+        assertThat(allOptionalUsers.isPresent()).isTrue();
         assertThat(allUserEntities).hasSize(1);
-        assertThat(userEntityFromService.getCustomerUid()).isNotNull();
-        assertThat(userEntityFromService.getCustomerUid()).isEqualTo(customerUid);
-        assertThat(userEntityFromService.getCustomerUid()).isInstanceOf(UUID.class);
+        assertThat(userEntityFromService.getUserUid()).isNotNull();
+        assertThat(userEntityFromService.getUserUid()).isEqualTo(userUid);
+        assertThat(userEntityFromService.getUserUid()).isInstanceOf(UUID.class);
+        assertThat(userEntityFromService.getUsername()).isEqualTo("Micha");
         assertThat(userEntityFromService.getFirstName()).isEqualTo("Michael");
         assertThat(userEntityFromService.getLastName()).isEqualTo("Steinert");
-        assertThat(userEntityFromService.getGender()).isEqualTo(UserEntity.Gender.MALE);
         assertThat(userEntityFromService.getEmail()).isEqualTo("steinert-michael@example.org");
-        assertThat(userEntityFromService.getStreet()).isEqualTo("Fuchskaute");
-        assertThat(userEntityFromService.getHouseNumber()).isEqualTo("4");
-        assertThat(userEntityFromService.getZipCode()).isEqualTo(58730);
-        assertThat(userEntityFromService.getCity()).isEqualTo("Fröndenberg/ Ruhr");
     }
 
     @Test
-    void shouldGetCustomer() {
-        UUID customerUid = UUID.randomUUID();
-        UserEntity userEntity = new UserEntity(customerUid, "Michael", "Steinert", UserEntity.Gender.MALE, "steinert-michael@example.org", "Fuchskaute", "4", 58730, "Fröndenberg/ Ruhr");
+    void shouldGetUser() {
+        UUID userUid = UUID.randomUUID();
+        UserEntity userEntity = new UserEntity(userUid,"Micha", "Michael", "Steinert", "steinert-michael@example.org");
 
-        given(userDao.selectCustomerByCustomerUid(customerUid)).willReturn(userEntity);
+        given(userDao.selectUserByUserUid(userUid)).willReturn(userEntity);
 
-        Optional<UserEntity> optionalCustomerFromService = userService.getCustomer(customerUid);
+        Optional<UserEntity> optionalCustomerFromService = userService.getUserByUserUid(userUid);
         UserEntity userEntityFromService = optionalCustomerFromService.get();
 
         assertThat(optionalCustomerFromService.isPresent()).isTrue();
-        assertThat(userEntityFromService.getCustomerUid()).isNotNull();
-        assertThat(userEntityFromService.getCustomerUid()).isEqualTo(customerUid);
-        assertThat(userEntityFromService.getCustomerUid()).isInstanceOf(UUID.class);
+        assertThat(userEntityFromService.getUserUid()).isNotNull();
+        assertThat(userEntityFromService.getUserUid()).isEqualTo(userUid);
+        assertThat(userEntityFromService.getUserUid()).isInstanceOf(UUID.class);
+        assertThat(userEntityFromService.getUsername()).isEqualTo("Micha");
         assertThat(userEntityFromService.getFirstName()).isEqualTo("Michael");
         assertThat(userEntityFromService.getLastName()).isEqualTo("Steinert");
-        assertThat(userEntityFromService.getGender()).isEqualTo(UserEntity.Gender.MALE);
         assertThat(userEntityFromService.getEmail()).isEqualTo("steinert-michael@example.org");
-        assertThat(userEntityFromService.getStreet()).isEqualTo("Fuchskaute");
-        assertThat(userEntityFromService.getHouseNumber()).isEqualTo("4");
-        assertThat(userEntityFromService.getZipCode()).isEqualTo(58730);
-        assertThat(userEntityFromService.getCity()).isEqualTo("Fröndenberg/ Ruhr");
     }
 
     @Test
     void shouldInsertCustomer() {
-        UUID customerUid = UUID.randomUUID();
-        UserEntity userEntity = new UserEntity(customerUid, "Michael", "Steinert", UserEntity.Gender.MALE, "steinert-michael@example.org", "Fuchskaute", "4", 58730, "Fröndenberg/ Ruhr");
+        UUID userUid = UUID.randomUUID();
+        UserEntity userEntity = new UserEntity(userUid,"Micha", "Michael", "Steinert", "steinert-michael@example.org");
         ArgumentCaptor<UserEntity> captor = ArgumentCaptor.forClass(UserEntity.class);
 
-        given(userDao.insertCustomer(any(UserEntity.class))).willReturn(1);
+        given(userDao.insertUser(any(UserEntity.class))).willReturn(1);
 
-        int insertResult = userService.insertCustomer(userEntity);
-        verify(userDao).insertCustomer(captor.capture());
+        int insertResult = userService.insertUser(userEntity);
+        verify(userDao).insertUser(captor.capture());
         UserEntity orderFromCaptor = captor.getValue();
 
-        assertThat(orderFromCaptor.getCustomerUid()).isNotNull();
-        assertThat(orderFromCaptor.getCustomerUid()).isInstanceOf(UUID.class);
+        assertThat(orderFromCaptor.getUserUid()).isNotNull();
+        assertThat(orderFromCaptor.getUserUid()).isInstanceOf(UUID.class);
+        assertThat(orderFromCaptor.getUsername()).isEqualTo("Micha");
         assertThat(orderFromCaptor.getFirstName()).isEqualTo("Michael");
         assertThat(orderFromCaptor.getLastName()).isEqualTo("Steinert");
-        assertThat(orderFromCaptor.getGender()).isEqualTo(UserEntity.Gender.MALE);
         assertThat(orderFromCaptor.getEmail()).isEqualTo("steinert-michael@example.org");
-        assertThat(orderFromCaptor.getStreet()).isEqualTo("Fuchskaute");
-        assertThat(orderFromCaptor.getHouseNumber()).isEqualTo("4");
-        assertThat(orderFromCaptor.getZipCode()).isEqualTo(58730);
-        assertThat(orderFromCaptor.getCity()).isEqualTo("Fröndenberg/ Ruhr");
     }
 }

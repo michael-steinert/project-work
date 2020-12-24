@@ -1,11 +1,7 @@
-CREATE TABLE IF NOT EXISTS userEntity (
-    customer_id UUID PRIMARY KEY NOT NULL,
+CREATE TABLE IF NOT EXISTS user_table (
+    user_uid UUID PRIMARY KEY NOT NULL,
+    username VARCHAR(250) NOT NULL,
     first_name VARCHAR(250) NOT NULL,
     last_name VARCHAR(250) NOT NULL,
-    gender VARCHAR(6) NOT NULL,
-    email VARCHAR(250) NOT NULL UNIQUE,
-    street VARCHAR(250) NOT NULL,
-    house_number VARCHAR(12) NOT NULL,
-    zip_code INTEGER NOT NULL,
-    city VARCHAR(250) NOT NULL
-);
+    email VARCHAR(250) NOT NULL
+    );
