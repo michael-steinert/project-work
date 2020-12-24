@@ -26,8 +26,8 @@ The System consists of fourth [Microservices](backend/microservice), consisting 
 
 * Each of these [Microservice](backend/microservices) has its own Data Management, which is realized with the help of PostgreSQL.
 
-## UML Class Diagram
-![cover](https://user-images.githubusercontent.com/29623199/103079762-cd056c00-45d4-11eb-97ad-bced62df07ae.png)
+## Overview of the Entities
+![cover](https://user-images.githubusercontent.com/29623199/103104524-159a4500-4628-11eb-8a93-7dbbda112b97.png)
 ___
 
 # Projektarbeit
@@ -58,5 +58,5 @@ Das System besteht aus vier [Microservices](backend/microservice), welche aus ei
 
 * Jeder dieser [Microservices](backend/microservice) verfügt über eine eigene Datenhaltung, welche mit Hilfe von PostgreSQL realisiert wird.
 
-## UML Klassendiagramm
-![cover](https://user-images.githubusercontent.com/29623199/103079762-cd056c00-45d4-11eb-97ad-bced62df07ae.png)
+## Überblick über der Entitäten
+![cover](https://user-images.githubusercontent.com/29623199/103104524-159a4500-4628-11eb-8a93-7dbbda112b97.png)
