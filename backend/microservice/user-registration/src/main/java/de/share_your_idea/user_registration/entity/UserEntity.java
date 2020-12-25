@@ -18,12 +18,4 @@ public class UserEntity {
     private String password;
     @Column
     private String user_role;
-
-    public String setUserRole(String user_role) {
-        return this.user_role = user_role;
-    }
-
-    public String getUserRole() {
-        return user_role;
-    }
 }

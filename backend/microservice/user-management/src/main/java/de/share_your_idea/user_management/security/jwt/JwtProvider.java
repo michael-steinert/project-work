@@ -1,10 +1,9 @@
-package de.share_your_idea.user_registration.config.jwt;
+package de.share_your_idea.user_management.security.jwt;
 
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-
 
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -16,16 +15,6 @@ public class JwtProvider {
 
     @Value("$(jwt.secret-key)")
     private String secretKey;
-
-    public String generateToken(String username) {
-        log.info("JwtProvider: GenerateToken Method is called");
-        Date expirationDate = Date.from(LocalDate.now().plusDays(14).atStartOfDay(ZoneId.systemDefault()).toInstant());
-        return Jwts.builder()
-                .setSubject(username)
-                .setExpiration(expirationDate)
-                .signWith(SignatureAlgorithm.HS512, secretKey)
-                .compact();
-    }
 
     public boolean validateToken(String token) {
         log.info("JwtProvider: ValidateToken Method is called");

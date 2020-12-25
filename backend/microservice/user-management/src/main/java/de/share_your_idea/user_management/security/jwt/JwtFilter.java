@@ -1,10 +1,12 @@
-package de.share_your_idea.user_registration.config.jwt;
+package de.share_your_idea.user_management.security.jwt;
 
-import de.share_your_idea.user_registration.config.CustomUserDetails;
-import de.share_your_idea.user_registration.config.CustomUserDetailsService;
+import de.share_your_idea.user_management.security.CustomUserDetails;
+import de.share_your_idea.user_management.security.CustomUserDetailsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -30,14 +32,14 @@ public class JwtFilter extends OncePerRequestFilter {
         this.jwtProvider = jwtProvider;
     }
 
-
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
         log.info("JwtFilter: DoFilterInternal Method is called");
         String token = getTokenFromRequest(httpServletRequest);
+
         if (token != null && jwtProvider.validateToken(token)) {
-            String userLogin = jwtProvider.getUsernameFromToken(token);
-            CustomUserDetails customUserDetails = customUserDetailsService.loadUserByUsername(userLogin);
+            String username = jwtProvider.getUsernameFromToken(token);
+            CustomUserDetails customUserDetails = customUserDetailsService.loadUserByUsername(username);
             UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(customUserDetails, null, customUserDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(auth);
         }

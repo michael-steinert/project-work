@@ -1,6 +1,6 @@
-package de.share_your_idea.user_registration.config;
+package de.share_your_idea.user_management.security;
 
-import de.share_your_idea.user_registration.entity.UserEntity;
+import de.share_your_idea.user_management.model.UserEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
