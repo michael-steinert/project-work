@@ -6,7 +6,6 @@ import de.share_your_idea.user_registration.entity.AuthenticationResponse;
 import de.share_your_idea.user_registration.entity.RegistrationRequest;
 import de.share_your_idea.user_registration.entity.UserEntity;
 import de.share_your_idea.user_registration.service.UserService;
-import javassist.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.UUID;
 
 @Slf4j
 @CrossOrigin(origins = "*", allowedHeaders = "*")
