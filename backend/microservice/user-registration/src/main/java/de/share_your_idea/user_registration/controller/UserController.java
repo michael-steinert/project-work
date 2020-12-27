@@ -32,7 +32,7 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody @Valid RegistrationRequest registrationRequest) {
-        log.info("AuthenticationController: RegisterUser Method is called");
+        log.info("User Controller: RegisterUser Method is called");
         UserEntity userEntity = new UserEntity();
         userEntity.setUsername(registrationRequest.getUsername());
         userEntity.setPassword(registrationRequest.getPassword());
@@ -42,7 +42,7 @@ public class UserController {
 
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> authentication(@RequestBody AuthenticationRequest authenticationRequest) {
-        log.info("AuthenticationController: Authentication Method is called");
+        log.info("User Controller: Authentication Method is called");
         UserEntity userEntity = userService.findByUsernameAndPassword(authenticationRequest.getUsername(), authenticationRequest.getPassword());
         String token = jwtProvider.generateToken(userEntity.getUsername());
         return new ResponseEntity<>(new AuthenticationResponse(token), HttpStatus.OK);
@@ -50,6 +50,7 @@ public class UserController {
 
     @GetMapping(path = "/fetch-user-by-username/{username}", produces = MediaType.APPLICATION_JSON_VALUE)
     public UserEntity fetchUserByUsername(@PathVariable("username") String username) {
+        log.info("User Controller: FetchUserByUsername Method is called");
         return userService.findByUsername(username);
     }
 }
