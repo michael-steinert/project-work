@@ -25,7 +25,7 @@ public class UserDataAccessService implements UserDao {
     }
 
     public UserEntity selectUserByUserUid(UUID userUid) {
-        String sql = "SELECT user_uid, username, password, user_role, first_name, last_name, email FROM customer WHERE user_uid = ?";
+        String sql = "SELECT user_uid, username, password, user_role, first_name, last_name, email FROM user_table WHERE user_uid = ?";
         return jdbcTemplate.queryForObject(sql, mapUserFromDb(), userUid);
     }
 
@@ -54,7 +54,7 @@ public class UserDataAccessService implements UserDao {
             String firstName = resultSet.getString("first_name");
             String lastName = resultSet.getString("last_name");
             String email = resultSet.getString("email");
-            return new UserEntity(userUid, username, password, firstName, lastName, email, user_role);
+            return new UserEntity(userUid, username, password, user_role, firstName, lastName, email);
         };
     }
 }
