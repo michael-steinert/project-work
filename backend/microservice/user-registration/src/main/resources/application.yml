@@ -8,7 +8,7 @@ spring:
   application:
     name: user-registration-service
   zipkin:
-    base-url: http://127.0.0.1:9411/
+    base-url: http://localhost:8093/
 
 server:
   port : 8081
