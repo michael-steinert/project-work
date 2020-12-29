@@ -16,3 +16,7 @@ server:
 
 jwt:
   secret-key: secretkey123456789
+
+logging:
+  file:
+    name: C:/Users/stein/Desktop/project-work/ELK-Stack/logs/user-management.log
