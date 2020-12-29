@@ -9,9 +9,7 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 @EnableEurekaClient
 //@EnableCircuitBreaker
 public class UserRegistrationApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(UserRegistrationApplication.class, args);
 	}
-
 }

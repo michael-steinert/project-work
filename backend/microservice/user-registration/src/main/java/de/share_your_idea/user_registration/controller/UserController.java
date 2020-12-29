@@ -1,8 +1,9 @@
 package de.share_your_idea.user_registration.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import de.share_your_idea.user_registration.config.jwt.JwtProvider;
 import de.share_your_idea.user_registration.entity.AuthenticationRequest;
-import de.share_your_idea.user_registration.entity.AuthenticationResponse;
 import de.share_your_idea.user_registration.entity.RegistrationRequest;
 import de.share_your_idea.user_registration.entity.UserEntity;
 import de.share_your_idea.user_registration.service.UserService;
@@ -17,7 +18,7 @@ import javax.validation.Valid;
 
 @Slf4j
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-@RequestMapping("user-authentication")
+@RequestMapping("user-registration")
 @RestController
 public class UserController {
 
@@ -31,26 +32,32 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> registerUser(@RequestBody @Valid RegistrationRequest registrationRequest) {
+    public ResponseEntity<UserEntity> registerUser(@RequestBody @Valid RegistrationRequest registrationRequest) throws JsonProcessingException {
         log.info("User Controller: RegisterUser Method is called");
         UserEntity userEntity = new UserEntity();
         userEntity.setUsername(registrationRequest.getUsername());
         userEntity.setPassword(registrationRequest.getPassword());
-        userService.saveUser(userEntity);
-        return new ResponseEntity<>("Registration successful", HttpStatus.OK);
+        UserEntity savedUserEntity = userService.saveUser(userEntity);
+        log.info("User Controller: RegisterUser Method created UserEntity : {}", new ObjectMapper().writeValueAsString(userEntity));
+        log.info("User Controller: RegisterUser Method saved UserEntity : {}", new ObjectMapper().writeValueAsString(savedUserEntity));
+        return new ResponseEntity<>(savedUserEntity, HttpStatus.OK);
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<AuthenticationResponse> authentication(@RequestBody AuthenticationRequest authenticationRequest) {
+    public ResponseEntity<String> authentication(@RequestBody AuthenticationRequest authenticationRequest) throws JsonProcessingException {
         log.info("User Controller: Authentication Method is called");
         UserEntity userEntity = userService.findByUsernameAndPassword(authenticationRequest.getUsername(), authenticationRequest.getPassword());
         String token = jwtProvider.generateToken(userEntity.getUsername());
-        return new ResponseEntity<>(new AuthenticationResponse(token), HttpStatus.OK);
+        log.info("User Controller: Authentication Method created UserEntity : {}", new ObjectMapper().writeValueAsString(userEntity));
+        log.info("User Controller: Authentication Method created Token : {}", new ObjectMapper().writeValueAsString(token));
+        return new ResponseEntity<>(token, HttpStatus.OK);
     }
 
     @GetMapping(path = "/fetch-user-by-username/{username}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public UserEntity fetchUserByUsername(@PathVariable("username") String username) {
+    public ResponseEntity<UserEntity> fetchUserByUsername(@PathVariable("username") String username) throws JsonProcessingException {
         log.info("User Controller: FetchUserByUsername Method is called");
-        return userService.findByUsername(username);
+        UserEntity userEntity = userService.findByUsername(username);
+        log.info("User Controller: FetchUserByUsername Method created UserEntity : {}", new ObjectMapper().writeValueAsString(userEntity));
+        return new ResponseEntity<>(userEntity, HttpStatus.OK);
     }
 }

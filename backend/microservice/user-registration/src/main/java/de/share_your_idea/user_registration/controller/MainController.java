@@ -2,6 +2,8 @@ package de.share_your_idea.user_registration.controller;
 
 import java.util.List;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import de.share_your_idea.user_registration.entity.UserEntity;
 import de.share_your_idea.user_registration.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -26,17 +28,19 @@ public class MainController {
     }
 
     @GetMapping(value = {"/", "/index"})
-    public String index(Model model) {
+    public String index(Model model) throws JsonProcessingException {
         log.info("Main Controller: Index Method is called");
         model.addAttribute("serviceName", serviceName);
+        log.info("Main Controller: Index Method created ServiceName : {}", new ObjectMapper().writeValueAsString(serviceName));
         return "index";
     }
 
     @GetMapping(value = {"/userList"})
-    public String userList(Model model) {
+    public String userList(Model model) throws JsonProcessingException {
         log.info("Main Controller: PersonList Method is called");
         List<UserEntity> users = userService.findAllUsers();
         model.addAttribute("users", users);
+        log.info("Main Controller: Index Method created ServiceName : {}", new ObjectMapper().writeValueAsString(users));
         return "userList";
     }
 
@@ -48,16 +52,18 @@ public class MainController {
     }
 
     @PostMapping(value = {"/addUser"})
-    public String saveUser(Model model, @ModelAttribute("userEntity") UserEntity userEntity) {
+    public String saveUser(Model model, @ModelAttribute("userEntity") UserEntity userEntity) throws JsonProcessingException {
         log.info("Main Controller: SaveUser Method is called");
         userService.saveUser(userEntity);
+        log.info("Main Controller: SaveUser Method created and saved UserEntity : {}", new ObjectMapper().writeValueAsString(userEntity));
         return "addPerson";
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(Exception.class)
-    public String handleException(Model model, Exception exception) {
+    public String handleException(Model model, Exception exception) throws JsonProcessingException {
         model.addAttribute("exception", exception);
+        log.info("Main Controller: HandleException Method threw Exception : {}", new ObjectMapper().writeValueAsString(exception));
         return "handleException";
     }
 }
