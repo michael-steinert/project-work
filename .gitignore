@@ -1,7 +1,3 @@
-elk-stack/elasticsearch-7.10.1
-elk-stack/kibana-7.10.1-windows-x86_64
-elk-stack/logstash-7.10.1
-elk-stack/logs
-
-
-
+!elk-stack/README.md
+!elk-stack/logstash.conf
+elk-stack
