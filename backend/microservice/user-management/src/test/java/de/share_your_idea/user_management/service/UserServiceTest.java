@@ -1,5 +1,6 @@
 package de.share_your_idea.user_management.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import de.share_your_idea.user_management.dao.UserDao;
 import de.share_your_idea.user_management.model.UserEntity;
 import com.google.common.collect.ImmutableList;
@@ -33,18 +34,16 @@ public class UserServiceTest {
     }
 
     @Test
-    void shouldGetAllCustomers() {
+    void shouldGetAllCustomers() throws JsonProcessingException {
         UUID userUid = UUID.randomUUID();
         UserEntity userEntity = new UserEntity(userUid, "Micha", "", "ROLE_USER", "Michael", "Steinert","steinert-michael@example.org");
         ImmutableList<UserEntity> userImmutableList = new ImmutableList.Builder<UserEntity>().add(userEntity).build();
 
         given(userDao.selectAllUsers()).willReturn(userImmutableList);
 
-        Optional<List<UserEntity>> allOptionalUsers = userService.getAllUsers();
-        List<UserEntity> allUserEntities = allOptionalUsers.get();
+        List<UserEntity> allUserEntities = userService.getAllUsers();
         UserEntity userEntityFromService = allUserEntities.get(0);
 
-        assertThat(allOptionalUsers.isPresent()).isTrue();
         assertThat(allUserEntities).hasSize(1);
         assertThat(userEntityFromService.getUserUid()).isNotNull();
         assertThat(userEntityFromService.getUserUid()).isEqualTo(userUid);
@@ -57,16 +56,14 @@ public class UserServiceTest {
     }
 
     @Test
-    void shouldGetUser() {
+    void shouldGetUser() throws JsonProcessingException {
         UUID userUid = UUID.randomUUID();
         UserEntity userEntity = new UserEntity(userUid, "Micha", "", "ROLE_USER", "Michael", "Steinert","steinert-michael@example.org");
 
         given(userDao.selectUserByUserUid(userUid)).willReturn(userEntity);
 
-        Optional<UserEntity> optionalCustomerFromService = userService.getUserByUserUid(userUid);
-        UserEntity userEntityFromService = optionalCustomerFromService.get();
+        UserEntity userEntityFromService = userService.getUserByUserUid(userUid);
 
-        assertThat(optionalCustomerFromService.isPresent()).isTrue();
         assertThat(userEntityFromService.getUserUid()).isNotNull();
         assertThat(userEntityFromService.getUserUid()).isEqualTo(userUid);
         assertThat(userEntityFromService.getUserUid()).isInstanceOf(UUID.class);
@@ -78,7 +75,7 @@ public class UserServiceTest {
     }
 
     @Test
-    void shouldInsertCustomer() {
+    void shouldInsertCustomer() throws JsonProcessingException {
         UUID userUid = UUID.randomUUID();
         UserEntity userEntity = new UserEntity(userUid, "Micha", "", "ROLE_USER", "Michael", "Steinert","steinert-michael@example.org");
         ArgumentCaptor<UserEntity> captor = ArgumentCaptor.forClass(UserEntity.class);

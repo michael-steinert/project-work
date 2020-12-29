@@ -1,5 +1,7 @@
 package de.share_your_idea.user_management.security;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import de.share_your_idea.user_management.model.UserEntity;
 import de.share_your_idea.user_management.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -20,8 +22,21 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public CustomUserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        log.info("CustomUserDetailsService: LoadUserByUsername Method is called");
-        UserEntity userEntity = userService.getUserByUsername(username);
-        return CustomUserDetails.fromUserEntityToCustomUserDetails(userEntity);
+        log.info("Start Authentication");
+        log.info("Custom User Details Service: LoadUserByUsername Method is called");
+        UserEntity userEntity = null;
+        try {
+            userEntity = userService.getUserByUsername(username);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        CustomUserDetails customUserDetails = CustomUserDetails.fromUserEntityToCustomUserDetails(userEntity);
+        try {
+            log.info("CustomUserDetailsService: FromUserEntityToCustomUserDetails Method created CustomUserDetails : {}", new ObjectMapper().writeValueAsString(customUserDetails));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        log.info("End Authentication");
+        return customUserDetails;
     }
 }
