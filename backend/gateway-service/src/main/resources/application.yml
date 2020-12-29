@@ -1,26 +1,27 @@
 spring:
   application:
-    name: gateway-service
+    name: GATEWAY-SERVICE
   cloud:
     gateway:
       routes:
-        - id: customer_route
-          uri: lb://CUSTOMER-MANAGEMENT-SERVICE
+        - id: user_registration_route
+          uri: lb://USER-REGISTRATION-SERVICE
           predicates:
-            - Path=/customer/**
+            - Path=/user-registration/**
           filters:
             - name: CircuitBreaker
               args:
-                name: CUSTOMER-MANAGEMENT-SERVICE
-                fallback: forward:/customerServiceFallBack
-        - id: order_route
-          uri: lb://SALES-DEPARTMENT-SERVICE
+                name: USER-REGISTRATION-SERVICE-FALLBACK
+                fallbackuri: forward:/userRegistrationServiceFallBack
+        - id: user_management_route
+          uri: lb://USER-MANAGEMENT-SERVICE
           predicates:
-            - Path=/order/**
-        - id: bike_route
-          uri: lb://MANUFACTURING-DEPARTMENT-SERVICE
-          predicates:
-            - Path=/bike/**
+            - Path=/user-manegement/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: USER-MANAGEMENT-SERVICE-FALLBACK
+                fallbackuri: forward:/userManagementServiceFallBack
 
 server:
   port: 8091
