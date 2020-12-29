@@ -10,7 +10,7 @@
 
 The System consists of fourth [Microservices](backend/microservice), consisting of a Backend, Frontend and Datastorage, a server for Service Discovery, a Gateway Service for dynamic Routing and a Server for the Configuration of the individual [Microservices](backend/microservice).
 
-![cover](https://user-images.githubusercontent.com/29623199/103296395-4e566780-49f6-11eb-9d60-94cd82d242ad.png)
+![cover](https://user-images.githubusercontent.com/29623199/103306230-5d94df80-4a0d-11eb-9a1f-42747e06d025.png)
 
 ## Choice of technology
 
@@ -42,7 +42,7 @@ ___
 
 Das System besteht aus vier [Microservices](backend/microservice), welche aus einem Backend, Frontend und einer Datenhaltung bestehen, einem Server für die Service-Discovery, einem Gateway-Service für das dynamische Routing und einem Server für die Konfiguration der einzelnen Microservices.
 
-![cover](https://user-images.githubusercontent.com/29623199/103296395-4e566780-49f6-11eb-9d60-94cd82d242ad.png)
+![cover](https://user-images.githubusercontent.com/29623199/103306230-5d94df80-4a0d-11eb-9a1f-42747e06d025.png)
 
 ## Wahl der Technologien
 
