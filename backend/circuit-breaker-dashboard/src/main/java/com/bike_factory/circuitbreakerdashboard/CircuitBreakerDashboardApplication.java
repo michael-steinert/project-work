@@ -16,5 +16,4 @@ public class CircuitBreakerDashboardApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(CircuitBreakerDashboardApplication.class, args);
 	}
-
 }

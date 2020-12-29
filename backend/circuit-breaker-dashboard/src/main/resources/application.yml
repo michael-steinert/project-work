@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: circuit-breaker-dashboard
+    name: CIRCUIT-BREAKER-DASHBOARD
 
 hystrix:
   dashboard:
