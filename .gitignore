@@ -1,1 +1,3 @@
-ELK-Stack
+elk-stack
+!elk-stack/README.md
+!elk-stack/logstash.conf
