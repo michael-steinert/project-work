@@ -1,4 +1,3 @@
-# Start the elk-Stack:
 ## Overview
 * The Microservices generate their Logs.
 * The Logs are read from the logstash.
@@ -7,6 +6,8 @@
 * Kibana is responsible for Visualizing the Clusters provided by Elasticsearch.
 
 ![ELK Stack](https://user-images.githubusercontent.com/29623199/103419600-11c07280-4b94-11eb-81e7-effefdc57ccc.png)
+
+## Start the elk-Stack:
 
 ### Logstash
 1. Create logstash.conf and save it in logstash/bin/
@@ -25,7 +26,6 @@
 * Select "Stack Management" then "Index Patterns" and create Index with the Name "share-your-idea-*"
 ___
 
-# Start des ELK-Stacks
 ## Überblick
 * Die Microservices generieren deren Logs.
 * Die Logs werden vom Logstash ausgelesen.
@@ -34,6 +34,8 @@ ___
 * Kibana ist zuständig für die Visualisierung der Cluster, welche von Elasticsearch bereitgestellt werden.
 
 ![ELK Stack](https://user-images.githubusercontent.com/29623199/103419600-11c07280-4b94-11eb-81e7-effefdc57ccc.png)
+
+## Start des ELK-Stacks:
 
 ### Logstash
 1. Erstellen der logstash.conf im Verzeichnis logstash/bin/
