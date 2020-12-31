@@ -1,4 +1,13 @@
 # Start the elk-Stack:
+## Overview
+* The Microservices generate their Logs.
+* The Logs are read from the logstash.
+* Then, Logstash converts the read Logs into JSON Format and indexes them into the Elasticsearch Cluster.
+* The cluster is provided by Elasticsearch.
+* Kibana is responsible for Visualizing the Clusters provided by Elasticsearch.
+
+![ELK Stack](https://user-images.githubusercontent.com/29623199/103419600-11c07280-4b94-11eb-81e7-effefdc57ccc.png)
+
 ### Logstash
 1. Create logstash.conf and save it in logstash/bin/
 1. Run Logstash in CMD: logstash/bin/logstash.bat -f logstash.conf
@@ -17,6 +26,15 @@
 ___
 
 # Start des ELK-Stacks
+## Überblick
+* Die Microservices generieren deren Logs.
+* Die Logs werden vom Logstash ausgelesen.
+* Anschließend werden die ausgelesenen Logs von Logstash in das Format JSON überführt und in das Elasticsearch-Cluster indexiert.
+* Das Cluster wird von Elasticsearch zur Verfügung gestellt.
+* Kibana ist zuständig für die Visualisierung der Cluster, welche von Elasticsearch bereitgestellt werden.
+
+![ELK Stack](https://user-images.githubusercontent.com/29623199/103419600-11c07280-4b94-11eb-81e7-effefdc57ccc.png)
+
 ### Logstash
 1. Erstellen der logstash.conf im Verzeichnis logstash/bin/
 1. Ausführen von Logstash mit Hilfe des CMD: logstash/bin/logstash.bat -f logstash.conf

@@ -10,7 +10,7 @@
 
 The System consists of fourth [Microservices](backend/microservice), consisting of a Backend, Frontend and Datastorage, a server for Service Discovery, a Gateway Service for dynamic Routing and a Server for the Configuration of the individual [Microservices](backend/microservice).
 
-![cover](https://user-images.githubusercontent.com/29623199/103306230-5d94df80-4a0d-11eb-9a1f-42747e06d025.png)
+![System Overview](https://user-images.githubusercontent.com/29623199/103306230-5d94df80-4a0d-11eb-9a1f-42747e06d025.png)
 
 ## Choice of technology
 
@@ -27,7 +27,7 @@ The System consists of fourth [Microservices](backend/microservice), consisting 
 * Each of these [Microservice](backend/microservices) has its own Data Management, which is realized with the help of PostgreSQL.
 
 ## Overview of the Entities
-![cover](https://user-images.githubusercontent.com/29623199/103104524-159a4500-4628-11eb-8a93-7dbbda112b97.png)
+![Entities Overview](https://user-images.githubusercontent.com/29623199/103104524-159a4500-4628-11eb-8a93-7dbbda112b97.png)
 ___
 
 # Projektarbeit
@@ -42,7 +42,7 @@ ___
 
 Das System besteht aus vier [Microservices](backend/microservice), welche aus einem Backend, Frontend und einer Datenhaltung bestehen, einem Server für die Service-Discovery, einem Gateway-Service für das dynamische Routing und einem Server für die Konfiguration der einzelnen Microservices.
 
-![cover](https://user-images.githubusercontent.com/29623199/103306230-5d94df80-4a0d-11eb-9a1f-42747e06d025.png)
+![System Overview](https://user-images.githubusercontent.com/29623199/103306230-5d94df80-4a0d-11eb-9a1f-42747e06d025.png)
 
 ## Wahl der Technologien
 
@@ -59,4 +59,4 @@ Das System besteht aus vier [Microservices](backend/microservice), welche aus ei
 * Jeder dieser [Microservices](backend/microservice) verfügt über eine eigene Datenhaltung, welche mit Hilfe von PostgreSQL realisiert wird.
 
 ## Überblick über der Entitäten
-![cover](https://user-images.githubusercontent.com/29623199/103104524-159a4500-4628-11eb-8a93-7dbbda112b97.png)
+![Entities Overview](https://user-images.githubusercontent.com/29623199/103104524-159a4500-4628-11eb-8a93-7dbbda112b97.png)
