@@ -5,17 +5,42 @@ import lombok.Data;
 import javax.persistence.*;
 import java.util.UUID;
 
-@Entity
-@Table(name = "user_table")
+@Entity(name = "UserEntity")
+@Table(
+        name = "user_table",
+        uniqueConstraints = {
+                @UniqueConstraint(name = "username_unique", columnNames = "username")
+        }
+)
 @Data
 public class UserEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(
+            name = "user_id",
+            updatable = false
+    )
     private UUID user_id;
-    @Column
+
+    @Column(
+            name = "username",
+            nullable = false,
+            columnDefinition = "TEXT"
+    )
     private String username;
-    @Column
+
+    @Column(
+            name = "password",
+            nullable = false,
+            columnDefinition = "TEXT"
+    )
     private String password;
-    @Column
+
+    @Column(
+            name = "user_role",
+            nullable = false,
+            columnDefinition = "TEXT"
+    )
     private String user_role;
 }
