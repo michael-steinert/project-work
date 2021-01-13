@@ -24,7 +24,7 @@ spring:
                 fallbackuri: forward:/userManagementServiceFallBack
 
 server:
-  port: 8091
+  port: 8080
 
 hystrix:
   command:
