@@ -9,3 +9,7 @@ ReactDOM.render(
     </React.StrictMode>,
     document.getElementById('root')
 );
+
+const domTarget = document.querySelector('#my-react-app');
+
+ReactDOM.render(<App />, domTarget);
