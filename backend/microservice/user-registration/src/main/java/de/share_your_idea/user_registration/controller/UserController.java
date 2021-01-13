@@ -3,8 +3,6 @@ package de.share_your_idea.user_registration.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.share_your_idea.user_registration.config.jwt.JwtProvider;
-import de.share_your_idea.user_registration.entity.AuthenticationRequest;
-import de.share_your_idea.user_registration.entity.RegistrationRequest;
 import de.share_your_idea.user_registration.entity.UserEntity;
 import de.share_your_idea.user_registration.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -32,11 +30,8 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<UserEntity> registerUser(@RequestBody @Valid RegistrationRequest registrationRequest) throws JsonProcessingException {
+    public ResponseEntity<UserEntity> registerUser(@RequestBody @Valid UserEntity userEntity) throws JsonProcessingException {
         log.info("User Controller: RegisterUser Method is called");
-        UserEntity userEntity = new UserEntity();
-        userEntity.setUsername(registrationRequest.getUsername());
-        userEntity.setPassword(registrationRequest.getPassword());
         UserEntity savedUserEntity = userService.saveUser(userEntity);
         log.info("User Controller: RegisterUser Method created UserEntity : {}", new ObjectMapper().writeValueAsString(userEntity));
         log.info("User Controller: RegisterUser Method saved UserEntity : {}", new ObjectMapper().writeValueAsString(savedUserEntity));
@@ -44,11 +39,11 @@ public class UserController {
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<String> authentication(@RequestBody AuthenticationRequest authenticationRequest) throws JsonProcessingException {
+    public ResponseEntity<String> authentication(@RequestBody UserEntity userEntity) throws JsonProcessingException {
         log.info("User Controller: Authentication Method is called");
-        UserEntity userEntity = userService.findByUsernameAndPassword(authenticationRequest.getUsername(), authenticationRequest.getPassword());
-        String token = jwtProvider.generateToken(userEntity.getUsername());
-        log.info("User Controller: Authentication Method created UserEntity : {}", new ObjectMapper().writeValueAsString(userEntity));
+        UserEntity foundUserEntity = userService.findByUsernameAndPassword(userEntity.getUsername(), userEntity.getPassword());
+        String token = jwtProvider.generateToken(foundUserEntity.getUsername());
+        log.info("User Controller: Authentication Method created UserEntity : {}", new ObjectMapper().writeValueAsString(foundUserEntity));
         log.info("User Controller: Authentication Method created Token : {}", new ObjectMapper().writeValueAsString(token));
         return new ResponseEntity<>(token, HttpStatus.OK);
     }

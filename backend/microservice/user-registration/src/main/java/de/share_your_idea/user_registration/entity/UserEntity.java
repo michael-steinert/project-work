@@ -1,6 +1,7 @@
 package de.share_your_idea.user_registration.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.UUID;
@@ -13,6 +14,7 @@ import java.util.UUID;
         }
 )
 @Data
+@NoArgsConstructor
 public class UserEntity {
 
     @Id
@@ -43,4 +45,9 @@ public class UserEntity {
             columnDefinition = "TEXT"
     )
     private String user_role;
+
+    public UserEntity(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 }
