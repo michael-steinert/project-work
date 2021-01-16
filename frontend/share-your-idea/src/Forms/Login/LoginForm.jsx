@@ -1,9 +1,11 @@
 import React from 'react';
+import {authenticateUser} from "../Client/Client";
 
 const emptyForm = {
     formSubmitted: false,
     username: '',
-    password: ''
+    password: '',
+    token: ''
 };
 
 class LoginForm extends React.Component {
@@ -17,10 +19,19 @@ class LoginForm extends React.Component {
     }
 
     handleSubmit() {
-        console.log(`Sending Login to User-Registration API: ${JSON.stringify(this.state)}`);
+        console.log(`Sending Login to User-Registration API: Username: ${this.state.username}, Password: ${this.state.password}`);
 
         this.setState({
             formSubmitted: true
+        });
+
+        const userEntity = {
+            username: this.state.username,
+            password: this.state.password
+        }
+
+        authenticateUser(userEntity).then(data => {
+            this.setState({token: data});
         });
     }
 

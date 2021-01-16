@@ -1,9 +1,11 @@
 import React from 'react';
+import {registerUser} from "../Client/Client";
 
 const emptyForm = {
     formSubmitted: false,
     username: '',
-    password: ''
+    password: '',
+    registeredUserFeedback: null
 };
 
 class RegisterForm extends React.Component {
@@ -17,11 +19,18 @@ class RegisterForm extends React.Component {
     }
 
     handleSubmit() {
-        console.log(`Sending Registration to User-Registration API: ${JSON.stringify(this.state)}`);
+        console.log(`Sending Registration to User-Registration API: Username: ${this.state.username}, Password: ${this.state.password}`);
 
         this.setState({
             formSubmitted: true
         });
+
+        const userEntity = {
+            username: this.state.username,
+            password: this.state.password
+        }
+
+        registerUser(userEntity).then(data => this.setState({registeredUserFeedback:data}));
     }
 
     handleChange(event) {
