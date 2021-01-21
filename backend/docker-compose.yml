@@ -1,6 +1,18 @@
 version: '3'
 services:
   discovery:
-    image: michaelxsteinertxcontainer/project-work/microservice-docker-service-discovery:0.0.1-SNAPSHOT         
+    image: michaelxsteinertxcontainer/project-work/microservice-docker-service-discovery:0.0.1-SNAPSHOT
     ports:
       - 8090:8090
+  config:
+    image: michaelxsteinertxcontainer/project-work/microservice-docker-config-server:0.0.1-SNAPSHOT
+    volumes:
+      - ./config-repository:/var/config-data
+    environment:
+      - JAVA_OPTS=
+         -DEUREKA_SERVER=http://discovery:8090/eureka
+         -Dspring.cloud.config.server.native.searchLocations=/var/config-data
+    depends_on:
+      - discovery
+    ports:
+      - 8091:8091

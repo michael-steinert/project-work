@@ -1,15 +1,9 @@
-FROM adoptopenjdk:15-jre-hotspot
+FROM openjdk:11-jdk-slim
 
-WORKDIR /opt/app
+VOLUME /tmp
 
-COPY ["./target/config-server-0.0.1-SNAPSHOT.jar", "./"]
+ADD target/*.jar app.jar
 
-RUN mkdir /opt/app/config-repo
+ENV JAVA_OPTS=""
 
-COPY ["../config-repository", "/opt/app/config-repo"]
-
-CMD ["java", "-jar","/opt/app/config-server-0.0.1-SNAPSHOT.jar"]
-
-VOLUME /opt/app/config-repo
-
-EXPOSE 8888
+ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -jar /app.jar" ]

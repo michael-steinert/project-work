@@ -1,12 +1,16 @@
 spring:
   application:
     name: CONFIG-SERVER
+  profiles:
+    active: native
   cloud:
     config:
       server:
-        git:
-          uri: C:/Users/stein/Desktop/project-work/backend/config-repository
-          clone-on-start: true
+        native:
+          searchLocations: .
+        #git:
+          #uri: C:/Users/stein/Desktop/project-work/backend/config-repository
+          #clone-on-start: true
 
 server:
   port: 8091
@@ -16,7 +20,8 @@ eureka:
     fetch-registry: true
     register-with-eureka: true
     service-url:
-      defaultZone: http://localhost:8090/eureka
+      defaultZone: ${EUREKA_SERVER:http://localhost:8090/eureka}
+      #defaultZone: http://localhost:8090/eureka
   instance:
     hostname: localhost
     preferIpAddress: true
