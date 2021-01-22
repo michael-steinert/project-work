@@ -1,9 +1,9 @@
-FROM adoptopenjdk:15-jre-hotspot
+FROM openjdk:11-jdk-slim
 
-WORKDIR /opt/app
+VOLUME /tmp
 
-COPY ["./target/gateway-service-0.0.1-SNAPSHOT.jar", "./"]
+ADD target/*.jar app.jar
 
-CMD ["java", "-jar","/opt/app/gateway-service-0.0.1-SNAPSHOT.jar"]
+ENV JAVA_OPTS=""
 
-EXPOSE 8080
+ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -jar /app.jar" ]
