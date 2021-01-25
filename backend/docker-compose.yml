@@ -1,11 +1,13 @@
 version: '3'
+
 services:
   service-discovery:
-    image: michaelxsteinertxcontainer/project-work/microservice-docker-service-discovery:0.0.1-SNAPSHOT
+    image: service-discovery:0.0.1-SNAPSHOT
     ports:
       - 8761:8761
+
   config-server:
-    image: michaelxsteinertxcontainer/project-work/microservice-docker-config-server:0.0.1-SNAPSHOT
+    image: config-server:0.0.1-SNAPSHOT
     volumes:
       - ./config-repository:/var/config-data
     environment:
@@ -16,8 +18,9 @@ services:
       - service-discovery
     ports:
       - 8888:8888
+
   gateway-service:
-    image: michaelxsteinertxcontainer/project-work/microservice-docker-gateway-service:0.0.1-SNAPSHOT
+    image: gateway-service:0.0.1-SNAPSHOT
     environment:
       - JAVA_OPTS=
         -DEUREKA_SERVER=http://service-discovery:8761/eureka
@@ -27,3 +30,79 @@ services:
       - config-server
     ports:
       - 8080:8080
+
+  user-registration-service:
+    image: user-registration:0.0.1-SNAPSHOT
+    container_name: user-registration-service
+#    links:
+#      - "logstash:logstash"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://user-registration-database:5432/user_registration
+      - JAVA_OPTS=
+        -DEUREKA_SERVER=http://service-discovery:8761/eureka
+    restart: on-failure
+    depends_on:
+      - service-discovery
+      - config-server
+      - gateway-service
+      - user-registration-database
+#      - kibana
+    ports:
+      - 8081:8081
+
+  user-registration-database:
+    image: postgres:latest
+    container_name: user-registration-database
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=user_registration
+    ports:
+      - 5432:5432
+    volumes:
+      - ./volumes/postgres/user-registration/backups:/home/backups
+#      - ./volumes/postgres/user-registration/init.sql:/docker-entrypoint-initdb/10-init.sql
+
+#  filebeat:
+#    image: filebeat
+#    links:
+#      - "logstash:logstash"
+#    volumes: 
+#      - /var/lib/docker:/var/lib/docker:ro
+#      - /var/run/docker.sock:/var/run/docker.sock
+#      - ./volumes/elk:/var/app 
+
+#  logstash:
+#    image: logstash
+#    ports:
+#      - "5044:5044"
+#    volumes:
+#      - ./volumes/elk:/var/app
+#    links: 
+#      - "elasticsearch:elasticsearch"
+#    depends_on:
+#      - elasticsearch
+
+#  elasticsearch:
+#    image: elasticsearch
+#    environment:
+#      - discovery.type=single-node
+#    volumes:
+#      - ./volumes/elk:/usr/share/elasticsearch/data 
+#    ports:
+#      - "9200:9200"
+#      - "9300:9300"
+
+#  kibana:
+#    image: kibana
+#    environment:
+#      SERVER_NAME: kibana.example.org
+#      ELASTICSEARCH_URL: http://elasticsearch:9200
+#    links:
+#      - "elasticsearch:elasticsearch"
+#    volumes:
+#      - ./volumes/elk:/var/app
+#    ports:
+#      - "5601:5601"
+#    depends_on: 
+#      - elasticsearch

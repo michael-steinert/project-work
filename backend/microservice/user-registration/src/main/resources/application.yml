@@ -1,8 +1,8 @@
 app:
   datasource:
-    jdbc-url: jdbc:postgresql://localhost:5433/user_registration
+    jdbc-url: jdbc:postgresql://user-registration-database:5432/user_registration
     username: postgres
-    password: user-registration
+    password: postgres
 
 spring:
   application:
@@ -23,6 +23,8 @@ server:
 jwt:
   secret-key: secretkey123456789
 
-logging:
-  file:
-    name: C:/Users/stein/Desktop/project-work/ELK-Stack/logs/user-registration.log
+#logging:
+  #file:
+    #path: logs
+    #name: user-registration.log
+    #name: C:/Users/stein/Desktop/project-work/ELK-Stack/logs/user-registration.log
