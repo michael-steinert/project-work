@@ -1,6 +1,6 @@
 app:
   datasource:
-    jdbc-url: jdbc:postgresql://user-registration-database:5432/user_registration
+    jdbc-url: jdbc:postgresql://user-registration-database:5433/user_registration
     username: postgres
     password: postgres
 
@@ -8,7 +8,7 @@ spring:
   application:
     name: USER-REGISTRATION-SERVICE
   zipkin:
-    base-url: http://localhost:8093/
+    base-url: http://zipkin:8093/
   jpa:
     hibernate:
       ddl-auto: create-drop
