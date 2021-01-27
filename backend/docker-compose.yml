@@ -31,9 +31,9 @@ services:
     ports:
       - "8080:8080"
 
-  zipkin:
+  tracing-system:
     image: openzipkin/zipkin-slim
-    container_name: zipkin
+    container_name: tracing-system
     ports:
       - "9411:9411"
 
@@ -43,8 +43,8 @@ services:
 #    links:
 #      - "logstash:logstash"
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://user-registration-database:5433/user_registration
-      - ZIPKIN_BASE_URL=http://zipkin:9411
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://user-registration-database:5432/user_registration
+      - ZIPKIN_BASE_URL=http://tracing-system:9411
       - JAVA_OPTS=
         -DEUREKA_SERVER=http://service-discovery:8761/eureka
     restart: on-failure
@@ -52,24 +52,24 @@ services:
       - service-discovery
       - config-server
       - gateway-service
-      - user-registration-database
-      - zipkin
+      - database-server
+      - tracing-system
 #      - kibana
     ports:
       - "8081:8081"
 
-  user-registration-database:
+  database-server:
     image: postgres
-    container_name: user-registration-database
+    container_name: database-server
     ports:
-      - "5433:5432"
+      - "5432:5432"
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=user_registration
 
     volumes:
-      - ./volumes/postgres/user-registration/backups:/home/backups
+      - ./volumes/postgres/backups:/home/backups
 #      - ./volumes/postgres/user-registration/init.sql:/docker-entrypoint-initdb/10-init.sql
 
 #  filebeat:
