@@ -44,7 +44,7 @@ services:
 #      - "logstash:logstash"
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://user-registration-database:5433/user_registration
-#      - ZIPKIN_BASE_URL=http://zipkin:9411
+      - ZIPKIN_BASE_URL=http://zipkin:9411
       - JAVA_OPTS=
         -DEUREKA_SERVER=http://service-discovery:8761/eureka
     restart: on-failure
@@ -53,7 +53,7 @@ services:
       - config-server
       - gateway-service
       - user-registration-database
-#      - zipkin
+      - zipkin
 #      - kibana
     ports:
       - "8081:8081"
