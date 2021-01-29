@@ -3,11 +3,13 @@ version: '3.8'
 services:
   service-discovery:
     image: service-discovery:0.0.1-SNAPSHOT
+    container_name: service-discovery
     ports:
       - "8761:8761"
 
   config-server:
     image: config-server:0.0.1-SNAPSHOT
+    container_name: config-server
     volumes:
       - ./config-repository:/var/config-data
     environment:
@@ -21,6 +23,7 @@ services:
 
   gateway-service:
     image: gateway-service:0.0.1-SNAPSHOT
+    container_name: gateway-service
     environment:
       - JAVA_OPTS=
         -DEUREKA_SERVER=http://service-discovery:8761/eureka
@@ -67,13 +70,13 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=user_registration
-
     volumes:
       - ./volumes/postgres/backups:/home/backups
 #      - ./volumes/postgres/user-registration/init.sql:/docker-entrypoint-initdb/10-init.sql
 
 #  filebeat:
 #    image: filebeat
+#    container_name: log-data-shipper
 #    links:
 #      - "logstash:logstash"
 #    volumes: 
@@ -83,6 +86,7 @@ services:
 
 #  logstash:
 #    image: logstash
+#    container_name: log-pipeline-tool
 #    ports:
 #      - "5044:5044"
 #    volumes:
@@ -94,6 +98,7 @@ services:
 
 #  elasticsearch:
 #    image: elasticsearch
+#    container_name: log-index-database
 #    environment:
 #      - discovery.type=single-node
 #    volumes:
@@ -104,6 +109,7 @@ services:
 
 #  kibana:
 #    image: kibana
+#    container_name: log-visualisation
 #    environment:
 #      SERVER_NAME: kibana.example.org
 #      ELASTICSEARCH_URL: http://elasticsearch:9200
