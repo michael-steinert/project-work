@@ -30,7 +30,7 @@ class RegisterForm extends React.Component {
             password: this.state.password
         }
 
-        registerUser(userEntity).then(data => this.setState({registeredUserFeedback:data}));
+        registerUser(userEntity).then(data => this.setState({registeredUserFeedback: data}));
     }
 
     handleChange(event) {

@@ -1,50 +1,35 @@
 import React from 'react';
-import {Router, Route, Link} from 'react-router-dom';
-import RegisterForm from "./Forms/Register/RegisterForm";
-import LoginForm from "./Forms/Login/LoginForm";
-import HomePage from "./HomePage/HomePage";
-import {createBrowserHistory} from "history";
+import {BrowserRouter, Switch, Route, useHistory} from 'react-router-dom';
+import LoginForm from './Forms/Login/LoginForm';
+import HomePage from './HomePage/HomePage';
+import Meeting from './Meeting/Meeting';
+import Search from './Search/Search';
+import HeaderBar from './Header/HeaderBar';
+import NavigationBar from "./Header/NavigationBar";
+import {Grid} from '@material-ui/core';
 
-const history = createBrowserHistory();
 
-class App extends React.Component {
+const App = () => {
+    const history = useHistory();
 
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            currentUser: null
-        };
-    }
-
-    render() {
-        const {currentUser} = this.state;
-        return (
-            <Router history={history}>
-                <div>
-                    {currentUser &&
-                    <nav className="navbar navbar-expand navbar-dark bg-dark">
-                        <div className="navbar-nav">
-                            <Link to="/" className="nav-item nav-link">Home</Link>
-                        </div>
-                    </nav>
-                    }
-                    <div className="jumbotron">
-                        <div className="container">
-                            <div className="row">
-                                <div className="col-md-6 offset-md-3">
-                                    <Route path={["/homepage"]} excat component={HomePage}/>
-                                    <Route path="/login" excat component={LoginForm}/>
-                                    <Route path="/register" excat component={RegisterForm}/>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </Router>
-        );
-    }
-
+    return (
+        <Grid container direction="column">
+            <BrowserRouter>
+                <Grid container justify="center">
+                    <HeaderBar/>
+                    <NavigationBar/>
+                </Grid>
+                <Grid container justify="center">
+                    <Switch>
+                        <Route path='/' exact component={HomePage}/>
+                        <Route path='/meeting' component={Meeting}/>
+                        <Route path='/search' component={Search}/>
+                        <Route path='/sign-up' component={LoginForm}/>
+                    </Switch>
+                </Grid>
+            </BrowserRouter>
+        </Grid>
+    );
 }
 
 export default App;
