@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const NavigationBar = () => {
-    const cssClasses = useStyles()
+    const classes = useStyles()
     return (
         <Breadcrumbs aria-label="breadcrumb">
             <Link to="/">Share your Idea</Link>

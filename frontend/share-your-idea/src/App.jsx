@@ -17,6 +17,8 @@ const App = () => {
             <BrowserRouter>
                 <Grid container justify="center">
                     <HeaderBar/>
+                </Grid>
+                <Grid container justify="center">
                     <NavigationBar/>
                 </Grid>
                 <Grid container justify="center">
