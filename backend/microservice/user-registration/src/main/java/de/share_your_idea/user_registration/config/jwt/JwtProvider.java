@@ -16,7 +16,7 @@ public class JwtProvider {
     private String secretKey;
 
     public String generateToken(String username) {
-        if(username != null) {
+        if(!username.isBlank()) {
             log.info("JwtProvider: GenerateToken Method is called");
             Date expirationDate = Date.from(LocalDate.now().plusDays(14).atStartOfDay(ZoneId.systemDefault()).toInstant());
             return Jwts.builder()
