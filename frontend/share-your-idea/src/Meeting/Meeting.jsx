@@ -1,15 +1,19 @@
-import React from "react";
+import React, {useState} from 'react';
+import {makeStyles} from "@material-ui/styles";
 
-class Meeting extends React.Component {
-    constructor(props) {
-        super(props);
+const useStyles = makeStyles((theme) => ({
+    root: {
+        margin: 5,
     }
+}));
 
-    render() {
-        return (
-            <h1>Meeting Page</h1>
-        );
-    }
+const Meeting = () => {
+    const classes = useStyles();
+    return (
+        <div className={classes.root}>
+            <h1>Meeting</h1>
+        </div>
+    );
 }
 
 export default Meeting;

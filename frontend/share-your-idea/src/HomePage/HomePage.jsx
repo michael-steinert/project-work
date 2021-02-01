@@ -1,15 +1,19 @@
-import React from 'react';
+import React, {useState} from 'react';
+import {makeStyles} from "@material-ui/styles";
 
-class HomePage extends React.Component {
-    constructor(props) {
-        super(props);
+const useStyles = makeStyles((theme) => ({
+    root: {
+        margin: 5,
     }
+}));
 
-    render() {
-        return (
-            <h1>Home Page</h1>
-        );
-    }
+const Homepage = () => {
+    const classes = useStyles();
+    return (
+        <div className={classes.root}>
+            <h1>Homepage</h1>
+        </div>
+    );
 }
 
-export default HomePage;
+export default Homepage;
