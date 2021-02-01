@@ -20,12 +20,19 @@ const HeaderBar = () => {
     const [auth, setAuth] = useState(true);
     const [modalIsOpen, setModalIsOpen] = useState(false);
 
+    let userEntity = JSON.parse(localStorage.getItem('userEntity'));
+
+    function handleLogout() {
+        localStorage.clear();
+        window.location.reload();
+    }
+
     return (
         <div className={classes.root}>
             <AppBar position="static">
                 <Toolbar>
                     <Typography className={classes.typographyStyles}>Share your Idea!</Typography>
-                    <Button variant="outlined" color="inherit" onClick={() => setModalIsOpen(true)}>Login</Button>
+                    {!userEntity && <Button variant="outlined" color="inherit" onClick={() => setModalIsOpen(true)}>Anmelden</Button>}
                     <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)} ariaHideApp={false}>
                         <h2>Anmeldung</h2>
                         <p>Bitte melden Sie sich an, um die Plattform zu nutzen!</p>
@@ -37,6 +44,7 @@ const HeaderBar = () => {
                         <br/>
                         <Button variant="outlined" color="inherit" onClick={() => setModalIsOpen(false)}>Anmeldung-/Registrierung schließen</Button>
                     </Modal>
+                    {userEntity && <Button variant="outlined" color="inherit" onClick={handleLogout}>Abmelden</Button>}
                 </Toolbar>
             </AppBar>
         </div>

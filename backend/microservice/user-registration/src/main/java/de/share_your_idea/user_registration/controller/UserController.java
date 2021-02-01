@@ -39,14 +39,14 @@ public class UserController {
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<String> authentication(@RequestBody UserEntity userEntity) throws JsonProcessingException {
+    public ResponseEntity<UserEntity> authentication(@RequestBody UserEntity userEntity) throws JsonProcessingException {
         log.info("User Controller: Authentication Method is called");
         UserEntity foundUserEntity = userService.findByUsernameAndPassword(userEntity.getUsername(), userEntity.getPassword());
         String token = jwtProvider.generateToken(foundUserEntity.getUsername());
-        foundUserEntity.setToken(token);
+        foundUserEntity.setAuthorization_token(token);
         userService.saveUser(foundUserEntity);
         log.info("User Controller: Authentication Method created UserEntity : {}", new ObjectMapper().writeValueAsString(foundUserEntity));
-        return new ResponseEntity<>(token, HttpStatus.OK);
+        return new ResponseEntity<>(foundUserEntity, HttpStatus.OK);
     }
 
     @GetMapping(path = "/fetch-user-by-username/{username}", produces = MediaType.APPLICATION_JSON_VALUE)

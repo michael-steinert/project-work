@@ -1,23 +1,25 @@
-import React, { useState }  from 'react';
+import React, {useState} from 'react';
 import {authenticateUser} from "../client/client";
 import Button from '@material-ui/core/Button';
 import {useDispatch, useSelector} from "react-redux";
 import {success, fail} from "../../state/authenticationSlice";
+import {makeStyles} from "@material-ui/styles";
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        margin: 5,
+    }
+}));
 
 const LoginForm = (props) => {
-
+    const classes = useStyles();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [token, setToken] = useState('');
-    //const [authenticated, setAuthenticated] = useState(false);
     const [formSubmitted, setFormSubmitted] = useState(false);
 
     const {authentication} = useSelector((state) => state.authentication);
     const dispatch = useDispatch();
-
-        //this.handleSubmit = this.handleSubmit.bind(this);
-        //this.handleChange = this.handleChange.bind(this);
-        //this.handleReset = this.handleReset.bind(this);
 
     function handleSubmit() {
         console.log(`Sending Login to User-Registration API: Username: ${username}, Password: ${password}`);
@@ -31,13 +33,11 @@ const LoginForm = (props) => {
 
         authenticateUser(userEntity).then(data => {
             setToken(data);
-            console.log({token: data});
-            console.log({data});
-            console.log("Test3 "+ data);
-            console.log(`Setting Token in Promise: Username: ${username}, Password: ${password}, Token: ${token}`);
+            localStorage.setItem('userEntity', JSON.stringify(data));
+            console.log(`Setting Token in Promise: Username: ${username}, Password: ${password}, Token: ${data.authorizationToken}`);
         });
 
-        if(token != undefined) {
+        if (token != undefined) {
             console.log(`Token is present: Username: ${username}, Password: ${password}, Token: ${token}`);
             dispatch(success());
         } else {
@@ -58,13 +58,13 @@ const LoginForm = (props) => {
         props.setModalIsOpen(false);
     }
 
-    return(
-        <div>
+    return (
+        <div className={classes.root}>
             {formSubmitted &&
-                <div>
+            <div>
                 <p>Anmeldung erfolgreich versandt!</p>
                 <Button variant="outlined" color="inherit" onClick={handleReset}>Anmeldung schließen</Button>
-                </div>
+            </div>
             }
             {!formSubmitted &&
             <div>

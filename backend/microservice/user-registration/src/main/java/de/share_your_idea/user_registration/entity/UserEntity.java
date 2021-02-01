@@ -49,10 +49,10 @@ public class UserEntity {
     private String user_role;
 
     @Column(
-            name = "token",
+            name = "authorization_token",
             columnDefinition = "TEXT"
     )
-    private String token;
+    private String authorization_token;
 
     public UserEntity(String username, String password) {
         this.username = username;
