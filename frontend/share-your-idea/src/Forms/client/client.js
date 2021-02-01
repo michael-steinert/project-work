@@ -18,3 +18,13 @@ export const authenticateUser = async (userEntity) => {
         console.log("Error:", error);
     });
 }
+
+/*
+export const searchUser = async (userEntity) => {
+    let userEntityFromLocalStorage = JSON.parse(sessionStorage.getItem('userEntity'));
+    let authorization_token = userEntityFromLocalStorage.authorization_token;
+    return await api.post('/user-search', userEntity, { headers: {"Authorization" : `Bearer ${authorization_token}`} }).then(response => response.data).catch((error) => {
+        console.log("Error:", error);
+    });
+}
+ */
