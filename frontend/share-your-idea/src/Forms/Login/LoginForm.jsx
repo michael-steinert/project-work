@@ -1,5 +1,6 @@
 import React from 'react';
 import {authenticateUser} from "../Client/Client";
+import Button from '@material-ui/core/Button';
 
 const emptyForm = {
     formSubmitted: false,
@@ -42,33 +43,33 @@ class LoginForm extends React.Component {
     }
 
     handleReset() {
-        this.setState(emptyForm);
+        this.props.setModalIsOpen(false);
     }
 
     render() {
         if (this.state.formSubmitted) {
             return (
                 <div>
-                    <p>Formular erfolgreich versandt!</p>
-                    <button onClick={this.handleReset}>
-                        Neues Formular ausfüllen
-                    </button>
+                    <p>Anmeldung erfolgreich versandt!</p>
+                    <Button variant="outlined" color="inherit" onClick={this.handleReset}>Anmeldung schließen</Button>
                 </div>
             );
         }
 
         return (
-            <form onSubmit={this.handleSubmit}>
-                <label htmlFor='username'>
-                    Nutzername: <input id='username' name='username' type='text' value={this.state.username}
-                                       onChange={this.handleChange}/>
-                </label>
-                <label htmlFor='password'>
-                    Passwort: <input id='password' name='password' type='password' value={this.state.password}
-                                     onChange={this.handleChange}/>
-                </label>
-                <button onClick={this.handleSubmit}>Anmelden</button>
-            </form>
+            <div>
+                <form onSubmit={this.handleSubmit}>
+                    <label htmlFor='username'>Nutzername:</label>
+                    <br/>
+                    <input id='username' name='username' type='text' value={this.state.username} onChange={this.handleChange}/>
+                    <br/>
+                    <label htmlFor='password'>Kennwort: </label>
+                    <br/>
+                    <input id='password' name='password' type='password' value={this.state.password} onChange={this.handleChange}/>
+                    <br/>
+                    <Button variant="outlined" color="inherit" onClick={this.handleSubmit}>Anmelden</Button>
+                </form>
+            </div>
         );
     }
 }
