@@ -46,6 +46,13 @@ public class UserEntity {
     )
     private String user_role;
 
+    @Column(
+            name = "token",
+            nullable = false,
+            columnDefinition = "TEXT"
+    )
+    private String token;
+
     public UserEntity(String username, String password) {
         this.username = username;
         this.password = password;

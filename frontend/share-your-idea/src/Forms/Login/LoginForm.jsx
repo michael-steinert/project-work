@@ -1,6 +1,8 @@
 import React from 'react';
-import {authenticateUser} from "../Client/Client";
+import {authenticateUser} from "../client/client";
 import Button from '@material-ui/core/Button';
+import {useDispatch, useSelector} from "react-redux";
+import {success, fail} from "./redux/authenticationSlice";
 
 const emptyForm = {
     formSubmitted: false,
@@ -8,6 +10,9 @@ const emptyForm = {
     password: '',
     token: ''
 };
+
+const {count} = useSelector((state) => state.counter);
+const dispatch = useDispatch();
 
 class LoginForm extends React.Component {
     constructor(props) {
