@@ -46,7 +46,6 @@ public class UserController {
         foundUserEntity.setToken(token);
         userService.saveUser(foundUserEntity);
         log.info("User Controller: Authentication Method created UserEntity : {}", new ObjectMapper().writeValueAsString(foundUserEntity));
-        log.info("User Controller: Authentication Method created Token : {}", new ObjectMapper().writeValueAsString(token));
         return new ResponseEntity<>(token, HttpStatus.OK);
     }
 

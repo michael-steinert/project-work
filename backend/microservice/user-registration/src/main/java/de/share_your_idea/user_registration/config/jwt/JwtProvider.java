@@ -4,8 +4,6 @@ import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-
-
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
@@ -18,7 +16,7 @@ public class JwtProvider {
     private String secretKey;
 
     public String generateToken(String username) {
-        if(!username.isBlank()) {
+        if(username != null) {
             log.info("JwtProvider: GenerateToken Method is called");
             Date expirationDate = Date.from(LocalDate.now().plusDays(14).atStartOfDay(ZoneId.systemDefault()).toInstant());
             return Jwts.builder()

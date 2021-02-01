@@ -56,7 +56,7 @@ public class MainController {
         log.info("Main Controller: SaveUser Method is called");
         userService.saveUser(userEntity);
         log.info("Main Controller: SaveUser Method created and saved UserEntity : {}", new ObjectMapper().writeValueAsString(userEntity));
-        return "addPerson";
+        return "addUser";
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

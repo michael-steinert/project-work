@@ -2,6 +2,7 @@ package de.share_your_idea.user_registration.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.UUID;
@@ -15,6 +16,7 @@ import java.util.UUID;
 )
 @Data
 @NoArgsConstructor
+@ToString
 public class UserEntity {
 
     @Id
@@ -48,7 +50,6 @@ public class UserEntity {
 
     @Column(
             name = "token",
-            nullable = false,
             columnDefinition = "TEXT"
     )
     private String token;
