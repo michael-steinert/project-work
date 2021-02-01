@@ -26,7 +26,7 @@ const HeaderBar = () => {
                 <Toolbar>
                     <Typography className={classes.typographyStyles}>Share your Idea!</Typography>
                     <Button variant="outlined" color="inherit" onClick={() => setModalIsOpen(true)}>Login</Button>
-                    <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
+                    <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)} ariaHideApp={false}>
                         <h2>Anmeldung</h2>
                         <p>Bitte melden Sie sich an, um die Plattform zu nutzen!</p>
                         <LoginForm setModalIsOpen={setModalIsOpen}/>

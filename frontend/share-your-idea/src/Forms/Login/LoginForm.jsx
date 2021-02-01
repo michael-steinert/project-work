@@ -1,82 +1,88 @@
-import React from 'react';
+import React, { useState }  from 'react';
 import {authenticateUser} from "../client/client";
 import Button from '@material-ui/core/Button';
 import {useDispatch, useSelector} from "react-redux";
-import {success, fail} from "./redux/authenticationSlice";
+import {success, fail} from "../../state/authenticationSlice";
 
-const emptyForm = {
-    formSubmitted: false,
-    username: '',
-    password: '',
-    token: ''
-};
+const LoginForm = (props) => {
 
-const {count} = useSelector((state) => state.counter);
-const dispatch = useDispatch();
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [token, setToken] = useState('');
+    //const [authenticated, setAuthenticated] = useState(false);
+    const [formSubmitted, setFormSubmitted] = useState(false);
 
-class LoginForm extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = emptyForm;
+    const {authentication} = useSelector((state) => state.authentication);
+    const dispatch = useDispatch();
 
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-        this.handleReset = this.handleReset.bind(this);
-    }
+        //this.handleSubmit = this.handleSubmit.bind(this);
+        //this.handleChange = this.handleChange.bind(this);
+        //this.handleReset = this.handleReset.bind(this);
 
-    handleSubmit() {
-        console.log(`Sending Login to User-Registration API: Username: ${this.state.username}, Password: ${this.state.password}`);
+    function handleSubmit() {
+        console.log(`Sending Login to User-Registration API: Username: ${username}, Password: ${password}`);
 
-        this.setState({
-            formSubmitted: true
-        });
+        setFormSubmitted(true);
 
-        const userEntity = {
-            username: this.state.username,
-            password: this.state.password
+        let userEntity = {
+            username: username,
+            password: password
         }
 
         authenticateUser(userEntity).then(data => {
-            this.setState({token: data});
+            setToken(data);
+            console.log({token: data});
+            console.log({data});
+            console.log("Test3 "+ data);
+            console.log(`Setting Token in Promise: Username: ${username}, Password: ${password}, Token: ${token}`);
         });
-    }
 
-    handleChange(event) {
-        this.setState({
-            [event.target.name]: event.target.value
-        });
-    }
-
-    handleReset() {
-        this.props.setModalIsOpen(false);
-    }
-
-    render() {
-        if (this.state.formSubmitted) {
-            return (
-                <div>
-                    <p>Anmeldung erfolgreich versandt!</p>
-                    <Button variant="outlined" color="inherit" onClick={this.handleReset}>Anmeldung schließen</Button>
-                </div>
-            );
+        if(token != undefined) {
+            console.log(`Token is present: Username: ${username}, Password: ${password}, Token: ${token}`);
+            dispatch(success());
+        } else {
+            console.log(`Token is not present: Username: ${username}, Password: ${password}, Token: ${token}`);
+            dispatch(fail());
         }
+    }
 
-        return (
+    function handleChangeUsername(event) {
+        setUsername(event.target.value);
+    }
+
+    function handleChangePassword(event) {
+        setPassword(event.target.value);
+    }
+
+    function handleReset() {
+        props.setModalIsOpen(false);
+    }
+
+    return(
+        <div>
+            {formSubmitted &&
+                <div>
+                <p>Anmeldung erfolgreich versandt!</p>
+                <Button variant="outlined" color="inherit" onClick={handleReset}>Anmeldung schließen</Button>
+                </div>
+            }
+            {!formSubmitted &&
             <div>
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={handleSubmit}>
                     <label htmlFor='username'>Nutzername:</label>
                     <br/>
-                    <input id='username' name='username' type='text' value={this.state.username} onChange={this.handleChange}/>
+                    <input id='loginUsername' name='username' type='text' value={username} onChange={handleChangeUsername}/>
                     <br/>
                     <label htmlFor='password'>Kennwort: </label>
                     <br/>
-                    <input id='password' name='password' type='password' value={this.state.password} onChange={this.handleChange}/>
+                    <input id='loginPassword' name='password' type='password' value={password} onChange={handleChangePassword}/>
                     <br/>
-                    <Button variant="outlined" color="inherit" onClick={this.handleSubmit}>Anmelden</Button>
+                    <Button variant="outlined" color="inherit" onClick={handleSubmit}>Anmelden</Button>
                 </form>
             </div>
-        );
-    }
+            }
+        </div>
+    );
 }
 
 export default LoginForm;
