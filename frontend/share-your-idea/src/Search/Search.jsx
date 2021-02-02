@@ -9,9 +9,17 @@ const useStyles = makeStyles((theme) => ({
 
 const Search = () => {
     const classes = useStyles();
+    let userEntity = JSON.parse(localStorage.getItem('userEntity'));
+
     return (
         <div className={classes.root}>
             <h1>Search</h1>
+            {userEntity &&
+            <div>Sie sind angemeldet, daher können Sie diesen Inhalt sehen!
+
+            </div>
+            }
+            {!userEntity && <div>Sie sind nicht angemeldet, daher können Sie keinen Inhalt sehen!</div>}
         </div>
     );
 }

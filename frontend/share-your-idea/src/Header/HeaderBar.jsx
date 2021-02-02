@@ -19,7 +19,6 @@ const HeaderBar = () => {
     const classes = useStyles();
     const [auth, setAuth] = useState(true);
     const [modalIsOpen, setModalIsOpen] = useState(false);
-
     let userEntity = JSON.parse(localStorage.getItem('userEntity'));
 
     function handleLogout() {
@@ -32,6 +31,7 @@ const HeaderBar = () => {
             <AppBar position="static">
                 <Toolbar>
                     <Typography className={classes.typographyStyles}>Share your Idea!</Typography>
+                    {userEntity && <Typography className={classes.typographyStyles}>Sie sind angemeldet als {userEntity.username}</Typography>}
                     {!userEntity && <Button variant="outlined" color="inherit" onClick={() => setModalIsOpen(true)}>Anmelden</Button>}
                     <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)} ariaHideApp={false}>
                         <h2>Anmeldung</h2>
