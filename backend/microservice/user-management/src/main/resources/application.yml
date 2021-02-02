@@ -1,22 +1,30 @@
 app:
   datasource:
-    jdbc-url: jdbc:postgresql://localhost:5434/user_management
+    jdbc-url: jdbc:postgresql://database-server:5432/user_management
     username: postgres
-    password: user-management
-    pool-size: 30
+    password: postgres
 
 spring:
   application:
     name: USER-MANAGEMENT-SERVICE
   zipkin:
-    base-url: http://localhost:8093/
+    base-url: http://tracing-system:9411/
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
 
 server:
-  port : 8082
+  port : 8081
 
 jwt:
   secret-key: secretkey123456789
 
-logging:
-  file:
-    name: C:/Users/stein/Desktop/project-work/ELK-Stack/logs/user-management.log
+#logging:
+  #file:
+    #path: logs
+    #name: user-management.log
+    #name: C:/Users/stein/Desktop/project-work/ELK-Stack/logs/user-management.log

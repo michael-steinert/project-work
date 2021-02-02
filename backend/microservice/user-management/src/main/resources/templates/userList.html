@@ -13,16 +13,19 @@
             <h1 class="text-center">User List</h1>
             <div class="row">
                 <div class="col text-center">
+                    <a href="addUser">Add Person</a>
                     <table border="1">
                         <tr>
                             <th>Username</th>
                             <th>Password</th>
                             <th>Role</th>
+                            <th>Token</th>
                         </tr>
                         <tr th:each="user : ${users}">
                             <td th:utext="${user.username}">No Value for Username</td>
                             <td th:utext="${user.password}">No Value for Password</td>
                             <td th:utext="${user.user_role}">No Value for User Role</td>
+                            <td th:utext="${user.authorization_token}">No Value for Token</td>
                         </tr>
                     </table>
                 </div>

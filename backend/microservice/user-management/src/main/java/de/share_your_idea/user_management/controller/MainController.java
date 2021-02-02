@@ -1,8 +1,10 @@
 package de.share_your_idea.user_management.controller;
 
+import java.util.List;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.share_your_idea.user_management.model.UserEntity;
+import de.share_your_idea.user_management.entity.UserEntity;
 import de.share_your_idea.user_management.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Slf4j
 @Controller
@@ -38,10 +38,25 @@ public class MainController {
     @GetMapping(value = {"/userList"})
     public String userList(Model model) throws JsonProcessingException {
         log.info("Main Controller: PersonList Method is called");
-        List<UserEntity> users = userService.getAllUsers();
+        List<UserEntity> users = userService.findAllUsers();
         model.addAttribute("users", users);
         log.info("Main Controller: Index Method created ServiceName : {}", new ObjectMapper().writeValueAsString(users));
         return "userList";
+    }
+
+    @GetMapping(value = {"/addUser"})
+    public String showAddUserPage(Model model) {
+        UserEntity userEntity = new UserEntity();
+        model.addAttribute("userEntity", userEntity);
+        return "addUser";
+    }
+
+    @PostMapping(value = {"/addUser"})
+    public String saveUser(Model model, @ModelAttribute("userEntity") UserEntity userEntity) throws JsonProcessingException {
+        log.info("Main Controller: SaveUser Method is called");
+        userService.saveUser(userEntity);
+        log.info("Main Controller: SaveUser Method created and saved UserEntity : {}", new ObjectMapper().writeValueAsString(userEntity));
+        return "addUser";
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

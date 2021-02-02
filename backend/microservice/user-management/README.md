@@ -1,100 +1,43 @@
 ## Setup
 
 ### Application Server:
-* The compiled Microservice *Customer-Management* already contains the Application Server and can be executed directly inside a Container that has Java version 15 installed. The following Steps are necessary:
-
-```sh
-FROM openjdk:15
-COPY . /usr/src/userEntity-management-app
-WORKDIR /usr/src/userEntity-management-app
-RUN javac Main.java
-CMD ["java", "Main"]
-```
-
-```sh
-$ docker build -t userEntity-management-app .
-$ docker run -it --rm --name running-userEntity-management-app userEntity-management-app
-```
+* The compiled Microservice *User-Management* already contains the Application Server and can be executed directly inside a Container that has Java version 11 installed.
 
 * The running Microservices is available at the URL http://localhost:8081.
 
 ### Database:
 
-* The Microservice *Customer-Management* needs its own Database. Therefore an Instance of the PostgreSQL Database is set up on a Container. The following steps are necessary:
-
-* The PostgreSQL Version *alpine* is installed inside the Container *postgres-userEntity-management-container*:
-
-```sh
-$ docker run --name postgres-userEntity-management-container -e POSTGRES_PASSWORD=userEntity-management -d -p 5433:5432 postgres:alpine
-```
-
-* A new Database is created within the Container *postgres-userEntity-management-container*:
-
-```sh
-docker exec -it postgres-userEntity-management-container /bin/bash
-psql -U postgres
-CREATE DATABASE customer_management;
-```
+* The Microservice *User-Management* needs its own Database. Therefore an Instance of the PostgreSQL Database *user_management* is set up on a Container.
 
 ### API of Microservices
 
-http://localhost:8081/api/v1/userEntity/
+http://localhost:8081/user-management/
 
 | HTTP-Method | URL | Result |
 | --- | --- | --- |
-| GET | /customerUid | returns the Customer with the corresponding customerUid |
-| GET | /customers | returns all Customers of the System |
-| POST | - | creates a new Customer in the System  |
-| PUT | /customerUid | changes the Customer with the corresponding customerUid |
-| DELETE | /customerUid | deletes the Customer with the corresponding customerUid |
+| GET | /fetch-user-by-username/{username} | Returns a User with the corresponding Username |
+| POST | /register | Registers a new User in the System |
+| POST | /authenticate | Authenticates a existing User in the System and returns an Authentication-Token |
+
 ___
 
 ## Einrichtung
 ### Anwendungsserver:
 
-* Der kompilierte Microservice *Customer-Management* enthält bereist den Anwendungsserver und kann direkt innerhalb eines Containers ausgeführt werden, welcher die Java-Version 15 installiert hat. Dazu sind folgende Schritte notwendig:
-
-```sh
-FROM openjdk:15
-COPY . /usr/src/userEntity-management-app
-WORKDIR /usr/src/userEntity-management-app
-RUN javac Main.java
-CMD ["java", "Main"]
-```
-
-```sh
-$ docker build -t userEntity-management-app .
-$ docker run -it --rm --name running-userEntity-management-app userEntity-management-app
-```
+* Der kompilierte Microservice *Customer-Management* enthält bereist den Anwendungsserver und kann direkt innerhalb eines Containers ausgeführt werden, welcher die Java-Version 11 installiert hat.
 
 * Der laufende Microservices ist erreichbar unter der URL http://localhost:8081.
 
 ### Datenbank:
 
-* Der Microservice *Customer-Management* benötigt seine eigene Datenbank. Dafür wird auf einem Container eine Instanz der Datenbank PostgreSQL eingerichtet. Dazu sind folgende Schritte notwendig:
-
-* Die PostgreSQL Version *alpine* wird innerhalb eines Containers *postgres-userEntity-management-container* installiert:
-
-```sh
-$ docker run --name postgres-userEntity-management-container -e POSTGRES_PASSWORD=userEntity-management -d -p 5433:5432 postgres:alpine
-```
-
-* Es wird eine neue Datenbank innerhalb des Containers *postgres-userEntity-management-container* angelegt:
-
-```sh
-docker exec -it postgres-userEntity-management-container /bin/bash
-psql -U postgres
-CREATE DATABASE customer_management;
-```
+* Der Microservice *User_Management* benötigt seine eigene Datenbank. Dafür wird auf einem Container eine Instanz der Datenbank PostgreSQL *user_management* eingerichtet.
 
 ### Schnittstelle des Microservices
 
-http://localhost:8081/api/v1/userEntity/
+http://localhost:8081/user-management/
 
 | HTTP-Methode | URL | Ergebnis |
 | --- | --- | --- |
-| GET | /customerUid | liefert den Kunden mit der entsprechenden customerUid |
-| GET | /customers | liefert alle Kunden des Systems |
-| POST | - | legt einen neuen Kunden im System an |
-| PUT | /customerUid | ändert den Kunden mit der entsprechenden customerUid |
-| DELETE | /customerUid | löscht den Kunden mit der entsprechenden customerUid |
+| GET | /fetch-user-by-username/{username} | Liefert einen Nutzer mit dem entsprechenden Usernamen zurück |
+| POST | /register | Registriert einen neuen Nutzer in dem System |
+| POST | /authenticate | Authentifiziert einen existierenden Nutzer in dem System und liefert einen Authentifikations-Token zurück |

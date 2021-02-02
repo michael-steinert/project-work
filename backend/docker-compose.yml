@@ -40,13 +40,13 @@ services:
     ports:
       - "9411:9411"
 
-  user-registration-service:
-    image: user-registration:0.0.1-SNAPSHOT
-    container_name: user-registration-service
+  user-management-service:
+    image: user-management:0.0.1-SNAPSHOT
+    container_name: user-management-service
 #    links:
 #      - "logstash:logstash"
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://user-registration-database:5432/user_registration
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://database-server:5432/user_management
       - ZIPKIN_BASE_URL=http://tracing-system:9411
       - JAVA_OPTS=
         -DEUREKA_SERVER=http://service-discovery:8761/eureka
@@ -62,17 +62,17 @@ services:
       - "8081:8081"
 
   database-server:
-    image: postgres
+    image: postgres:alpine
     container_name: database-server
     ports:
       - "5432:5432"
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=user_registration
     volumes:
+      - ./volumes/postgres/docker_postgres_init.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql
       - ./volumes/postgres/backups:/home/backups
-#      - ./volumes/postgres/user-registration/init.sql:/docker-entrypoint-initdb/10-init.sql
+#      - ./volumes/postgres/user-management/init.sql:/docker-entrypoint-initdb/10-init.sql
 
 #  filebeat:
 #    image: filebeat

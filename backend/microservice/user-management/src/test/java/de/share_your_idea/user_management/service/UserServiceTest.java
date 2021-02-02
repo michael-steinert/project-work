@@ -1,97 +1,88 @@
 package de.share_your_idea.user_management.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import de.share_your_idea.user_management.dao.UserDao;
-import de.share_your_idea.user_management.model.UserEntity;
-import com.google.common.collect.ImmutableList;
+import de.share_your_idea.user_management.entity.UserEntity;
+import de.share_your_idea.user_management.repository.UserEntityRepository;
 import org.junit.jupiter.api.BeforeEach;
-
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
-public class UserServiceTest {
-
+class UserServiceTest {
     @Mock
-    private UserDao userDao;
+    private UserEntityRepository userEntityRepository;
+    @Mock
+    private PasswordEncoder passwordEncoder;
     private UserService userService;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
-        userService = new UserService(userDao, new RestTemplate());
+        userService = new UserService(userEntityRepository, passwordEncoder);
     }
 
     @Test
-    void shouldGetAllCustomers() throws JsonProcessingException {
-        UUID userUid = UUID.randomUUID();
-        UserEntity userEntity = new UserEntity(userUid, "Micha", "", "ROLE_USER", "Michael", "Steinert","steinert-michael@example.org");
-        ImmutableList<UserEntity> userImmutableList = new ImmutableList.Builder<UserEntity>().add(userEntity).build();
+    void shouldSaveUserEntity() {
+        UserEntity userEntity = new UserEntity();
+        userEntity.setUsername("Michael");
+        userEntity.setPassword("Password");
+        userEntity.setUser_role("ROLE_USER");
 
-        given(userDao.selectAllUsers()).willReturn(userImmutableList);
+        given(userEntityRepository.save(any(UserEntity.class))).willReturn(any(UserEntity.class));
 
-        List<UserEntity> allUserEntities = userService.getAllUsers();
-        UserEntity userEntityFromService = allUserEntities.get(0);
-
-        assertThat(allUserEntities).hasSize(1);
-        assertThat(userEntityFromService.getUserUid()).isNotNull();
-        assertThat(userEntityFromService.getUserUid()).isEqualTo(userUid);
-        assertThat(userEntityFromService.getUserUid()).isInstanceOf(UUID.class);
-        assertThat(userEntityFromService.getUsername()).isEqualTo("Micha");
-        assertThat(userEntityFromService.getUser_role()).isEqualTo("ROLE_USER");
-        assertThat(userEntityFromService.getFirstName()).isEqualTo("Michael");
-        assertThat(userEntityFromService.getLastName()).isEqualTo("Steinert");
-        assertThat(userEntityFromService.getEmail()).isEqualTo("steinert-michael@example.org");
-    }
-
-    @Test
-    void shouldGetUser() throws JsonProcessingException {
-        UUID userUid = UUID.randomUUID();
-        UserEntity userEntity = new UserEntity(userUid, "Micha", "", "ROLE_USER", "Michael", "Steinert","steinert-michael@example.org");
-
-        given(userDao.selectUserByUserUid(userUid)).willReturn(userEntity);
-
-        UserEntity userEntityFromService = userService.getUserByUserUid(userUid);
-
-        assertThat(userEntityFromService.getUserUid()).isNotNull();
-        assertThat(userEntityFromService.getUserUid()).isEqualTo(userUid);
-        assertThat(userEntityFromService.getUserUid()).isInstanceOf(UUID.class);
-        assertThat(userEntityFromService.getUsername()).isEqualTo("Micha");
-        assertThat(userEntityFromService.getUser_role()).isEqualTo("ROLE_USER");
-        assertThat(userEntityFromService.getFirstName()).isEqualTo("Michael");
-        assertThat(userEntityFromService.getLastName()).isEqualTo("Steinert");
-        assertThat(userEntityFromService.getEmail()).isEqualTo("steinert-michael@example.org");
-    }
-
-    @Test
-    void shouldInsertCustomer() throws JsonProcessingException {
-        UUID userUid = UUID.randomUUID();
-        UserEntity userEntity = new UserEntity(userUid, "Micha", "", "ROLE_USER", "Michael", "Steinert","steinert-michael@example.org");
         ArgumentCaptor<UserEntity> captor = ArgumentCaptor.forClass(UserEntity.class);
 
-        given(userDao.insertUser(any(UserEntity.class))).willReturn(1);
+        UserEntity insertResult = userService.saveUser(userEntity);
 
-        int insertResult = userService.insertUser(userEntity);
-        verify(userDao).insertUser(captor.capture());
-        UserEntity orderFromCaptor = captor.getValue();
+        verify(userEntityRepository).save(captor.capture());
 
-        assertThat(orderFromCaptor.getUserUid()).isNotNull();
-        assertThat(orderFromCaptor.getUserUid()).isInstanceOf(UUID.class);
-        assertThat(orderFromCaptor.getUsername()).isEqualTo("Micha");
-        assertThat(orderFromCaptor.getUser_role()).isEqualTo("ROLE_USER");
-        assertThat(orderFromCaptor.getFirstName()).isEqualTo("Michael");
-        assertThat(orderFromCaptor.getLastName()).isEqualTo("Steinert");
-        assertThat(orderFromCaptor.getEmail()).isEqualTo("steinert-michael@example.org");
+        UserEntity newUserEntity = captor.getValue();
+
+        assertThat(newUserEntity.getUsername()).isEqualTo("Michael");
+        assertThat(newUserEntity.getPassword()).isEqualTo(passwordEncoder.encode(userEntity.getPassword()));
+        assertThat(newUserEntity.getUser_role()).isEqualTo("ROLE_USER");
+        assertThat(insertResult).isEqualTo(any(UserEntity.class));
+    }
+
+    @Test
+    void shouldFindUserEntityByUsername() {
+        UserEntity userEntity = new UserEntity();
+        userEntity.setUsername("Michael");
+        userEntity.setPassword("Password");
+        userEntity.setUser_role("ROLE_USER");
+        given(userEntityRepository.findByUsername(userEntity.getUsername())).willReturn(userEntity);
+
+        UserEntity newUserEntity = userService.findByUsername(userEntity.getUsername());
+        assertThat(newUserEntity.getUsername()).isEqualTo("Michael");
+        assertThat(newUserEntity.getUser_role()).isEqualTo("ROLE_USER");
+    }
+
+    @Test
+    void shouldFindAllUserEntities() {
+        UserEntity userEntity1 = new UserEntity();
+        userEntity1.setUsername("Michael");
+        userEntity1.setPassword("Password");
+        userEntity1.setUser_role("ROLE_USER");
+        UserEntity userEntity2 = new UserEntity();
+        userEntity2.setUsername("Marie");
+        userEntity2.setPassword("Password");
+        userEntity2.setUser_role("ROLE_ADMIN");
+        List<UserEntity> userEntityList = List.of(userEntity1, userEntity2);
+
+        given(userEntityRepository.findAll()).willReturn(userEntityList);
+
+        List<UserEntity> newUserEntityList = userService.findAllUsers();
+        assertThat(newUserEntityList).hasSize(2);
+        UserEntity newUserEntity = newUserEntityList.get(0);
+        assertThat(newUserEntity.getUsername()).isEqualTo("Michael");
+        assertThat(newUserEntity.getUser_role()).isEqualTo("ROLE_USER");
     }
 }
