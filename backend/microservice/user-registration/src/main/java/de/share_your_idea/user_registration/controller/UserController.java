@@ -16,7 +16,7 @@ import javax.validation.Valid;
 
 @Slf4j
 //@CrossOrigin(origins = "*", allowedHeaders = "*")
-@RequestMapping("user-registration")
+@RequestMapping("user-management")
 @RestController
 public class UserController {
 
