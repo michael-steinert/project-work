@@ -1,4 +1,4 @@
-package com.bike_factory.gatewayservice;
+package de.share_your_idea.gatewayservice;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
