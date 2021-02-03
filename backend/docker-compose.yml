@@ -1,6 +1,19 @@
 version: '3.8'
 
 services:
+  database-server:
+    image: postgres:alpine
+    container_name: database-server
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./volumes/postgres/docker_postgres_init.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql
+      - ./volumes/postgres/backups:/home/backups
+#      - ./volumes/postgres/user-management/init.sql:/docker-entrypoint-initdb/10-init.sql
+
   service-discovery:
     image: service-discovery:0.0.1-SNAPSHOT
     container_name: service-discovery
@@ -61,18 +74,47 @@ services:
     ports:
       - "8081:8081"
 
-  database-server:
-    image: postgres:alpine
-    container_name: database-server
-    ports:
-      - "5432:5432"
+  user-meeting-service:
+    image: user-meeting:0.0.1-SNAPSHOT
+    container_name: user-meeting-service
+#    links:
+#      - "logstash:logstash"
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-    volumes:
-      - ./volumes/postgres/docker_postgres_init.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql
-      - ./volumes/postgres/backups:/home/backups
-#      - ./volumes/postgres/user-management/init.sql:/docker-entrypoint-initdb/10-init.sql
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://database-server:5432/user_meeting
+      - ZIPKIN_BASE_URL=http://tracing-system:9411
+      - JAVA_OPTS=
+        -DEUREKA_SERVER=http://service-discovery:8761/eureka
+    restart: on-failure
+    depends_on:
+      - service-discovery
+      - config-server
+      - gateway-service
+      - database-server
+      - tracing-system
+#      - kibana
+    ports:
+      - "8082:8082"
+
+#  user-meeting-search-service:
+#    image: user-meeting-search:0.0.1-SNAPSHOT
+#    container_name: user-meeting-search-service
+##    links:
+##      - "logstash:logstash"
+#    environment:
+#      - SPRING_DATASOURCE_URL=jdbc:postgresql://database-server:5432/user_meeting_search
+#      - ZIPKIN_BASE_URL=http://tracing-system:9411
+#      - JAVA_OPTS=
+#        -DEUREKA_SERVER=http://service-discovery:8761/eureka
+#    restart: on-failure
+#    depends_on:
+#      - service-discovery
+#      - config-server
+#      - gateway-service
+#      - database-server
+#      - tracing-system
+##      - kibana
+#    ports:
+#      - "8083:8083"
 
 #  filebeat:
 #    image: filebeat
