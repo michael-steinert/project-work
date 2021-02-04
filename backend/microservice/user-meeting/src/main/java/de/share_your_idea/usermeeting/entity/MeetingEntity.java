@@ -43,6 +43,10 @@ public class MeetingEntity {
     )
     private List<UserEntity> userEntityList = new ArrayList<>();
 
+    public MeetingEntity(String meetingName) {
+        this.meetingName = meetingName;
+    }
+
     public MeetingEntity(String meetingName, List<UserEntity> userEntityList) {
         this.meetingName = meetingName;
         this.userEntityList = userEntityList;
