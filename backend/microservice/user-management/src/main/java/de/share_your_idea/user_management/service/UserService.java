@@ -32,7 +32,7 @@ public class UserService {
     public UserEntity findByUsername(String username) {
         log.info("User Service: FindByUsername Method is called");
         if (username != null) {
-            UserEntity userEntity = userEntityRepository.findByUsername(username);
+            UserEntity userEntity = userEntityRepository.findUserEntityByUsername(username);
             return userEntity;
         }
         return null;

@@ -58,7 +58,7 @@ class UserServiceTest {
         userEntity.setUsername("Michael");
         userEntity.setPassword("Password");
         userEntity.setUser_role("ROLE_USER");
-        given(userEntityRepository.findByUsername(userEntity.getUsername())).willReturn(userEntity);
+        given(userEntityRepository.findUserEntityByUsername(userEntity.getUsername())).willReturn(userEntity);
 
         UserEntity newUserEntity = userService.findByUsername(userEntity.getUsername());
         assertThat(newUserEntity.getUsername()).isEqualTo("Michael");
