@@ -34,7 +34,7 @@ public class MeetingEntity {
             nullable = false,
             columnDefinition = "TEXT"
     )
-    private String username;
+    private String meetingName;
 
     @OneToMany(
             mappedBy = "meeting_entity",
@@ -43,8 +43,8 @@ public class MeetingEntity {
     )
     private List<UserEntity> userEntityList = new ArrayList<>();
 
-    public MeetingEntity(String username, List<UserEntity> userEntityList) {
-        this.username = username;
+    public MeetingEntity(String meetingName, List<UserEntity> userEntityList) {
+        this.meetingName = meetingName;
         this.userEntityList = userEntityList;
     }
 

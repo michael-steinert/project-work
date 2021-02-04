@@ -58,8 +58,9 @@ public class UserEntity {
     )
     private MeetingEntity meetingEntity;
 
-    public UserEntity(String username, String user_role) {
+    public UserEntity(String username, String user_role, String authorization_token) {
         this.username = username;
         this.user_role = user_role;
+        this.authorization_token = authorization_token;
     }
 }
