@@ -1,11 +1,17 @@
 package de.share_your_idea.usermeeting.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.UUID;
+
+/*
+Entity contains only the Properties specific to the Domain.
+There is no password property, because it is not needed in the Domain of User-Meeting.
+Target of the DDD is an Entity customized to their Domain.
+*/
 
 @Entity(name = "UserEntity")
 @Table(
@@ -20,12 +26,20 @@ import java.util.UUID;
 public class UserEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(
+            name = "course_sequence",
+            sequenceName = "course_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "course_sequence"
+    )
     @Column(
             name = "user_id",
             updatable = false
     )
-    private UUID user_id;
+    private Long userId;
 
     @Column(
             name = "username",
@@ -39,28 +53,22 @@ public class UserEntity {
             nullable = false,
             columnDefinition = "TEXT"
     )
-    private String user_role;
+    private String userRole;
 
     @Column(
             name = "authorization_token",
+            nullable = false,
             columnDefinition = "TEXT"
     )
-    private String authorization_token;
+    private String authorizationToken;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(
             name = "meeting_id",
-            nullable = false,
             referencedColumnName = "meeting_id",
-            foreignKey = @ForeignKey(
-                    name = "meeting_entity_user_entity_meeting_entity_id_fk"
-            )
+            nullable = true,
+            updatable = true
     )
     private MeetingEntity meetingEntity;
-
-    public UserEntity(String username, String user_role, String authorization_token) {
-        this.username = username;
-        this.user_role = user_role;
-        this.authorization_token = authorization_token;
-    }
 }

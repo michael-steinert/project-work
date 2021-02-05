@@ -1,5 +1,6 @@
 package de.share_your_idea.usermeeting.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -7,13 +8,12 @@ import lombok.ToString;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Entity(name = "MeetingEntity")
 @Table(
         name = "meeting_entity",
         uniqueConstraints = {
-                @UniqueConstraint(name = "username_unique", columnNames = "meeting_name")
+                @UniqueConstraint(name = "meeting_name_unique", columnNames = "meeting_name")
         }
 )
 @Data
@@ -22,12 +22,20 @@ import java.util.UUID;
 public class MeetingEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(
+            name = "course_sequence",
+            sequenceName = "course_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "course_sequence"
+    )
     @Column(
             name = "meeting_id",
             updatable = false
     )
-    private UUID meeting_id;
+    private Long meetingId;
 
     @Column(
             name = "meeting_name",
@@ -36,9 +44,11 @@ public class MeetingEntity {
     )
     private String meetingName;
 
+    @JsonIgnore
     @OneToMany(
-            mappedBy = "meeting_entity",
-            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
+            targetEntity = UserEntity.class,
+            mappedBy = "meetingEntity",
+            cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
     private List<UserEntity> userEntityList = new ArrayList<>();
@@ -47,24 +57,19 @@ public class MeetingEntity {
         this.meetingName = meetingName;
     }
 
-    public MeetingEntity(String meetingName, List<UserEntity> userEntityList) {
-        this.meetingName = meetingName;
-        this.userEntityList = userEntityList;
-    }
-
     public List<UserEntity> getUserEntityList() {
         return userEntityList;
     }
 
     public void addUserEntity(UserEntity userEntity) {
-        if(!this.userEntityList.contains(userEntity)) {
+        if (!this.userEntityList.contains(userEntity)) {
             this.userEntityList.add(userEntity);
             userEntity.setMeetingEntity(this);
         }
     }
 
     public void removeUserEntity(UserEntity userEntity) {
-        if(this.userEntityList.contains(userEntity)) {
+        if (this.userEntityList.contains(userEntity)) {
             this.userEntityList.remove(userEntity);
             userEntity.setMeetingEntity(null);
         }

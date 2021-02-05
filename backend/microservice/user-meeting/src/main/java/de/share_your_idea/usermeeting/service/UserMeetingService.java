@@ -23,12 +23,12 @@ public class UserMeetingService {
     }
 
     public MeetingEntity saveMeeting(MeetingEntity meetingEntity) {
-        log.info("User Meeting Service: SaveMeeting Method is called");
+        log.info("User-Meeting-Service: SaveMeeting-Method is called");
         return meetingEntityRepository.save(meetingEntity);
     }
 
     public MeetingEntity findMeetingByMeetingName(String meetingName) {
-        log.info("User Meeting Service: FindMeetingByMeetingName Method is called");
+        log.info("User-Meeting-Service: FindMeetingByMeetingName-Method is called");
         if (!meetingName.isBlank()) {
             MeetingEntity meetingEntity = meetingEntityRepository.findMeetingEntityByMeetingName(meetingName);
             return meetingEntity;
@@ -37,17 +37,22 @@ public class UserMeetingService {
     }
 
     public List<MeetingEntity> findAllMeetings() {
-        log.info("User Meeting Service: FindAllMeetings Method is called");
+        log.info("User-Meeting-Service: FindAllMeetings-Method is called");
         return meetingEntityRepository.findAll();
     }
 
+    public int deleteMeetingByMeetingName(String meetingName) {
+        log.info("User-Meeting-Service: DeleteMeetingByMeetingName-Method is called");
+        return meetingEntityRepository.deleteMeetingEntityByMeetingName(meetingName);
+    }
+
     public UserEntity saveUser(UserEntity userEntity) {
-        log.info("User Meeting Service: SaveUser Method is called");
+        log.info("User-Meeting-Service: SaveUser-Method is called");
         return userEntityRepository.save(userEntity);
     }
 
     public UserEntity findUserByUsername(String username) {
-        log.info("User Meeting Service: FindUserByUsername Method is called");
+        log.info("User-Meeting-Service: FindUserByUsername-Method is called");
         if (username != null) {
             UserEntity userEntity = userEntityRepository.findUserEntityByUsername(username);
             return userEntity;
@@ -56,7 +61,7 @@ public class UserMeetingService {
     }
 
     public List<UserEntity> findAllUsers() {
-        log.info("User Meeting Service: FindAllUsers Method is called");
+        log.info("User-Meeting-Service: FindAllUsers-Method is called");
         return userEntityRepository.findAll();
     }
 }
