@@ -15,9 +15,10 @@ http://localhost:8082/user-meeting/
 
 | HTTP-Method | URL | Result |
 | --- | --- | --- |
-| GET | x | x |
-| POST | x | x |
-
+| POST | /register-meeting | Creates a new Meeting |
+| GET | /unregister-meeting/{meetingName} | Deletes a existing Meeting |
+| POST | /register-to-meeting/{meetingName} | Registers a User to a Meeting with MeetingName |
+| POST | /unregister-from-meeting/{meetingName} | Unregisters a User from a Meeting with MeetingName |
 ___
 
 ## Einrichtung

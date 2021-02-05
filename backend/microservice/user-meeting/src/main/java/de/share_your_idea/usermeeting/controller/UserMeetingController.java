@@ -33,10 +33,10 @@ public class UserMeetingController {
         return new ResponseEntity<>(savedUserMeetingEntity, HttpStatus.OK);
     }
 
-    @PostMapping("/unregister-meeting}")
-    public ResponseEntity<Integer> unregisterMeeting(@RequestBody @Valid UserMeetingEntity userMeetingEntity) throws JsonProcessingException {
+    @GetMapping("/unregister-meeting/{meetingName}")
+    public ResponseEntity<Integer> unregisterMeeting(@PathVariable("meetingName") String meetingName) throws JsonProcessingException {
         log.info("Meeting-Controller: UnregisterMeeting-Method is called");
-        int deleteResult = userMeetingService.deleteMeetingByMeetingName(userMeetingEntity.getMeetingName());
+        int deleteResult = userMeetingService.deleteMeetingByMeetingName(meetingName);
         log.info("Meeting-Controller: UnregisterMeeting-Method deleted MeetingEntity with Result : {}", new ObjectMapper().writeValueAsString(deleteResult));
         return new ResponseEntity<>(deleteResult, HttpStatus.OK);
     }
