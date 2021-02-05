@@ -1,6 +1,6 @@
 package de.share_your_idea.usermeeting.service;
 
-import de.share_your_idea.usermeeting.entity.MeetingEntity;
+import de.share_your_idea.usermeeting.entity.UserMeetingEntity;
 import de.share_your_idea.usermeeting.entity.UserEntity;
 import de.share_your_idea.usermeeting.repository.MeetingEntityRepository;
 import de.share_your_idea.usermeeting.repository.UserEntityRepository;
@@ -22,21 +22,21 @@ public class UserMeetingService {
         this.meetingEntityRepository = meetingEntityRepository;
     }
 
-    public MeetingEntity saveMeeting(MeetingEntity meetingEntity) {
+    public UserMeetingEntity saveMeeting(UserMeetingEntity userMeetingEntity) {
         log.info("User-Meeting-Service: SaveMeeting-Method is called");
-        return meetingEntityRepository.save(meetingEntity);
+        return meetingEntityRepository.save(userMeetingEntity);
     }
 
-    public MeetingEntity findMeetingByMeetingName(String meetingName) {
+    public UserMeetingEntity findMeetingByMeetingName(String meetingName) {
         log.info("User-Meeting-Service: FindMeetingByMeetingName-Method is called");
         if (!meetingName.isBlank()) {
-            MeetingEntity meetingEntity = meetingEntityRepository.findMeetingEntityByMeetingName(meetingName);
-            return meetingEntity;
+            UserMeetingEntity userMeetingEntity = meetingEntityRepository.findMeetingEntityByMeetingName(meetingName);
+            return userMeetingEntity;
         }
         return null;
     }
 
-    public List<MeetingEntity> findAllMeetings() {
+    public List<UserMeetingEntity> findAllMeetings() {
         log.info("User-Meeting-Service: FindAllMeetings-Method is called");
         return meetingEntityRepository.findAll();
     }

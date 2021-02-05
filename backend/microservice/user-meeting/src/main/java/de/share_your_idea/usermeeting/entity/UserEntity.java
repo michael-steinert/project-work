@@ -70,5 +70,5 @@ public class UserEntity {
             nullable = true,
             updatable = true
     )
-    private MeetingEntity meetingEntity;
+    private UserMeetingEntity userMeetingEntity;
 }

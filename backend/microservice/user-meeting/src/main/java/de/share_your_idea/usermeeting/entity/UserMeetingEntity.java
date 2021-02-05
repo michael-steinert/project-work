@@ -19,7 +19,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @ToString
-public class MeetingEntity {
+public class UserMeetingEntity {
 
     @Id
     @SequenceGenerator(
@@ -47,13 +47,13 @@ public class MeetingEntity {
     @JsonIgnore
     @OneToMany(
             targetEntity = UserEntity.class,
-            mappedBy = "meetingEntity",
+            mappedBy = "userMeetingEntity",
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
     private List<UserEntity> userEntityList = new ArrayList<>();
 
-    public MeetingEntity(String meetingName) {
+    public UserMeetingEntity(String meetingName) {
         this.meetingName = meetingName;
     }
 
@@ -64,14 +64,14 @@ public class MeetingEntity {
     public void addUserEntity(UserEntity userEntity) {
         if (!this.userEntityList.contains(userEntity)) {
             this.userEntityList.add(userEntity);
-            userEntity.setMeetingEntity(this);
+            userEntity.setUserMeetingEntity(this);
         }
     }
 
     public void removeUserEntity(UserEntity userEntity) {
         if (this.userEntityList.contains(userEntity)) {
             this.userEntityList.remove(userEntity);
-            userEntity.setMeetingEntity(null);
+            userEntity.setUserMeetingEntity(null);
         }
     }
 }
