@@ -24,13 +24,13 @@ ___
 ## Einrichtung
 ### Anwendungsserver:
 
-* Der kompilierte Microservice *Customer-Management* enthält bereist den Anwendungsserver und kann direkt innerhalb eines Containers ausgeführt werden, welcher die Java-Version 11 installiert hat.
+* Der kompilierte Microservice *User-Management* enthält bereist den Anwendungsserver und kann direkt innerhalb eines Containers ausgeführt werden, welcher die Java-Version 11 installiert hat.
 
 * Der laufende Microservices ist erreichbar unter der URL http://localhost:8081.
 
 ### Datenbank:
 
-* Der Microservice *User_Management* benötigt seine eigene Datenbank. Dafür wird auf einem Container eine Instanz der Datenbank PostgreSQL *user_management* eingerichtet.
+* Der Microservice *User-Management* benötigt seine eigene Datenbank. Dafür wird auf einem Container eine Instanz der Datenbank PostgreSQL *user_management* eingerichtet.
 
 ### Schnittstelle des Microservices
 
