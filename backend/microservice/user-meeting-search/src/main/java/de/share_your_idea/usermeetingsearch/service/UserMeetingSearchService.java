@@ -67,7 +67,8 @@ public class UserMeetingSearchService {
             List<UserEntity> searchQueryResult = userEntityRepository.findUserEntityByUsernameContaining(searchQuery);
             SearchQueryEntity searchQueryEntity = new SearchQueryEntity();
             searchQueryEntity.setSearchQuery(searchQuery);
-            searchQueryEntity.setUserEntityResult(searchQueryResult);
+            //TODO Causes duplciate Key violates unique constraint..
+            //searchQueryEntity.setUserEntityResult(searchQueryResult);
             searchQueryEntityRepository.save(searchQueryEntity);
             log.info("UserMeetingSearch-Service: SearchUserEntityBySearchQuery-Method fetched UserEntityList : {}", new ObjectMapper().writeValueAsString(userEntityList));
             log.info("UserMeetingSearch-Service: SearchUserEntityBySearchQuery-Method founded SearchQueryResult : {}", new ObjectMapper().writeValueAsString(searchQueryResult));
