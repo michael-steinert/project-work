@@ -5,7 +5,6 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.UUID;
 
 @Entity(name = "UserEntity")
 @Table(
@@ -20,12 +19,20 @@ import java.util.UUID;
 public class UserEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(
+            name = "user_sequence",
+            sequenceName = "user_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "user_sequence"
+    )
     @Column(
             name = "user_id",
             updatable = false
     )
-    private UUID user_id;
+    private Long userId;
 
     @Column(
             name = "username",
@@ -50,6 +57,7 @@ public class UserEntity {
 
     @Column(
             name = "authorization_token",
+            nullable = true,
             columnDefinition = "TEXT"
     )
     private String authorization_token;
