@@ -13,12 +13,7 @@ Target of the DDD is an Entity customized to their Domain.
 */
 
 @Entity(name = "MeetingEntity")
-@Table(
-        name = "meeting_entity",
-        uniqueConstraints = {
-                @UniqueConstraint(name = "meeting_name_unique", columnNames = "meeting_name")
-        }
-)
+@Table(name = "meeting_entity")
 @Data
 @NoArgsConstructor
 @ToString
@@ -47,4 +42,8 @@ public class UserMeetingEntity {
             columnDefinition = "TEXT"
     )
     private String meetingName;
+
+    public UserMeetingEntity(String meetingName) {
+        this.meetingName = meetingName;
+    }
 }

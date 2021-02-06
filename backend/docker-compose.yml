@@ -95,26 +95,26 @@ services:
     ports:
       - "8082:8082"
 
-#  user-meeting-search-service:
-#    image: user-meeting-search:0.0.1-SNAPSHOT
-#    container_name: user-meeting-search-service
-##    links:
-##      - "logstash:logstash"
-#    environment:
-#      - SPRING_DATASOURCE_URL=jdbc:postgresql://database-server:5432/user_meeting_search
-#      - ZIPKIN_BASE_URL=http://tracing-system:9411
-#      - JAVA_OPTS=
-#        -DEUREKA_SERVER=http://service-discovery:8761/eureka
-#    restart: on-failure
-#    depends_on:
-#      - service-discovery
-#      - config-server
-#      - gateway-service
-#      - database-server
-#      - tracing-system
-##      - kibana
-#    ports:
-#      - "8083:8083"
+  user-meeting-search-service:
+    image: user-meeting-search:0.0.1-SNAPSHOT
+    container_name: user-meeting-search-service
+#    links:
+#      - "logstash:logstash"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://database-server:5432/user_meeting_search
+      - ZIPKIN_BASE_URL=http://tracing-system:9411
+      - JAVA_OPTS=
+        -DEUREKA_SERVER=http://service-discovery:8761/eureka
+    restart: on-failure
+    depends_on:
+      - service-discovery
+      - config-server
+      - gateway-service
+      - database-server
+      - tracing-system
+#      - kibana
+    ports:
+      - "8083:8083"
 
 #  filebeat:
 #    image: filebeat

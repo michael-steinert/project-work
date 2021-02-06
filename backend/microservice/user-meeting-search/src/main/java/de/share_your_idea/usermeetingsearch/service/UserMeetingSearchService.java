@@ -16,7 +16,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -49,12 +51,18 @@ public class UserMeetingSearchService {
         log.info("UserMeetingSearch-Service: SearchUserEntityBySearchQuery-Method is called");
 
         //Eventually is Wrapper-Class necessary to carry the ResponseEntity
-        ResponseEntity<List<UserEntity>> responseEntity = restTemplate
-                .getForObject("http://USER-MANAGEMENT-SERVICE/user-management/fetch-all-users",
-                        ResponseEntity.class, new ParameterizedTypeReference<UserEntity>() {});
+        ResponseEntity<UserEntity[]> responseEntity = restTemplate
+                .getForEntity("http://USER-MANAGEMENT-SERVICE/user-management/fetch-all-users",
+                        UserEntity[].class, new ParameterizedTypeReference<UserEntity>() {});
 
         if (responseEntity != null && responseEntity.hasBody()) {
-            List<UserEntity> userEntityList = responseEntity.getBody();
+
+            UserEntity[] userEntityArray = responseEntity.getBody();
+
+            List<UserEntity> userEntityList = Arrays.stream(userEntityArray)
+                    .map(userEntity -> new UserEntity(userEntity.getUsername(), userEntity.getUserRole(), userEntity.getAuthorizationToken()))
+                    .collect(Collectors.toList());
+;
             userEntityRepository.saveAll(userEntityList);
             List<UserEntity> searchQueryResult = userEntityRepository.findUserEntityByUsernameContaining(searchQuery);
             SearchQueryEntity searchQueryEntity = new SearchQueryEntity();
@@ -73,12 +81,17 @@ public class UserMeetingSearchService {
         log.info("UserMeetingSearch-Service: SearchUserMeetingEntityBySearchQuery-Method is called");
 
         //Eventually is Wrapper-Class necessary to carry the ResponseEntity
-        ResponseEntity<List<UserMeetingEntity>> responseEntity = restTemplate
-                .getForObject("http://USER-MEETING-SERVICE/user-management/fetch-all-user-meetings",
-                        ResponseEntity.class, new ParameterizedTypeReference<UserEntity>() {});
+        ResponseEntity<UserMeetingEntity[]> responseEntity = restTemplate
+                .getForEntity("http://USER-MEETING-SERVICE/user-meeting/fetch-all-user-meetings",
+                        UserMeetingEntity[].class, new ParameterizedTypeReference<UserEntity>() {});
 
         if (responseEntity != null && responseEntity.hasBody()) {
-            List<UserMeetingEntity> userMeetingEntityList = responseEntity.getBody();
+            UserMeetingEntity[] userMeetingEntityArray = responseEntity.getBody();
+
+            List<UserMeetingEntity> userMeetingEntityList = Arrays.stream(userMeetingEntityArray)
+                    .map(userMeetingEntity -> new UserMeetingEntity(userMeetingEntity.getMeetingName()))
+                    .collect(Collectors.toList());
+
             userMeetingEntityRepository.saveAll(userMeetingEntityList);
             List<UserMeetingEntity> searchQueryResult = userMeetingEntityRepository.findUserMeetingEntityByMeetingNameContaining(searchQuery);
             SearchQueryEntity searchQueryEntity = new SearchQueryEntity();
