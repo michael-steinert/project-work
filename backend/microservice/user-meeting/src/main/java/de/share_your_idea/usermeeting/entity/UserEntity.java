@@ -9,7 +9,7 @@ import javax.persistence.*;
 
 /*
 Entity contains only the Properties specific to the Domain.
-There is no password property, because it is not needed in the Domain of User-Meeting.
+There is no Property Password, because it is not needed in the Domain of User-Meeting.
 Target of the DDD is an Entity customized to their Domain.
 */
 
