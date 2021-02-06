@@ -37,7 +37,7 @@ public class MainController {
 
     @GetMapping(value = {"/userList"})
     public String showUserList(Model model) throws JsonProcessingException {
-        log.info("Main Controller: PersonList Method is called");
+        log.info("Main-Controller: ShowUserList-Method is called");
         List<UserEntity> userEntityList = userMeetingService.findAllUsers();
         model.addAttribute("userEntityList", userEntityList);
         log.info("Main-Controller: ShowUserList-Method created UserEntityList : {}", new ObjectMapper().writeValueAsString(userEntityList));

@@ -15,20 +15,23 @@
                 <div class="col text-center">
                     <table border="1">
                         <tr>
-                            <th>MeetingName</th>
+                            <th>SearchQuery</th>
                             <th>Username</th>
+                            <th>MeetingName</th>
                         </tr>
-                        <tr th:each="userMeetingEntity : ${userMeetingEntityList}">
-                            <td th:utext="${userMeetingEntity.meetingName}">No Value for MeetingName</td>
-                            <td th:each="userEntity : ${userMeetingEntity.userEntityList}">
+                        <tr th:each="searchQueryEntity : ${searchQueryList}">
+                            <td th:utext="${searchQueryEntity.searchQuery}">No Value for MeetingName</td>
+                            <td th:each="userEntity : ${searchQueryEntity.userEntityResult}">
                                 <div th:utext="${userEntity.username}">No Value for Username</div>
+                            </td>
+                            <td th:each="userEntity : ${searchQueryEntity.userMeetingEntityResult}">
+                                <div th:utext="${userMeetingEntity.meetingName}">No Value for MeetingName</div>
                             </td>
                         </tr>
                     </table>
                     <hr>
-                    <a th:href="@{/addUser}">Add User</a><br>
-                    <a th:href="@{/addUserMeeting}">Add User-Meeting</a><br>
                     <a th:href="@{/userList}">Show List of User-Meetings</a><br>
+                    <a th:href="@{/userMeetingList}">Show List of User-Meetings</a><br>
                     <a th:href="@{/index}">Index</a>
                 </div>
             </div>

@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Slf4j
 @RequestMapping("user-meeting")
@@ -71,5 +72,13 @@ public class UserMeetingController {
         log.info("Meeting-Controller: UnregisterUserToMeeting-Method saved UserEntity : {}", new ObjectMapper().writeValueAsString(savedUserEntity));
         log.info("Meeting-Controller: UnregisterUserToMeeting-Method saved MeetingEntity : {}", new ObjectMapper().writeValueAsString(savedUserMeetingEntity));
         return new ResponseEntity<>(savedUserMeetingEntity, HttpStatus.OK);
+    }
+
+    @GetMapping(path = {"/fetch-all-user-meetings"})
+    public ResponseEntity<List<UserMeetingEntity>> fetchAllUserMeetings() throws JsonProcessingException {
+        log.info("Meeting-Controller: FetchAllUserMeetings-Method is called");
+        List<UserMeetingEntity> userMeetingEntityList = userMeetingService.findAllMeetings();
+        log.info("Meeting-Controller: FetchAllUserMeetings-Method created UserMeetingEntityList : {}", new ObjectMapper().writeValueAsString(userMeetingEntityList));
+        return new ResponseEntity<>(userMeetingEntityList, HttpStatus.OK);
     }
 }
