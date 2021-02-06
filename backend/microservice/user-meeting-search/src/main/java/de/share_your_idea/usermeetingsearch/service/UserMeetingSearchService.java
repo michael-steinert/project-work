@@ -60,7 +60,7 @@ public class UserMeetingSearchService {
             UserEntity[] userEntityArray = responseEntity.getBody();
 
             List<UserEntity> userEntityList = Arrays.stream(userEntityArray)
-                    .map(userEntity -> new UserEntity(userEntity.getUsername(), userEntity.getUserRole(), userEntity.getAuthorizationToken()))
+                    .map(userEntity -> new UserEntity(userEntity.getUserId(), userEntity.getUsername(), userEntity.getUserRole(), userEntity.getAuthorizationToken()))
                     .collect(Collectors.toList());
 
             userEntityRepository.saveAll(userEntityList);
@@ -89,7 +89,7 @@ public class UserMeetingSearchService {
             UserMeetingEntity[] userMeetingEntityArray = responseEntity.getBody();
 
             List<UserMeetingEntity> userMeetingEntityList = Arrays.stream(userMeetingEntityArray)
-                    .map(userMeetingEntity -> new UserMeetingEntity(userMeetingEntity.getMeetingName()))
+                    .map(userMeetingEntity -> new UserMeetingEntity(userMeetingEntity.getMeetingId(), userMeetingEntity.getMeetingName()))
                     .collect(Collectors.toList());
 
             userMeetingEntityRepository.saveAll(userMeetingEntityList);

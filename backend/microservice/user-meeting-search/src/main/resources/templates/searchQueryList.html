@@ -19,7 +19,7 @@
                             <th>Username</th>
                             <th>MeetingName</th>
                         </tr>
-                        <tr th:each="searchQueryEntity : ${searchQueryList}">
+                        <tr th:each="searchQueryEntity : ${searchQueryEntityList}">
                             <td th:utext="${searchQueryEntity.searchQuery}">No Value for MeetingName</td>
                             <td th:each="userEntity : ${searchQueryEntity.userEntityResult}">
                                 <div th:utext="${userEntity.username}">No Value for Username</div>
