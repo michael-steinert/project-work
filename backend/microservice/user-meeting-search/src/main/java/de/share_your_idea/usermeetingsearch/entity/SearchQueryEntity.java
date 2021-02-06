@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity(name = "SearchQueryEntity")
+@Table(name = "search_query_entity")
 @Data
 @NoArgsConstructor
 @ToString

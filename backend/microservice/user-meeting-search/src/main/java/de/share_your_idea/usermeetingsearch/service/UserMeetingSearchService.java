@@ -62,7 +62,7 @@ public class UserMeetingSearchService {
             List<UserEntity> userEntityList = Arrays.stream(userEntityArray)
                     .map(userEntity -> new UserEntity(userEntity.getUsername(), userEntity.getUserRole(), userEntity.getAuthorizationToken()))
                     .collect(Collectors.toList());
-;
+
             userEntityRepository.saveAll(userEntityList);
             List<UserEntity> searchQueryResult = userEntityRepository.findUserEntityByUsernameContaining(searchQuery);
             SearchQueryEntity searchQueryEntity = new SearchQueryEntity();
