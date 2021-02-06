@@ -2,7 +2,7 @@ package de.share_your_idea.user_management.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.share_your_idea.user_management.config.jwt.JwtProvider;
+import de.share_your_idea.user_management.security.jwt.JwtProvider;
 import de.share_your_idea.user_management.entity.UserEntity;
 import de.share_your_idea.user_management.service.UserService;
 import lombok.extern.slf4j.Slf4j;

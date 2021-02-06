@@ -1,4 +1,4 @@
-package de.share_your_idea.user_management.config.jwt;
+package de.share_your_idea.user_management.security.jwt;
 
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;

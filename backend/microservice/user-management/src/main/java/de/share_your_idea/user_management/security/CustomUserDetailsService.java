@@ -1,4 +1,4 @@
-package de.share_your_idea.user_management.config;
+package de.share_your_idea.user_management.security;
 
 import de.share_your_idea.user_management.entity.UserEntity;
 import de.share_your_idea.user_management.service.UserService;

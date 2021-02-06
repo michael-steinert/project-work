@@ -1,7 +1,7 @@
-package de.share_your_idea.user_management.config.jwt;
+package de.share_your_idea.user_management.security.jwt;
 
-import de.share_your_idea.user_management.config.CustomUserDetails;
-import de.share_your_idea.user_management.config.CustomUserDetailsService;
+import de.share_your_idea.user_management.security.CustomUserDetails;
+import de.share_your_idea.user_management.security.CustomUserDetailsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -29,7 +29,6 @@ public class JwtFilter extends OncePerRequestFilter {
     public JwtFilter(JwtProvider jwtProvider) {
         this.jwtProvider = jwtProvider;
     }
-
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {

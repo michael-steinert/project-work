@@ -1,6 +1,6 @@
-package de.share_your_idea.user_management.config;
+package de.share_your_idea.user_management.security;
 
-import de.share_your_idea.user_management.config.jwt.JwtFilter;
+import de.share_your_idea.user_management.security.jwt.JwtFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
