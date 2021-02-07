@@ -50,7 +50,6 @@ public class UserMeetingSearchService {
     public SearchQueryEntity searchUserEntityBySearchQuery(String searchQuery) throws JsonProcessingException, NotFoundException {
         log.info("UserMeetingSearch-Service: SearchUserEntityBySearchQuery-Method is called");
 
-        //Eventually is Wrapper-Class necessary to carry the ResponseEntity
         ResponseEntity<UserEntity[]> responseEntity = restTemplate
                 .getForEntity("http://USER-MANAGEMENT-SERVICE/user-management/fetch-all-users",
                         UserEntity[].class, new ParameterizedTypeReference<UserEntity>() {});
@@ -60,15 +59,14 @@ public class UserMeetingSearchService {
             UserEntity[] userEntityArray = responseEntity.getBody();
 
             List<UserEntity> userEntityList = Arrays.stream(userEntityArray)
-                    .map(userEntity -> new UserEntity(userEntity.getUserId(), userEntity.getUsername(), userEntity.getUserRole(), userEntity.getAuthorizationToken()))
+                    .map(userEntity -> new UserEntity(userEntity.getUsername(), userEntity.getUserRole(), userEntity.getAuthorizationToken()))
                     .collect(Collectors.toList());
 
             userEntityRepository.saveAll(userEntityList);
             List<UserEntity> searchQueryResult = userEntityRepository.findUserEntityByUsernameContaining(searchQuery);
             SearchQueryEntity searchQueryEntity = new SearchQueryEntity();
             searchQueryEntity.setSearchQuery(searchQuery);
-            //TODO Causes duplciate Key violates unique constraint..
-            //searchQueryEntity.setUserEntityResult(searchQueryResult);
+            searchQueryEntity.setUserEntityResult(searchQueryResult);
             searchQueryEntityRepository.save(searchQueryEntity);
             log.info("UserMeetingSearch-Service: SearchUserEntityBySearchQuery-Method fetched UserEntityList : {}", new ObjectMapper().writeValueAsString(userEntityList));
             log.info("UserMeetingSearch-Service: SearchUserEntityBySearchQuery-Method founded SearchQueryResult : {}", new ObjectMapper().writeValueAsString(searchQueryResult));
@@ -81,7 +79,6 @@ public class UserMeetingSearchService {
     public SearchQueryEntity searchUserMeetingEntityBySearchQuery(String searchQuery) throws JsonProcessingException, NotFoundException {
         log.info("UserMeetingSearch-Service: SearchUserMeetingEntityBySearchQuery-Method is called");
 
-        //Eventually is Wrapper-Class necessary to carry the ResponseEntity
         ResponseEntity<UserMeetingEntity[]> responseEntity = restTemplate
                 .getForEntity("http://USER-MEETING-SERVICE/user-meeting/fetch-all-user-meetings",
                         UserMeetingEntity[].class, new ParameterizedTypeReference<UserEntity>() {});
@@ -90,7 +87,7 @@ public class UserMeetingSearchService {
             UserMeetingEntity[] userMeetingEntityArray = responseEntity.getBody();
 
             List<UserMeetingEntity> userMeetingEntityList = Arrays.stream(userMeetingEntityArray)
-                    .map(userMeetingEntity -> new UserMeetingEntity(userMeetingEntity.getMeetingId(), userMeetingEntity.getMeetingName()))
+                    .map(userMeetingEntity -> new UserMeetingEntity(userMeetingEntity.getMeetingName()))
                     .collect(Collectors.toList());
 
             userMeetingEntityRepository.saveAll(userMeetingEntityList);

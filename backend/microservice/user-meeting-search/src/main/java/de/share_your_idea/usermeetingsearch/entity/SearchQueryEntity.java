@@ -36,12 +36,12 @@ public class SearchQueryEntity {
             columnDefinition = "TEXT"
     )
     private String searchQuery;
-
-    @ElementCollection
+    
+    @ManyToMany
     @CollectionTable(name = "user_entity_result")
     private List<UserEntity> userEntityResult;
 
-    @ElementCollection
+    @ManyToMany
     @CollectionTable(name = "user_meeting_entity_result")
     private List<UserMeetingEntity> userMeetingEntityResult;
 }

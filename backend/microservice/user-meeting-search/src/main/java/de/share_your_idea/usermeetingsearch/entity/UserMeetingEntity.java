@@ -17,7 +17,6 @@ Target of the DDD is an Entity customized to their Domain.
 @Table(name = "meeting_entity")
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @ToString
 @Embeddable
 public class UserMeetingEntity {
@@ -44,4 +43,8 @@ public class UserMeetingEntity {
             columnDefinition = "TEXT"
     )
     private String meetingName;
+
+    public UserMeetingEntity(String meetingName) {
+        this.meetingName = meetingName;
+    }
 }

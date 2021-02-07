@@ -17,7 +17,6 @@ Target of the DDD is an Entity customized to their Domain.
 @Table(name = "user_entity")
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @ToString
 @Embeddable
 public class UserEntity {
@@ -58,4 +57,10 @@ public class UserEntity {
             columnDefinition = "TEXT"
     )
     private String authorizationToken;
+
+    public UserEntity(String username, String userRole, String authorizationToken) {
+        this.username = username;
+        this.userRole = userRole;
+        this.authorizationToken = authorizationToken;
+    }
 }
