@@ -1,9 +1,15 @@
-version: '3.8'
+version: '3.9'
+
+networks:
+  share-your-idea-network:
+    name: share-your-idea
 
 services:
   database-server:
     image: postgres:alpine
     container_name: database-server
+    networks:
+      - share-your-idea-network
     ports:
       - "5432:5432"
     environment:
@@ -17,12 +23,18 @@ services:
   service-discovery:
     image: service-discovery:0.0.1-SNAPSHOT
     container_name: service-discovery
+    networks:
+      - share-your-idea-network
     ports:
       - "8761:8761"
 
   config-server:
     image: config-server:0.0.1-SNAPSHOT
     container_name: config-server
+    networks:
+      - share-your-idea-network
+    ports:
+      - "8888:8888"
     volumes:
       - ./config-repository:/var/config-data
     environment:
@@ -31,12 +43,14 @@ services:
          -Dspring.cloud.config.server.native.searchLocations=/var/config-data
     depends_on:
       - service-discovery
-    ports:
-      - "8888:8888"
 
   gateway-service:
     image: gateway-service:0.0.1-SNAPSHOT
     container_name: gateway-service
+    networks:
+      - share-your-idea-network
+    ports:
+      - "8080:8080"
     environment:
       - JAVA_OPTS=
         -DEUREKA_SERVER=http://service-discovery:8761/eureka
@@ -44,18 +58,22 @@ services:
     depends_on:
       - service-discovery
       - config-server
-    ports:
-      - "8080:8080"
 
   tracing-system:
     image: openzipkin/zipkin-slim
     container_name: tracing-system
+    networks:
+      - share-your-idea-network
     ports:
       - "9411:9411"
 
   user-management-service:
     image: user-management:0.0.1-SNAPSHOT
     container_name: user-management-service
+    networks:
+      - share-your-idea-network
+    ports:
+      - "8081:8081"
 #    links:
 #      - "logstash:logstash"
     environment:
@@ -71,12 +89,14 @@ services:
       - database-server
       - tracing-system
 #      - kibana
-    ports:
-      - "8081:8081"
 
   user-meeting-service:
     image: user-meeting:0.0.1-SNAPSHOT
     container_name: user-meeting-service
+    networks:
+      - share-your-idea-network
+    ports:
+      - "8082:8082"
 #    links:
 #      - "logstash:logstash"
     environment:
@@ -92,12 +112,14 @@ services:
       - database-server
       - tracing-system
 #      - kibana
-    ports:
-      - "8082:8082"
 
   user-meeting-search-service:
     image: user-meeting-search:0.0.1-SNAPSHOT
     container_name: user-meeting-search-service
+    networks:
+      - share-your-idea-network
+    ports:
+      - "8083:8083"
 #    links:
 #      - "logstash:logstash"
     environment:
@@ -113,12 +135,12 @@ services:
       - database-server
       - tracing-system
 #      - kibana
-    ports:
-      - "8083:8083"
 
 #  filebeat:
 #    image: filebeat
 #    container_name: log-data-shipper
+#    networks:
+#      - share-your-idea-network
 #    links:
 #      - "logstash:logstash"
 #    volumes: 
@@ -129,6 +151,8 @@ services:
 #  logstash:
 #    image: logstash
 #    container_name: log-pipeline-tool
+#    networks:
+#      - share-your-idea-network
 #    ports:
 #      - "5044:5044"
 #    volumes:
@@ -141,17 +165,23 @@ services:
 #  elasticsearch:
 #    image: elasticsearch
 #    container_name: log-index-database
+#    networks:
+#      - share-your-idea-network
+#    ports:
+#      - "9200:9200"
+#      - "9300:9300"
 #    environment:
 #      - discovery.type=single-node
 #    volumes:
 #      - ./volumes/elk:/usr/share/elasticsearch/data 
-#    ports:
-#      - "9200:9200"
-#      - "9300:9300"
 
 #  kibana:
 #    image: kibana
 #    container_name: log-visualisation
+#    networks:
+#      - share-your-idea-network
+#    ports:
+#      - "5601:5601"
 #    environment:
 #      SERVER_NAME: kibana.example.org
 #      ELASTICSEARCH_URL: http://elasticsearch:9200
@@ -159,7 +189,5 @@ services:
 #      - "elasticsearch:elasticsearch"
 #    volumes:
 #      - ./volumes/elk:/var/app
-#    ports:
-#      - "5601:5601"
 #    depends_on: 
 #      - elasticsearch
