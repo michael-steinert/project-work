@@ -63,6 +63,10 @@ public class UserMeetingSearchService {
                     .map(userEntity -> new UserEntity(userEntity.getUsername(), userEntity.getUserRole(), userEntity.getAuthorizationToken()))
                     .collect(Collectors.toList());
 
+            /*
+            The retrieved Data is stored in the own Database in case a reconnection to the other Service is not possible.
+            This increases the Resilience of this Service.
+            */
             userEntityRepository.deleteAll();
             userEntityRepository.saveAll(userEntityList);
             List<UserEntity> searchQueryResult = userEntityRepository.findUserEntityByUsernameContaining(searchQuery);
@@ -93,6 +97,10 @@ public class UserMeetingSearchService {
                     .map(userMeetingEntity -> new UserMeetingEntity(userMeetingEntity.getMeetingName()))
                     .collect(Collectors.toList());
 
+            /*
+            The retrieved Data is stored in the own Database in case a reconnection to the other Service is not possible.
+            This increases the Resilience of this Service.
+            */
             userMeetingEntityRepository.deleteAll();
             userMeetingEntityRepository.saveAll(userMeetingEntityList);
             List<UserMeetingEntity> searchQueryResult = userMeetingEntityRepository.findUserMeetingEntityByMeetingNameContaining(searchQuery);
