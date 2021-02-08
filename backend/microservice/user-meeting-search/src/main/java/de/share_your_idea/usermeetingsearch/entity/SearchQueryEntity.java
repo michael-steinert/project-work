@@ -1,5 +1,7 @@
 package de.share_your_idea.usermeetingsearch.entity;
 
+import de.share_your_idea.usermeetingsearch.util.UserEntityStringListConverter;
+import de.share_your_idea.usermeetingsearch.util.UserMeetingEntityStringListConverter;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -15,20 +17,12 @@ import java.util.List;
 public class SearchQueryEntity {
 
     @Id
-    @SequenceGenerator(
-            name = "search_query_sequence",
-            sequenceName = "search_query_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "search_query_sequence"
-    )
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(
-            name = "search_query_id",
+            name = "id",
             updatable = false
     )
-    private Long searchQueryId;
+    private Long id;
 
     @Column(
             name = "search_query",
@@ -36,12 +30,20 @@ public class SearchQueryEntity {
             columnDefinition = "TEXT"
     )
     private String searchQuery;
-    
-    @ManyToMany
-    @CollectionTable(name = "user_entity_result")
+
+    @Column(
+            name = "user_entity_result",
+            nullable = true,
+            columnDefinition = "TEXT"
+    )
+    @Convert(converter = UserEntityStringListConverter.class)
     private List<UserEntity> userEntityResult;
 
-    @ManyToMany
-    @CollectionTable(name = "user_meeting_entity_result")
+    @Column(
+            name = "user_meeting_entity_result",
+            nullable = true,
+            columnDefinition = "TEXT"
+    )
+    @Convert(converter = UserMeetingEntityStringListConverter.class)
     private List<UserMeetingEntity> userMeetingEntityResult;
 }

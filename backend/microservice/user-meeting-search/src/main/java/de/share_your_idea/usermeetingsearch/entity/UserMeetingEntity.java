@@ -18,24 +18,15 @@ Target of the DDD is an Entity customized to their Domain.
 @Data
 @NoArgsConstructor
 @ToString
-@Embeddable
 public class UserMeetingEntity {
 
     @Id
-    @SequenceGenerator(
-            name = "user_meeting_sequence",
-            sequenceName = "user_meeting_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "user_meeting_sequence"
-    )
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(
-            name = "meeting_id",
+            name = "id",
             updatable = false
     )
-    private Long meetingId;
+    private Long id;
 
     @Column(
             name = "meeting_name",

@@ -52,7 +52,8 @@ public class UserMeetingSearchService {
 
         ResponseEntity<UserEntity[]> responseEntity = restTemplate
                 .getForEntity("http://USER-MANAGEMENT-SERVICE/user-management/fetch-all-users",
-                        UserEntity[].class, new ParameterizedTypeReference<UserEntity>() {});
+                        UserEntity[].class, new ParameterizedTypeReference<UserEntity>() {
+                        });
 
         if (responseEntity != null && responseEntity.hasBody()) {
 
@@ -62,6 +63,7 @@ public class UserMeetingSearchService {
                     .map(userEntity -> new UserEntity(userEntity.getUsername(), userEntity.getUserRole(), userEntity.getAuthorizationToken()))
                     .collect(Collectors.toList());
 
+            userEntityRepository.deleteAll();
             userEntityRepository.saveAll(userEntityList);
             List<UserEntity> searchQueryResult = userEntityRepository.findUserEntityByUsernameContaining(searchQuery);
             SearchQueryEntity searchQueryEntity = new SearchQueryEntity();
@@ -81,7 +83,8 @@ public class UserMeetingSearchService {
 
         ResponseEntity<UserMeetingEntity[]> responseEntity = restTemplate
                 .getForEntity("http://USER-MEETING-SERVICE/user-meeting/fetch-all-user-meetings",
-                        UserMeetingEntity[].class, new ParameterizedTypeReference<UserEntity>() {});
+                        UserMeetingEntity[].class, new ParameterizedTypeReference<UserEntity>() {
+                        });
 
         if (responseEntity != null && responseEntity.hasBody()) {
             UserMeetingEntity[] userMeetingEntityArray = responseEntity.getBody();
@@ -90,6 +93,7 @@ public class UserMeetingSearchService {
                     .map(userMeetingEntity -> new UserMeetingEntity(userMeetingEntity.getMeetingName()))
                     .collect(Collectors.toList());
 
+            userMeetingEntityRepository.deleteAll();
             userMeetingEntityRepository.saveAll(userMeetingEntityList);
             List<UserMeetingEntity> searchQueryResult = userMeetingEntityRepository.findUserMeetingEntityByMeetingNameContaining(searchQuery);
             SearchQueryEntity searchQueryEntity = new SearchQueryEntity();
