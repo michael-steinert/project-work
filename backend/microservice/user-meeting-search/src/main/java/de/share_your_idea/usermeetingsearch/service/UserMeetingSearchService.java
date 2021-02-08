@@ -56,9 +56,13 @@ public class UserMeetingSearchService {
                         });
 
         if (responseEntity != null && responseEntity.hasBody()) {
-
+            /*
+            Request Data from another Service.
+            */
             UserEntity[] userEntityArray = responseEntity.getBody();
-
+            /*
+            Check if the Request to the other Service has delivered Data, otherwise an Exception is handled.
+            */
             List<UserEntity> userEntityList = Arrays.stream(userEntityArray)
                     .map(userEntity -> new UserEntity(userEntity.getUsername(), userEntity.getUserRole(), userEntity.getAuthorizationToken()))
                     .collect(Collectors.toList());
@@ -84,12 +88,16 @@ public class UserMeetingSearchService {
 
     public SearchQueryEntity searchUserMeetingEntityBySearchQuery(String searchQuery) throws JsonProcessingException, NotFoundException {
         log.info("UserMeetingSearch-Service: SearchUserMeetingEntityBySearchQuery-Method is called");
-
+        /*
+        Request Data from another Service.
+        */
         ResponseEntity<UserMeetingEntity[]> responseEntity = restTemplate
                 .getForEntity("http://USER-MEETING-SERVICE/user-meeting/fetch-all-user-meetings",
                         UserMeetingEntity[].class, new ParameterizedTypeReference<UserEntity>() {
                         });
-
+        /*
+        Check if the Request to the other Service has delivered Data, otherwise an Exception is handled.
+        */
         if (responseEntity != null && responseEntity.hasBody()) {
             UserMeetingEntity[] userMeetingEntityArray = responseEntity.getBody();
 
