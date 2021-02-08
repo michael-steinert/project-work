@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {makeStyles} from "@material-ui/styles";
+//import {without} from 'lodash';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -7,7 +8,16 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+/*
+removeUser(user) {
+    const users = without(this.state.users, user);
+    this.setState({users: users})
+}
+
+*/
+
 const Search = () => {
+    //this.state = { users:[] };
     const classes = useStyles();
     let userEntity = JSON.parse(localStorage.getItem('userEntity'));
 
@@ -16,6 +26,9 @@ const Search = () => {
             <h1>Search</h1>
             {userEntity &&
             <div>Sie sind angemeldet, daher können Sie diesen Inhalt sehen!
+
+                {/*<UserCardList users = {currentUsers} handleRemoveUser = {this.removeUser.bind(this)}/> */}
+
 
             </div>
             }
