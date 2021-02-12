@@ -1,4 +1,4 @@
-package de.share_your_idea.usermeeting.entity;
+package de.share_your_idea.user_meeting.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;

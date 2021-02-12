@@ -1,7 +1,7 @@
-package de.share_your_idea.usermeeting.security;
+package de.share_your_idea.user_meeting.security;
 
-import de.share_your_idea.usermeeting.entity.UserEntity;
-import de.share_your_idea.usermeeting.service.UserMeetingService;
+import de.share_your_idea.user_meeting.entity.UserEntity;
+import de.share_your_idea.user_meeting.service.UserMeetingService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;

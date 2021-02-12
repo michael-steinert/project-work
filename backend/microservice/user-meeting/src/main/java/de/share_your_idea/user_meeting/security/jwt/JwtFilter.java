@@ -1,7 +1,7 @@
-package de.share_your_idea.usermeeting.security.jwt;
+package de.share_your_idea.user_meeting.security.jwt;
 
-import de.share_your_idea.usermeeting.security.CustomUserDetails;
-import de.share_your_idea.usermeeting.security.CustomUserDetailsService;
+import de.share_your_idea.user_meeting.security.CustomUserDetails;
+import de.share_your_idea.user_meeting.security.CustomUserDetailsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

@@ -1,6 +1,6 @@
-package de.share_your_idea.usermeeting.security;
+package de.share_your_idea.user_meeting.security;
 
-import de.share_your_idea.usermeeting.security.jwt.JwtFilter;
+import de.share_your_idea.user_meeting.security.jwt.JwtFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

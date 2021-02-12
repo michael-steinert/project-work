@@ -1,10 +1,10 @@
-package de.share_your_idea.usermeeting.controller;
+package de.share_your_idea.user_meeting.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.share_your_idea.usermeeting.entity.UserEntity;
-import de.share_your_idea.usermeeting.entity.UserMeetingEntity;
-import de.share_your_idea.usermeeting.service.UserMeetingService;
+import de.share_your_idea.user_meeting.entity.UserEntity;
+import de.share_your_idea.user_meeting.entity.UserMeetingEntity;
+import de.share_your_idea.user_meeting.service.UserMeetingService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

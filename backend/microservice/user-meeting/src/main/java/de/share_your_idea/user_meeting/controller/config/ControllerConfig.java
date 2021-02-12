@@ -1,4 +1,4 @@
-package de.share_your_idea.usermeeting.controller.config;
+package de.share_your_idea.user_meeting.controller.config;
 
 import brave.sampler.Sampler;
 import org.springframework.context.annotation.Bean;

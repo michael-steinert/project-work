@@ -1,9 +1,9 @@
-package de.share_your_idea.usermeeting.service;
+package de.share_your_idea.user_meeting.service;
 
-import de.share_your_idea.usermeeting.entity.UserMeetingEntity;
-import de.share_your_idea.usermeeting.entity.UserEntity;
-import de.share_your_idea.usermeeting.repository.MeetingEntityRepository;
-import de.share_your_idea.usermeeting.repository.UserEntityRepository;
+import de.share_your_idea.user_meeting.entity.UserMeetingEntity;
+import de.share_your_idea.user_meeting.entity.UserEntity;
+import de.share_your_idea.user_meeting.repository.MeetingEntityRepository;
+import de.share_your_idea.user_meeting.repository.UserEntityRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

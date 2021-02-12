@@ -1,6 +1,6 @@
-package de.share_your_idea.usermeeting.repository;
+package de.share_your_idea.user_meeting.repository;
 
-import de.share_your_idea.usermeeting.entity.UserEntity;
+import de.share_your_idea.user_meeting.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
