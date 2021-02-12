@@ -49,6 +49,13 @@ public class UserEntity {
     private String username;
 
     @Column(
+            name = "password",
+            nullable = false,
+            columnDefinition = "TEXT"
+    )
+    private String password;
+
+    @Column(
             name = "user_role",
             nullable = false,
             columnDefinition = "TEXT"
