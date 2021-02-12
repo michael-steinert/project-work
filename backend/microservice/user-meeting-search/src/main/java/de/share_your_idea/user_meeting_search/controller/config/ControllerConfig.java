@@ -1,4 +1,4 @@
-package de.share_your_idea.usermeetingsearch.controller.config;
+package de.share_your_idea.user_meeting_search.controller.config;
 
 import brave.sampler.Sampler;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;

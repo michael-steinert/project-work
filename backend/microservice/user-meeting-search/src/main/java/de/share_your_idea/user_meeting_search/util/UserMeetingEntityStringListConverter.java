@@ -1,11 +1,9 @@
-package de.share_your_idea.usermeetingsearch.util;
+package de.share_your_idea.user_meeting_search.util;
 
-import de.share_your_idea.usermeetingsearch.entity.UserMeetingEntity;
+import de.share_your_idea.user_meeting_search.entity.UserMeetingEntity;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 

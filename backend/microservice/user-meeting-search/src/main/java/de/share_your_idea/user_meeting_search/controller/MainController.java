@@ -1,11 +1,11 @@
-package de.share_your_idea.usermeetingsearch.controller;
+package de.share_your_idea.user_meeting_search.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.share_your_idea.usermeetingsearch.entity.SearchQueryEntity;
-import de.share_your_idea.usermeetingsearch.entity.UserEntity;
-import de.share_your_idea.usermeetingsearch.entity.UserMeetingEntity;
-import de.share_your_idea.usermeetingsearch.service.UserMeetingSearchService;
+import de.share_your_idea.user_meeting_search.entity.SearchQueryEntity;
+import de.share_your_idea.user_meeting_search.entity.UserEntity;
+import de.share_your_idea.user_meeting_search.entity.UserMeetingEntity;
+import de.share_your_idea.user_meeting_search.service.UserMeetingSearchService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

@@ -1,6 +1,5 @@
-package de.share_your_idea.usermeetingsearch.entity;
+package de.share_your_idea.user_meeting_search.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -34,6 +33,13 @@ public class UserEntity {
             columnDefinition = "TEXT"
     )
     private String username;
+
+    @Column(
+            name = "password",
+            nullable = false,
+            columnDefinition = "TEXT"
+    )
+    private String password;
 
     @Column(
             name = "user_role",

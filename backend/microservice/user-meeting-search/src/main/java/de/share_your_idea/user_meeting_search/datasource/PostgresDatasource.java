@@ -1,4 +1,4 @@
-package de.share_your_idea.usermeetingsearch.datasource;
+package de.share_your_idea.user_meeting_search.datasource;
 
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.boot.context.properties.ConfigurationProperties;

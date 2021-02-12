@@ -1,6 +1,6 @@
-package de.share_your_idea.usermeetingsearch.repository;
+package de.share_your_idea.user_meeting_search.repository;
 
-import de.share_your_idea.usermeetingsearch.entity.UserMeetingEntity;
+import de.share_your_idea.user_meeting_search.entity.UserMeetingEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

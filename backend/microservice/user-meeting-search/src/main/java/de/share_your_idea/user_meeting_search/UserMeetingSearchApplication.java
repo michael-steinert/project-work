@@ -1,4 +1,4 @@
-package de.share_your_idea.usermeetingsearch;
+package de.share_your_idea.user_meeting_search;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

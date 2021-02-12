@@ -1,7 +1,7 @@
-package de.share_your_idea.usermeetingsearch.entity;
+package de.share_your_idea.user_meeting_search.entity;
 
-import de.share_your_idea.usermeetingsearch.util.UserEntityStringListConverter;
-import de.share_your_idea.usermeetingsearch.util.UserMeetingEntityStringListConverter;
+import de.share_your_idea.user_meeting_search.util.UserEntityStringListConverter;
+import de.share_your_idea.user_meeting_search.util.UserMeetingEntityStringListConverter;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
