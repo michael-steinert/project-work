@@ -5,9 +5,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.share_your_idea.user_meeting.entity.UserMeetingEntity;
 import de.share_your_idea.user_meeting.entity.UserEntity;
 import de.share_your_idea.user_meeting.service.UserMeetingService;
+import javassist.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -80,5 +82,13 @@ public class UserMeetingController {
         List<UserMeetingEntity> userMeetingEntityList = userMeetingService.findAllMeetings();
         log.info("Meeting-Controller: FetchAllUserMeetings-Method created UserMeetingEntityList : {}", new ObjectMapper().writeValueAsString(userMeetingEntityList));
         return new ResponseEntity<>(userMeetingEntityList, HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/fetch-user-by-username/{username}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<UserEntity> fetchUserByUsername(@PathVariable("username") String username) throws JsonProcessingException, NotFoundException {
+        log.info("Search-Query-Controller: FetchUserByUsername-Method is called");
+        UserEntity userEntity = userMeetingService.findUserByUsername(username);
+        log.info("Search-Query-Controller: FetchUserByUsername-Method created UserEntity : {}", new ObjectMapper().writeValueAsString(userEntity));
+        return new ResponseEntity<>(userEntity, HttpStatus.OK);
     }
 }

@@ -44,7 +44,7 @@ public class UserController {
         log.info("User-Controller: Authentication-Method is called");
         UserEntity foundUserEntity = userService.findByUsernameAndPassword(userEntity.getUsername(), userEntity.getPassword());
         String token = jwtProvider.generateToken(foundUserEntity.getUsername());
-        foundUserEntity.setAuthorization_token(token);
+        foundUserEntity.setAuthorizationToken(token);
         userService.saveUser(foundUserEntity);
         log.info("User-Controller: Authentication-Method created UserEntity : {}", new ObjectMapper().writeValueAsString(foundUserEntity));
         return new ResponseEntity<>(foundUserEntity, HttpStatus.OK);

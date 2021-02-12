@@ -53,14 +53,14 @@ public class UserEntity {
             nullable = false,
             columnDefinition = "TEXT"
     )
-    private String user_role;
+    private String userRole;
 
     @Column(
             name = "authorization_token",
             nullable = true,
             columnDefinition = "TEXT"
     )
-    private String authorization_token;
+    private String authorizationToken;
 
     public UserEntity(String username, String password) {
         this.username = username;

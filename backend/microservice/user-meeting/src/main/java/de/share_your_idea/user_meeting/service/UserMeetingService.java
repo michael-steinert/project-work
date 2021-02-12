@@ -1,12 +1,17 @@
 package de.share_your_idea.user_meeting.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import de.share_your_idea.user_meeting.entity.UserMeetingEntity;
 import de.share_your_idea.user_meeting.entity.UserEntity;
 import de.share_your_idea.user_meeting.repository.MeetingEntityRepository;
 import de.share_your_idea.user_meeting.repository.UserEntityRepository;
+import javassist.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
@@ -15,11 +20,13 @@ import java.util.List;
 public class UserMeetingService {
     private final UserEntityRepository userEntityRepository;
     private final MeetingEntityRepository meetingEntityRepository;
+    private final RestTemplate restTemplate;
 
     @Autowired
-    public UserMeetingService(UserEntityRepository userEntityRepository, MeetingEntityRepository meetingEntityRepository) {
+    public UserMeetingService(UserEntityRepository userEntityRepository, MeetingEntityRepository meetingEntityRepository, RestTemplate restTemplate) {
         this.userEntityRepository = userEntityRepository;
         this.meetingEntityRepository = meetingEntityRepository;
+        this.restTemplate = restTemplate;
     }
 
     public UserMeetingEntity saveMeeting(UserMeetingEntity userMeetingEntity) {
@@ -51,13 +58,22 @@ public class UserMeetingService {
         return userEntityRepository.save(userEntity);
     }
 
-    public UserEntity findUserByUsername(String username) {
-        log.info("User-Meeting-Service: FindUserByUsername-Method is called");
+    public UserEntity findUserByUsername(String username) throws JsonProcessingException, NotFoundException {
+        log.info("User-Meeting-Search-Service: FindUserByUsername-Method is called");
         if (username != null) {
-            UserEntity userEntity = userEntityRepository.findUserEntityByUsername(username);
-            return userEntity;
+            String resourceUrl = "http://USER-MANAGEMENT-SERVICE/user-management/fetch-user-by-username/";
+            ResponseEntity<UserEntity> responseEntity = restTemplate.getForEntity(resourceUrl + username, UserEntity.class);
+
+            if (responseEntity != null && responseEntity.hasBody()) {
+                UserEntity userEntity = responseEntity.getBody();
+                Long result = userEntityRepository.deleteUserEntityByUsername(userEntity.getUsername());
+                log.info("User-Meeting-Search-Service: FindUserByUsername-Method deleted UserEntity with Result : {}", new ObjectMapper().writeValueAsString(result));
+
+                userEntityRepository.save(userEntity);
+                return userEntity;
+            }
         }
-        return null;
+        throw new NotFoundException("UserEntity with Username " + username + " not found.");
     }
 
     public List<UserEntity> findAllUsers() {

@@ -25,7 +25,7 @@ public class UserService {
     public UserEntity saveUser(UserEntity userEntity) {
         log.info("User Service: SaveUser Method is called");
         userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
-        userEntity.setUser_role("ROLE_USER");
+        userEntity.setUserRole("ROLE_USER");
         return userEntityRepository.save(userEntity);
     }
 

@@ -7,6 +7,7 @@ import lombok.ToString;
 import javax.persistence.*;
 
 /*
+The Microservice User-Management is responsible to check the Username_Unique-Constraint.
 Entity contains only the Properties specific to the Domain.
 There is no Property Password and Relation between User and Meeting, because it is not needed in the Domain of User-Meeting-Search.
 Target of the DDD is an Entity customized to their Domain.
