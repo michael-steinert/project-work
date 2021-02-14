@@ -15,9 +15,9 @@ http://localhost:8083/user-meeting-search/
 
 | HTTP-Method | URL | Result |
 | --- | --- | --- |
-| GET | x | x |
-| POST | x | x |
-
+| GET | /search-user/{searchQuery} | Returns all existing Users that match the Search Query |
+| GET | /search-meeting/{searchQuery} | Returns all existing Meetings that match the Search Query |
+| GET | /fetch-all-users | Returns all existing Users |
 ___
 
 ## Einrichtung
@@ -38,5 +38,6 @@ http://localhost:8083/user-meeting-search/
 
 | HTTP-Methode | URL | Ergebnis |
 | --- | --- | --- |
-| GET | x | x |
-| POST | x | x |
+| GET | /search-user/{searchQuery} | Liefert alle Nutzer, die die Suchanfrage erfüllen |
+| GET | /search-meeting/{searchQuery} | Liefert alle Meetings, die die Suchanfrage erfüllen |
+| GET | /fetch-all-users | Liefert alle existierende Nutzer |
