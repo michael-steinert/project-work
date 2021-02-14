@@ -15,10 +15,12 @@ http://localhost:8082/user-meeting/
 
 | HTTP-Method | URL | Result |
 | --- | --- | --- |
-| POST | /register-meeting | Creates a new Meeting |
-| GET | /unregister-meeting/{meetingName} | Deletes a existing Meeting |
-| POST | /register-to-meeting/{meetingName} | Registers a User to a Meeting with MeetingName |
-| POST | /unregister-from-meeting/{meetingName} | Unregisters a User from a Meeting with MeetingName |
+| POST | /register-meeting | Creates a new Meeting and returns the Meeting |
+| GET | /unregister-meeting/{meetingName} | Deletes a existing Meeting and returns Result |
+| POST | /register-to-meeting/{meetingName} | Registers an User to a Meeting with MeetingName and returns the Meeting |
+| POST | /unregister-from-meeting/{meetingName} | Unregisters an User from a Meeting with MeetingName and returns the Meeting |
+| GET | /fetch-all-user-meetings | Returns all existing Meetings |
+| GET | /fetch-user-by-username/{username} | Returns an User with existing Username |
 ___
 
 ## Einrichtung
@@ -39,5 +41,9 @@ http://localhost:8082/user-meeting/
 
 | HTTP-Methode | URL | Ergebnis |
 | --- | --- | --- |
-| GET | x | x |
-| POST | x | x |
+| POST | /register-meeting | Erstellt ein neues Meeting and liefert das Meeting |
+| GET | /unregister-meeting/{meetingName} | Löscht ein existierendes Meeting und liefert das Ergebnis |
+| POST | /register-to-meeting/{meetingName} | Registriert einen Nutzer zu einem Meeting und liefert das Meeting |
+| POST | /unregister-from-meeting/{meetingName} | Unregistriert einen Nutzer zu einem Meeting und liefert das Meeting |
+| GET | /fetch-all-user-meetings | Liefert alle existierenden Meetings |
+| GET | /fetch-user-by-username/{username} | Liefert einen Nutzer mit extierenden Usernamen |
