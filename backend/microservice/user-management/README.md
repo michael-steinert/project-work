@@ -15,10 +15,10 @@ http://localhost:8081/user-management/
 
 | HTTP-Method | URL | Result |
 | --- | --- | --- |
-| GET | /fetch-user-by-username/{username} | Returns a User with the corresponding Username |
 | POST | /register | Registers a new User in the System |
 | POST | /authenticate | Authenticates a existing User in the System and returns an Authentication-Token |
-
+| GET | /fetch-user-by-username/{username} | Returns a User with the corresponding Username |
+| GET | /fetch-all-users | Returns all existing Users |
 ___
 
 ## Einrichtung
@@ -38,6 +38,7 @@ http://localhost:8081/user-management/
 
 | HTTP-Methode | URL | Ergebnis |
 | --- | --- | --- |
-| GET | /fetch-user-by-username/{username} | Liefert einen Nutzer mit dem entsprechenden Usernamen zurück |
 | POST | /register | Registriert einen neuen Nutzer in dem System |
 | POST | /authenticate | Authentifiziert einen existierenden Nutzer in dem System und liefert einen Authentifikations-Token zurück |
+| GET | /fetch-user-by-username/{username} | Liefert einen Nutzer mit dem entsprechenden Usernamen zurück |
+| GET | /fetch-all-users | Liefert alle existierende Nutzer |
