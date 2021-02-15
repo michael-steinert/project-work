@@ -47,7 +47,8 @@ public class UserEntity {
             nullable = false,
             columnDefinition = "TEXT"
     )
-    private String userRole;
+    @Enumerated(EnumType.STRING)
+    private UserRole userRole;
 
     @Column(
             name = "authorization_token",

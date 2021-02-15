@@ -1,6 +1,7 @@
 package de.share_your_idea.user_management.service;
 
 import de.share_your_idea.user_management.entity.UserEntity;
+import de.share_your_idea.user_management.entity.UserRole;
 import de.share_your_idea.user_management.repository.UserEntityRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class UserService {
     public UserEntity saveUser(UserEntity userEntity) {
         log.info("User Service: SaveUser Method is called");
         userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
-        userEntity.setUserRole("ROLE_USER");
+        userEntity.setUserRole(UserRole.ROLE_USER);
         return userEntityRepository.save(userEntity);
     }
 

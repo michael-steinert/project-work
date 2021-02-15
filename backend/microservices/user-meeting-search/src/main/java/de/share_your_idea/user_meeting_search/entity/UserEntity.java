@@ -47,7 +47,8 @@ public class UserEntity {
             nullable = false,
             columnDefinition = "TEXT"
     )
-    private String userRole;
+    @Enumerated(EnumType.STRING)
+    private UserRole userRole;
 
     @Column(
             name = "authorization_token",
@@ -56,7 +57,7 @@ public class UserEntity {
     )
     private String authorizationToken;
 
-    public UserEntity(String username, String userRole, String authorizationToken) {
+    public UserEntity(String username, UserRole userRole, String authorizationToken) {
         this.username = username;
         this.userRole = userRole;
         this.authorizationToken = authorizationToken;
