@@ -1,6 +1,6 @@
 # Project Work
 
-*The Goal of this Project Work is to achieve the academic Degree Master of Science in Computer Science.*
+* The Goal of this Project Work is to achieve the academic Degree Master of Science in Computer Science.*
 
 * The Goal of the Application is to provide a Platform for People to work collaboratively on shared Ideas.
 
@@ -27,22 +27,22 @@ The System consists of fourth [Microservices](backend/microservice), consisting 
 * Each of these [Microservice](backend/microservices) has its own Data Management, which is realized with the help of PostgreSQL.
 
 ## Overview of the Entities
-![Entities Overview](https://user-images.githubusercontent.com/29623199/107936720-3f664d00-6f83-11eb-87f5-424aae438871.png)
+![Entities Overview](https://user-images.githubusercontent.com/29623199/107941873-b6531400-6f8a-11eb-9039-4f07ff85ec37.png)
 
 ## Business Rules
 
 * A User can only join one Meeting, to join another Meeting a Change is required.
 
-* A User can create a Meeting, so he is a Meeting Owner and automatically assigned to the Meeting.
+* A User can create a Meeting, thus he is the Owner of the Meeting and automatically assigned to the Meeting.
 
-* A Meeting Owner can only join their Meeting, to join another Meeting they must close their Meeting.
+* An Owner of a Meeting can only join his Meeting, to join another Meeting he has to close his Meeting.
 
-* Any User can be both a User and a Meeting Owner.
+* Any User can be both User and Owner of a Meeting.
 ___
 
 # Projektarbeit
 
-*Ziel dieser Projektarbeit ist es, den akademischen Grad Master of Science in der Informatik zu erreichen.*
+* Ziel dieser Projektarbeit ist es, den akademischen Grad Master of Science in der Informatik zu erreichen. *
 
 * Ziel der Anwendung ist es eine Plattform für Menschen bereitzustellen, die eine kollaborative Arbeit an gemeinsamen Ideen zu ermöglichen.
 
@@ -69,14 +69,14 @@ Das System besteht aus vier [Microservices](backend/microservice), welche aus ei
 * Jeder dieser [Microservices](backend/microservice) verfügt über eine eigene Datenhaltung, welche mit Hilfe von PostgreSQL realisiert wird.
 
 ## Überblick über der Entitäten
-![Entities Overview](https://user-images.githubusercontent.com/29623199/107936720-3f664d00-6f83-11eb-87f5-424aae438871.png)
+![Entities Overview](https://user-images.githubusercontent.com/29623199/107941873-b6531400-6f8a-11eb-9039-4f07ff85ec37.png)
 
 ## Geschäftsregeln
 
 * Ein Nutzer kann nur einem Meeting beitreten, um einen anderen Meeting beizutreten, ist ein Wechsel erforderlich.
 
-* Ein Nutzer kann ein Meeting erstellen, somit ist er Meetingbesitzer und automatisch dem Meeting zugeordnet.
+* Ein Nutzer kann ein Meeting erstellen, somit ist er Besitzer des Meetings und automatisch dem Meeting zugeordnet.
 
-* Ein Meetinbesitzer kann nur seinem Meeting beitreten, um einen anderen Meeting beizutreten, muss er sein Meeting schließen.
+* Ein Besitzer eines Meetings kann nur seinem Meeting beitreten, um einen anderen Meeting beizutreten, muss er sein Meeting schließen.
 
-* Jeder Nutzer kann sowohl Nutzer als auch Meetingbesitzer sein.
+* Jeder Nutzer kann sowohl Nutzer als auch Besitzer eiens Meetings sein.
