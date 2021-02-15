@@ -17,12 +17,12 @@ import java.util.List;
 public class SearchQueryEntity {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(
-            name = "id",
+            name = "search_query_id",
             updatable = false
     )
-    private Long id;
+    private Long searchQueryId;
 
     @Column(
             name = "search_query",

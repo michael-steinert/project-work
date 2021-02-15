@@ -22,15 +22,7 @@ import java.util.List;
 public class UserMeetingEntity {
 
     @Id
-    @SequenceGenerator(
-            name = "user_meeting_sequence",
-            sequenceName = "user_meeting_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "user_meeting_sequence"
-    )
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(
             name = "meeting_id",
             updatable = false
@@ -43,6 +35,13 @@ public class UserMeetingEntity {
             columnDefinition = "TEXT"
     )
     private String meetingName;
+
+    @Column(
+            name = "communication_link",
+            nullable = false,
+            columnDefinition = "TEXT"
+    )
+    private String communicationLink;
 
     @JsonIgnore
     @OneToMany(

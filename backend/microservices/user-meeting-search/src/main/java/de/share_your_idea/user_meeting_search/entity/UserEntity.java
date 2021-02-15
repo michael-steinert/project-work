@@ -9,7 +9,7 @@ import javax.persistence.*;
 /*
 The Microservice User-Management is responsible to check the Username_Unique-Constraint.
 Entity contains only the Properties specific to the Domain.
-There is no Property Password and Relation between User and Meeting, because it is not needed in the Domain of User-Meeting-Search.
+There is no Relation between User and Meeting, because it is not needed in the Domain of User-Meeting-Search.
 Target of the DDD is an Entity customized to their Domain.
 */
 
@@ -21,12 +21,12 @@ Target of the DDD is an Entity customized to their Domain.
 public class UserEntity {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(
-            name = "id",
+            name = "user_id",
             updatable = false
     )
-    private Long id;
+    private Long userId;
 
     @Column(
             name = "username",

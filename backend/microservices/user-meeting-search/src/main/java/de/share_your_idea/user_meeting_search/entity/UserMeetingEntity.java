@@ -20,12 +20,12 @@ Target of the DDD is an Entity customized to their Domain.
 public class UserMeetingEntity {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(
-            name = "id",
+            name = "meeting_id",
             updatable = false
     )
-    private Long id;
+    private Long meetingId;
 
     @Column(
             name = "meeting_name",

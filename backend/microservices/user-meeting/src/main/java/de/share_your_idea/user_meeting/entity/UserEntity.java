@@ -9,32 +9,19 @@ import javax.persistence.*;
 
 /*
 Entity contains only the Properties specific to the Domain.
-There is no Property Password, because it is not needed in the Domain of User-Meeting.
-Target of the DDD is an Entity customized to their Domain.
+There is no Constraint for unique Username, because it is not needed in the Domain of User-Meeting.
+The Target of the DDD is an Entity customized to their Domain.
 */
 
 @Entity(name = "UserEntity")
-@Table(
-        name = "user_entity",
-        uniqueConstraints = {
-                @UniqueConstraint(name = "username_unique", columnNames = "username")
-        }
-)
+@Table(name = "user_entity")
 @Data
 @NoArgsConstructor
 @ToString
 public class UserEntity {
 
     @Id
-    @SequenceGenerator(
-            name = "user_sequence",
-            sequenceName = "user_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "user_sequence"
-    )
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(
             name = "user_id",
             updatable = false
