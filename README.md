@@ -28,6 +28,16 @@ The System consists of fourth [Microservices](backend/microservice), consisting 
 
 ## Overview of the Entities
 ![Entities Overview](https://user-images.githubusercontent.com/29623199/107936720-3f664d00-6f83-11eb-87f5-424aae438871.png)
+
+## Business Rules
+
+* A User can only join one Meeting, to join another Meeting a Change is required.
+
+* A User can create a Meeting, so he is a Meeting Owner and automatically assigned to the Meeting.
+
+* A Meeting Owner can only join their Meeting, to join another Meeting they must close their Meeting.
+
+* Any User can be both a User and a Meeting Owner.
 ___
 
 # Projektarbeit
@@ -60,3 +70,13 @@ Das System besteht aus vier [Microservices](backend/microservice), welche aus ei
 
 ## Überblick über der Entitäten
 ![Entities Overview](https://user-images.githubusercontent.com/29623199/107936720-3f664d00-6f83-11eb-87f5-424aae438871.png)
+
+## Geschäftsregeln
+
+* Ein Nutzer kann nur einem Meeting beitreten, um einen anderen Meeting beizutreten, ist ein Wechsel erforderlich.
+
+* Ein Nutzer kann ein Meeting erstellen, somit ist er Meetingbesitzer und automatisch dem Meeting zugeordnet.
+
+* Ein Meetinbesitzer kann nur seinem Meeting beitreten, um einen anderen Meeting beizutreten, muss er sein Meeting schließen.
+
+* Jeder Nutzer kann sowohl Nutzer als auch Meetingbesitzer sein.
