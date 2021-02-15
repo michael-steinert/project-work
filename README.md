@@ -27,7 +27,7 @@ The System consists of fourth [Microservices](backend/microservice), consisting 
 * Each of these [Microservice](backend/microservices) has its own Data Management, which is realized with the help of PostgreSQL.
 
 ## Overview of the Entities
-![Entities Overview](https://user-images.githubusercontent.com/29623199/103104524-159a4500-4628-11eb-8a93-7dbbda112b97.png)
+![Entities Overview](https://user-images.githubusercontent.com/29623199/107933028-8736a580-6f7e-11eb-958b-abd944b1fe3f.png)
 ___
 
 # Projektarbeit
@@ -59,4 +59,4 @@ Das System besteht aus vier [Microservices](backend/microservice), welche aus ei
 * Jeder dieser [Microservices](backend/microservice) verfügt über eine eigene Datenhaltung, welche mit Hilfe von PostgreSQL realisiert wird.
 
 ## Überblick über der Entitäten
-![Entities Overview](https://user-images.githubusercontent.com/29623199/103104524-159a4500-4628-11eb-8a93-7dbbda112b97.png)
+![Entities Overview](https://user-images.githubusercontent.com/29623199/107933028-8736a580-6f7e-11eb-958b-abd944b1fe3f.png)
