@@ -16,10 +16,12 @@
                     <table border="1">
                         <tr>
                             <th>MeetingName</th>
+                            <th>CommunicationLink</th>
                             <th>Username</th>
                         </tr>
                         <tr th:each="userMeetingEntity : ${userMeetingEntityList}">
                             <td th:utext="${userMeetingEntity.meetingName}">No Value for MeetingName</td>
+                            <td th:utext="${userMeetingEntity.communicationLink}">No Value for CommunicationLink</td>
                             <td th:each="userEntity : ${userMeetingEntity.userEntityList}">
                                 <div th:utext="${userEntity.username}">No Value for Username</div>
                             </td>
