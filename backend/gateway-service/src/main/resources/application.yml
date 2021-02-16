@@ -15,24 +15,33 @@ spring:
               - PUT
               - DELETE
       routes:
-        - id: user_registration_route
-          uri: lb://USER-REGISTRATION-SERVICE
-          predicates:
-            - Path=/user-registration/**
-          filters:
-            - name: CircuitBreaker
-              args:
-                name: USER-REGISTRATION-SERVICE-FALLBACK
-                fallbackuri: forward:/userRegistrationServiceFallBack
         - id: user_management_route
           uri: lb://USER-MANAGEMENT-SERVICE
           predicates:
-            - Path=/user-manegement/**
+            - Path=/user-management/**
           filters:
             - name: CircuitBreaker
               args:
                 name: USER-MANAGEMENT-SERVICE-FALLBACK
                 fallbackuri: forward:/userManagementServiceFallBack
+        - id: user_meeting_route
+          uri: lb://USER-MEETING-SERVICE
+          predicates:
+            - Path=/user-meeting/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: USER-MEETING-SERVICE-FALLBACK
+                fallbackuri: forward:/userMeetingServiceFallBack
+        - id: user_meeting_search_route
+          uri: lb://USER-MEETING-SEARCH-SERVICE
+          predicates:
+            - Path=/user-meeting-search/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: USER-MEETING-SEARCH-SERVICE-FALLBACK
+                fallbackuri: forward:/userMeetingSearchServiceFallBack
 
 server:
   port: 8080

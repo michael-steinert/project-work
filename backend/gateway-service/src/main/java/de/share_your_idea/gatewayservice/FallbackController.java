@@ -7,14 +7,19 @@ import reactor.core.publisher.Mono;
 @RestController
 public class FallbackController {
 
-    @RequestMapping("/userRegistrationServiceFallBack")
-    public Mono<String> userRegistrationServiceFallBackMethod() {
-        return Mono.just("User Registration Service is taking longer than expected to respond or is down.");
-    }
-
     @RequestMapping("/userManagementServiceFallBack")
     public Mono<String> userManagementServiceFallBackMethod() {
-        return Mono.just("User Management Service is taking longer than expected to respond or is down.");
+        return Mono.just("UserManagement-Service is taking longer than expected to respond or is down.");
+    }
+
+    @RequestMapping("/userMeetingServiceFallBack")
+    public Mono<String> userMeetingServiceFallBackMethod() {
+        return Mono.just("UserMeeting-Service is taking longer than expected to respond or is down.");
+    }
+
+    @RequestMapping("/userMeetingSearchServiceFallBack")
+    public Mono<String> userMeetingSearchServiceFallBackMethod() {
+        return Mono.just("UserMeetingSearch-Service is taking longer than expected to respond or is down.");
     }
 }
 
