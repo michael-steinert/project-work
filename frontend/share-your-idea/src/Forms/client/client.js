@@ -1,20 +1,20 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'http://localhost:8080/user-management',
+    baseURL: 'http://localhost:8080',
     headers: {
         'Content-Type': 'application/json'
     }
 });
 
 export const registerUser = async (userEntity) => {
-    return await api.post('/register', userEntity).then(response => response.data).catch((error) => {
+    return await api.post('/user-management/register', userEntity).then(response => response.data).catch((error) => {
         console.log("Error:", error);
     });
 }
 
 export const authenticateUser = async (userEntity) => {
-    return await api.post('/authenticate', userEntity).then(response => response.data).catch((error) => {
+    return await api.post('/user-management/authenticate', userEntity).then(response => response.data).catch((error) => {
         console.log("Error:", error);
     });
 }
@@ -28,3 +28,9 @@ export const searchUser = async (userEntity) => {
     });
 }
  */
+
+export const fetchAllMeetings = async () => {
+    return await api.get('/user-meeting/fetch-all-user-meetings').then(response => response.data).catch((error) => {
+        console.log("Error:", error);
+    });
+}
