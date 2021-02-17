@@ -5,6 +5,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import {registerUserToUserMeeting} from "../../Forms/client/client";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -12,8 +13,25 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+
+
 const UserMeetingCard = (props) => {
     const classes = useStyles();
+    const [userMeetingSubmitted, setUserMeetingSubmitted] = useState(false);
+
+    function handleSubmit() {
+        console.log('Setting User to the following UserMeeting');
+        console.log(props.userMeeting);
+
+        setUserMeetingSubmitted(true);
+
+        let userEntity = JSON.parse(localStorage.getItem('userEntity'));
+
+        registerUserToUserMeeting(props.userMeeting.meetingName, userEntity).then(data => {
+            console.log('The following User was set to the UserMeeting:');
+            console.log(data);
+        });
+    }
 
     return (
         <Card className={classes.root}>
@@ -26,7 +44,7 @@ const UserMeetingCard = (props) => {
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button size="small">Teilnehmen</Button>
+                <Button variant="outlined" color="inherit" onClick={handleSubmit} disabled={userMeetingSubmitted}>Teilnehmen</Button>
             </CardActions>
         </Card>
     );
