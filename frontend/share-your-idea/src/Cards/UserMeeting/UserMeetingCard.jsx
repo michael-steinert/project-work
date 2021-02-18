@@ -5,7 +5,9 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import {registerUserToUserMeeting} from "../../Forms/client/client";
+import {registerUserToUserMeeting, unregisterUserToUserMeeting} from "../../Forms/client/client";
+import {useDispatch, useSelector} from "react-redux";
+import {join, leave} from "../../state/joinUserMeeting";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -13,13 +15,13 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-
-
 const UserMeetingCard = (props) => {
     const classes = useStyles();
     const [userMeetingSubmitted, setUserMeetingSubmitted] = useState(false);
+    const {joinUserMeeting} = useSelector((state) => state.joinUserMeeting);
+    const dispatch = useDispatch();
 
-    function handleSubmit() {
+    function handleJoinUserMeeting() {
         console.log('Setting User to the following UserMeeting');
         console.log(props.userMeeting);
 
@@ -31,6 +33,24 @@ const UserMeetingCard = (props) => {
             console.log('The following User was set to the UserMeeting:');
             console.log(data);
         });
+
+        dispatch(join(props.userMeeting.meetingName));
+    }
+
+    function handleLeaveUserMeeting() {
+        console.log('Unsetting User to the following UserMeeting');
+        console.log(props.userMeeting);
+
+        setUserMeetingSubmitted(false);
+
+        let userEntity = JSON.parse(localStorage.getItem('userEntity'));
+
+        unregisterUserToUserMeeting(props.userMeeting.meetingName, userEntity).then(data => {
+            console.log('The following User was unset to the UserMeeting:');
+            console.log(data);
+        });
+
+        dispatch(leave());
     }
 
     return (
@@ -44,7 +64,8 @@ const UserMeetingCard = (props) => {
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button variant="outlined" color="inherit" onClick={handleSubmit} disabled={userMeetingSubmitted}>Teilnehmen</Button>
+                {!userMeetingSubmitted && <Button variant="outlined" color="inherit" onClick={handleJoinUserMeeting} disabled={userMeetingSubmitted}>Teilnehmen</Button>}
+                {userMeetingSubmitted && <Button variant="outlined" color="inherit" onClick={handleLeaveUserMeeting} disabled={userMeetingSubmitted}>Verlassen</Button>}
             </CardActions>
         </Card>
     );

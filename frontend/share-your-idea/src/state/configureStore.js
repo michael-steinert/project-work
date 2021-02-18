@@ -1,8 +1,10 @@
 import {configureStore, combineReducers} from "@reduxjs/toolkit";
 import authenticationSlice from "./authenticationSlice";
+import userMeetingSlice from "./userMeetingSlice";
 
 const reducers = combineReducers({
-    authentication: authenticationSlice
+    authentication: authenticationSlice,
+    joinUserMeeting: userMeetingSlice
 });
 
 const store = configureStore({
