@@ -5,9 +5,9 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import {registerUserToUserMeeting, unregisterUserToUserMeeting} from "../../Forms/client/client";
-import {useDispatch, useSelector} from "react-redux";
-import {join, leave} from "../../state/joinUserMeeting";
+import {registerUserToUserMeeting, unregisterUserToUserMeeting} from '../../Forms/client/client';
+import {useDispatch, useSelector} from 'react-redux';
+import {join, leave} from "../../state/userMeetingSlice";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -18,7 +18,8 @@ const useStyles = makeStyles((theme) => ({
 const UserMeetingCard = (props) => {
     const classes = useStyles();
     const [userMeetingSubmitted, setUserMeetingSubmitted] = useState(false);
-    const {joinUserMeeting} = useSelector((state) => state.joinUserMeeting);
+
+    const {joinedUserMeeting, userMeetingName} = useSelector((state) => state.joinUserMeeting);
     const dispatch = useDispatch();
 
     function handleJoinUserMeeting() {
@@ -65,7 +66,7 @@ const UserMeetingCard = (props) => {
             </CardContent>
             <CardActions>
                 {!userMeetingSubmitted && <Button variant="outlined" color="inherit" onClick={handleJoinUserMeeting} disabled={userMeetingSubmitted}>Teilnehmen</Button>}
-                {userMeetingSubmitted && <Button variant="outlined" color="inherit" onClick={handleLeaveUserMeeting} disabled={userMeetingSubmitted}>Verlassen</Button>}
+                {userMeetingSubmitted && <Button variant="outlined" color="inherit" onClick={handleLeaveUserMeeting}>Verlassen</Button>}
             </CardActions>
         </Card>
     );

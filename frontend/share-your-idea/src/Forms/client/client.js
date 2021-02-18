@@ -37,6 +37,6 @@ export const registerUserToUserMeeting = async (meetingName, userEntity) => {
 }
 
 export const unregisterUserToUserMeeting = async (meetingName, userEntity) => {
-    return await api.post('/user-meeting/unregister-to-meeting/' + meetingName, userEntity)
+    return await api.post('/user-meeting/unregister-from-meeting/' + meetingName, userEntity)
         .then(response => response.data).catch((error) => console.log("Error:", error));
 }

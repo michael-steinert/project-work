@@ -37,7 +37,7 @@ const LoginForm = (props) => {
             console.log(`Setting Token in Promise: Username: ${username}, Password: ${password}, Token: ${data.authorizationToken}`);
         });
 
-        if (token !== undefined) {
+        if (token !== '') {
             console.log(`Token is present: Username: ${username}, Password: ${password}, Token: ${token}`);
             dispatch(success());
         } else {

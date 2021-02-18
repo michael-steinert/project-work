@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 
 const HeaderBar = () => {
     const classes = useStyles();
-    const [auth, setAuth] = useState(true);
+    const [authentication, setAuthentication] = useState(false);
     const [modalIsOpen, setModalIsOpen] = useState(false);
     let userEntity = JSON.parse(localStorage.getItem('userEntity'));
 
