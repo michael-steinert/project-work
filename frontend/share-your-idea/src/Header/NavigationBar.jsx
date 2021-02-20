@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {makeStyles} from '@material-ui/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 
 
@@ -11,13 +11,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const NavigationBar = () => {
-    const classes = useStyles()
+    const classes = useStyles();
     return (
-        <Breadcrumbs aria-label="breadcrumb">
-            <Link to="/">Share your Idea</Link>
-            <Link to="/meeting/">Meeting</Link>
-            <Link to="/search/">Search</Link>
-        </Breadcrumbs>
+        <div className={classes.root}>
+            <Breadcrumbs aria-label="breadcrumb">
+                <Link to="/">Share your Idea</Link>
+                <Link to="/meeting/">Meeting</Link>
+                <Link to="/search/">Search</Link>
+            </Breadcrumbs>
+        </div>
     );
 }
 

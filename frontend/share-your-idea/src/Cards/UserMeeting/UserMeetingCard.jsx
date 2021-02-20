@@ -48,12 +48,8 @@ const UserMeetingCard = (props) => {
     return (
         <Card>
             <CardContent>
-                <Typography variant="h5" component="h2">
-                    {props.userMeeting.meetingName}
-                </Typography>
-                <Typography variant="body2" component="p">
-                    {props.userMeeting.communicationLink}
-                </Typography>
+                <Typography variant="h5" component="h2">{props.userMeeting.meetingName}</Typography>
+                <Typography variant="body2" component="p">{props.userMeeting.communicationLink}</Typography>
             </CardContent>
             <CardActions>
                 {!userMeetingSubmitted && <Button variant="outlined" color="inherit" onClick={handleJoinUserMeeting} disabled={joinedUserMeeting}>Teilnehmen</Button>}

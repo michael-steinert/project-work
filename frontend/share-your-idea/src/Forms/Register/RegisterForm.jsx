@@ -1,5 +1,5 @@
 import React from 'react';
-import {registerUser} from "../client/client";
+import {registerUser} from '../client/client';
 import Button from '@material-ui/core/Button';
 
 const emptyForm = {

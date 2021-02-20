@@ -2,8 +2,9 @@ import React, {useState} from 'react';
 import {authenticateUser} from "../client/client";
 import Button from '@material-ui/core/Button';
 import {useDispatch, useSelector} from "react-redux";
-import {success, fail} from "../../state/authenticationSlice";
-import {makeStyles} from "@material-ui/styles";
+import {success, fail} from '../../state/authenticationSlice';
+import {makeStyles} from '@material-ui/styles';
+import {Typography} from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -62,7 +63,7 @@ const LoginForm = (props) => {
         <div className={classes.root}>
             {formSubmitted &&
             <div>
-                <p>Anmeldung erfolgreich versandt!</p>
+                <Typography variant="subtitle1">Anmeldung erfolgreich versandt!</Typography>
                 <Button variant="outlined" color="inherit" onClick={handleReset}>Anmeldung schließen</Button>
             </div>
             }

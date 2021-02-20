@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
-import {makeStyles} from "@material-ui/styles";
+import {makeStyles} from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -11,7 +12,7 @@ const Homepage = () => {
     const classes = useStyles();
     return (
         <div className={classes.root}>
-            <h1>Homepage</h1>
+            <Typography variant="body2">Homepage</Typography>
         </div>
     );
 }

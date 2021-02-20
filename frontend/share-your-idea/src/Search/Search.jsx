@@ -1,4 +1,4 @@
-import React, {useState, useEffect } from 'react';
+import React, {useState} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import {searchUserWithSearchQuery} from '../Forms/client/client';
 import {useSelector} from 'react-redux';
@@ -6,8 +6,8 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
-import UserMeetingCardList from "../Cards/UserMeeting/UserMeetingCardList";
-import UserCardList from "../Cards/User/UserCardList";
+import UserMeetingCardList from '../Cards/UserMeeting/UserMeetingCardList';
+import UserCardList from '../Cards/User/UserCardList';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -57,9 +57,9 @@ const Search = () => {
             <Grid container spacing={3}>
                 <Grid item xs={12}>
                     <Paper className={classes.paper}>
-                        <h1>Search</h1>
-                        {authentication && <h4>Sie sind angemeldet, daher können Sie diesen Inhalt sehen!</h4>}
-                        {!authentication && <h4>Sie sind nicht angemeldet, daher können Sie keinen Inhalt sehen!</h4>}
+                        <Typography variant="body1">Search</Typography>
+                        {authentication && <Typography variant="body2">Sie sind angemeldet, daher können Sie diesen Inhalt sehen!</Typography>}
+                        {!authentication && <Typography variant="body2">Sie sind nicht angemeldet, daher können Sie keinen Inhalt sehen!</Typography>}
                     </Paper>
                 </Grid>
                 <Grid item xs={6}>
