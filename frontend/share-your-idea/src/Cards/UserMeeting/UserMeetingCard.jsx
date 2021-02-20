@@ -65,8 +65,8 @@ const UserMeetingCard = (props) => {
                 </Typography>
             </CardContent>
             <CardActions>
-                {!userMeetingSubmitted && <Button variant="outlined" color="inherit" onClick={handleJoinUserMeeting} disabled={userMeetingSubmitted}>Teilnehmen</Button>}
-                {userMeetingSubmitted && <Button variant="outlined" color="inherit" onClick={handleLeaveUserMeeting}>Verlassen</Button>}
+                {!userMeetingSubmitted && <Button variant="outlined" color="inherit" onClick={handleJoinUserMeeting} disabled={joinedUserMeeting}>Teilnehmen</Button>}
+                {userMeetingSubmitted || (props.userMeeting.meetingName === userMeetingName) && <Button variant="outlined" color="inherit" onClick={handleLeaveUserMeeting}>Verlassen</Button>}
             </CardActions>
         </Card>
     );

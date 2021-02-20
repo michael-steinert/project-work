@@ -42,7 +42,7 @@ const HeaderBar = () => {
                         <p>Bitte registrieren Sie sich an, um die Plattform zu nutzen!</p>
                         <RegisterForm setModalIsOpen={setModalIsOpen}/>
                         <br/>
-                        <Button variant="outlined" color="inherit" onClick={() => setModalIsOpen(false)}>Anmeldung-/Registrierung schließen</Button>
+                        <Button variant="outlined" color="inherit" onClick={() => setModalIsOpen(false)}>Anmeldung-/Registrierung abschließen</Button>
                     </Modal>
                     {userEntity && <Button variant="outlined" color="inherit" onClick={handleLogout}>Abmelden</Button>}
                 </Toolbar>

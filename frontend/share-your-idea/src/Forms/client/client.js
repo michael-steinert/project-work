@@ -26,6 +26,11 @@ export const searchUser = async (userEntity) => {
 }
  */
 
+export const registerUserMeeting = async (userMeetingEntity) => {
+    return await api.post('/user-meeting/register-meeting', userMeetingEntity)
+        .then(response => response.data).catch((error) => console.log("Error:", error));
+}
+
 export const fetchAllMeetings = async () => {
     return await api.get('/user-meeting/fetch-all-user-meetings')
         .then(response => response.data).catch((error) => console.log("Error:", error));
