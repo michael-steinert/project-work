@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 import Modal from 'react-modal';
 import LoginForm from '../Forms/Login/LoginForm';
 import RegisterForm from '../Forms/Register/RegisterForm';
+import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -12,6 +13,11 @@ const useStyles = makeStyles((theme) => ({
     },
     typographyStyles: {
         flex: 1
+    },
+    button: {
+        padding: theme.spacing(2),
+        justifyContent: 'center',
+        color: theme.palette.text.secondary,
     }
 }));
 
@@ -34,15 +40,13 @@ const HeaderBar = () => {
                     {userEntity && <Typography className={classes.typographyStyles}>Sie sind angemeldet als {userEntity.username}</Typography>}
                     {!userEntity && <Button variant="outlined" color="inherit" onClick={() => setModalIsOpen(true)}>Anmelden</Button>}
                     <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)} ariaHideApp={false}>
-                        <Typography variant="body2">Anmeldung</Typography>
-                        <Typography variant="subtitle1">Bitte melden Sie sich an, um die Plattform zu nutzen!</Typography>
                         <LoginForm setModalIsOpen={setModalIsOpen}/>
                         <br/>
-                        <Typography variant="body2">Registrierung</Typography>
-                        <Typography variant="subtitle1">Bitte registrieren Sie sich an, um die Plattform zu nutzen!</Typography>
                         <RegisterForm setModalIsOpen={setModalIsOpen}/>
                         <br/>
-                        <Button variant="outlined" color="inherit" onClick={() => setModalIsOpen(false)}>Anmeldung-/Registrierung abschließen</Button>
+                        <Grid container className={classes.button} >
+                            <Button variant="outlined" color="inherit" onClick={() => setModalIsOpen(false)}>Anmeldung-/Registrierung abschließen</Button>
+                        </Grid>
                     </Modal>
                     {userEntity && <Button variant="outlined" color="inherit" onClick={handleLogout}>Abmelden</Button>}
                 </Toolbar>

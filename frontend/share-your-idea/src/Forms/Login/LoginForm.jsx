@@ -1,14 +1,21 @@
 import React, {useState} from 'react';
-import {authenticateUser} from "../client/client";
+import {authenticateUser} from '../client/client';
 import Button from '@material-ui/core/Button';
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from 'react-redux';
 import {success, fail} from '../../state/authenticationSlice';
-import {makeStyles} from '@material-ui/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import {Typography} from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        margin: 5,
+        flexGrow: 1,
+    },
+    paper: {
+        padding: theme.spacing(2),
+        textAlign: 'center',
+        color: theme.palette.text.secondary,
     }
 }));
 
@@ -23,7 +30,7 @@ const LoginForm = (props) => {
     const dispatch = useDispatch();
 
     function handleSubmit() {
-        console.log(`Sending Login to User-Registration API: Username: ${username}, Password: ${password}`);
+        console.log(`Sending Login to User-Authentication API: Username: ${username}, Password: ${password}`);
 
         setFormSubmitted(true);
 
@@ -61,27 +68,35 @@ const LoginForm = (props) => {
 
     return (
         <div className={classes.root}>
-            {formSubmitted &&
-            <div>
-                <Typography variant="subtitle1">Anmeldung erfolgreich versandt!</Typography>
-                <Button variant="outlined" color="inherit" onClick={handleReset}>Anmeldung schließen</Button>
-            </div>
-            }
-            {!formSubmitted &&
-            <div>
-                <form onSubmit={handleSubmit}>
-                    <label htmlFor='username'>Nutzername:</label>
-                    <br/>
-                    <input id='loginUsername' name='username' type='text' value={username} onChange={handleChangeUsername}/>
-                    <br/>
-                    <label htmlFor='password'>Kennwort: </label>
-                    <br/>
-                    <input id='loginPassword' name='password' type='password' value={password} onChange={handleChangePassword}/>
-                    <br/>
-                    <Button variant="outlined" color="inherit" onClick={handleSubmit}>Anmelden</Button>
-                </form>
-            </div>
-            }
+            <Grid container spacing={3}>
+                <Grid item xs={12}>
+                    <Paper className={classes.paper}>
+                        <Typography variant="body2">Anmeldung</Typography>
+                        <Typography variant="subtitle1">Bitte melden Sie sich an, um die Plattform zu nutzen!</Typography>
+                        {formSubmitted &&
+                        <div>
+                            <Typography variant="subtitle1">Anmeldung erfolgreich versandt!</Typography>
+                            <Button variant="outlined" color="inherit" onClick={handleReset}>Anmeldung schließen</Button>
+                        </div>
+                        }
+                        {!formSubmitted &&
+                        <div>
+                            <form onSubmit={handleSubmit}>
+                                <label htmlFor='username'>Nutzername:</label>
+                                <br/>
+                                <input id='loginUsername' name='username' type='text' value={username} onChange={handleChangeUsername}/>
+                                <br/>
+                                <label htmlFor='password'>Kennwort: </label>
+                                <br/>
+                                <input id='loginPassword' name='password' type='password' value={password} onChange={handleChangePassword}/>
+                                <br/>
+                                <Button variant="outlined" color="inherit" onClick={handleSubmit}>Anmelden</Button>
+                            </form>
+                        </div>
+                        }
+                    </Paper>
+                </Grid>
+            </Grid>
         </div>
     );
 }
