@@ -1,33 +1,10 @@
-import React, {useState} from 'react';
-import {makeStyles} from "@material-ui/styles";
+import React from 'react';
+import UserCard from "./UserCard";
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        margin: 5,
-    }
-}));
-
-/*
-onRemoveUser(user) {
-    this.props.handleRemoveUser(user)
-
-}
-
-*/
-
-const UserCardList = () => {
-    //this.state = { users:[] };
-    const classes = useStyles();
-
+const UserCardList = (props) => {
     return (
-        <div className={classes.root}>
-            {/*
-            const cards = this.props.users.map((user, index) => {
-            return <UserCard key = {index} user = {user} onRemoveUser = {this.onRemoveUser.bind(this)} currentUser = {user} />
-            });
-
-            */}
-
+        <div>
+            {props.userList.length > 0 && props.userList.map((user, index) => <UserCard key={index} user={user}/>)}
         </div>
     );
 }

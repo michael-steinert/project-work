@@ -1,32 +1,21 @@
 import React, {useState} from 'react';
-import {makeStyles} from "@material-ui/styles";
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        margin: 5,
-    }
-}));
 
-/*
-onRemoveUser() {
-    this.props.onRemoveUser(this.props.currentUser);
-}
-
-*/
-
-const UserCard = () => {
-    //this.state = { users:[] };
-    const classes = useStyles();
-
+const UserCard = (props) => {
     return (
-        <div className={classes.root}>
-            {/*
-            <div className="card">
-                <Button onClick = {this.onRemoveUser.this(bind)}>Delete</Button>
-            </div>
-            */}
-
-        </div>
+        <Card>
+            <CardContent>
+                <Typography variant="h5" component="h2">
+                    {props.user.username}
+                </Typography>
+                <Typography variant="body2" component="p">
+                    {props.user.userRole}
+                </Typography>
+            </CardContent>
+        </Card>
     );
 }
 

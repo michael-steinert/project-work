@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import {makeStyles} from "@material-ui/styles";
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -9,16 +8,8 @@ import {registerUserToUserMeeting, unregisterUserToUserMeeting} from '../../Form
 import {useDispatch, useSelector} from 'react-redux';
 import {join, leave} from "../../state/userMeetingSlice";
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        margin: 5,
-    }
-}));
-
 const UserMeetingCard = (props) => {
-    const classes = useStyles();
     const [userMeetingSubmitted, setUserMeetingSubmitted] = useState(false);
-
     const {joinedUserMeeting, userMeetingName} = useSelector((state) => state.joinUserMeeting);
     const dispatch = useDispatch();
 
@@ -55,7 +46,7 @@ const UserMeetingCard = (props) => {
     }
 
     return (
-        <Card className={classes.root}>
+        <Card>
             <CardContent>
                 <Typography variant="h5" component="h2">
                     {props.userMeeting.meetingName}

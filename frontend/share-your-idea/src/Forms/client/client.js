@@ -7,6 +7,7 @@ const api = axios.create({
     }
 });
 
+/* Queries for Microservice UserManagement */
 export const registerUser = async (userEntity) => {
     return await api.post('/user-management/register', userEntity)
         .then(response => response.data).catch((error) => console.log("Error:", error));
@@ -26,6 +27,7 @@ export const searchUser = async (userEntity) => {
 }
  */
 
+/* Queries for Microservice UserMeeting */
 export const registerUserMeeting = async (userMeetingEntity) => {
     return await api.post('/user-meeting/register-meeting', userMeetingEntity)
         .then(response => response.data).catch((error) => console.log("Error:", error));
@@ -43,5 +45,16 @@ export const registerUserToUserMeeting = async (meetingName, userEntity) => {
 
 export const unregisterUserToUserMeeting = async (meetingName, userEntity) => {
     return await api.post('/user-meeting/unregister-from-meeting/' + meetingName, userEntity)
+        .then(response => response.data).catch((error) => console.log("Error:", error));
+}
+
+/* Queries for Microservice UserMeetingSearch */
+export const searchUserWithSearchQuery = async (searchQuery) => {
+    return await api.get('/user-meeting-search/search-user/' + searchQuery)
+        .then(response => response.data).catch((error) => console.log("Error:", error));
+}
+
+export const searchUserMeetingWithSearchQuery = async (searchQuery) => {
+    return await api.get('/user-meeting-search/search-meeting/' + searchQuery)
         .then(response => response.data).catch((error) => console.log("Error:", error));
 }
