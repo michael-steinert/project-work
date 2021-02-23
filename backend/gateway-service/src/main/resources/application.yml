@@ -24,27 +24,6 @@ spring:
               args:
                 name: USER-MANAGEMENT-SERVICE-FALLBACK
                 fallbackuri: forward:/userManagementServiceFallBack
-        - id: user_meeting_route
-          uri: lb://USER-MEETING-SERVICE
-          predicates:
-            - Path=/user-meeting/**
-          filters:
-            - name: CircuitBreaker
-              args:
-                name: USER-MEETING-SERVICE-FALLBACK
-                fallbackuri: forward:/userMeetingServiceFallBack
-        - id: user_meeting_search_route
-          uri: lb://USER-MEETING-SEARCH-SERVICE
-          predicates:
-            - Path=/user-meeting-search/**
-          filters:
-            - name: CircuitBreaker
-              args:
-                name: USER-MEETING-SEARCH-SERVICE-FALLBACK
-                fallbackuri: forward:/userMeetingSearchServiceFallBack
-
-server:
-  port: 8080
 
 hystrix:
   command:
@@ -52,10 +31,13 @@ hystrix:
       execution:
         isolation:
           thread:
-            timeoutInMilliseconds: 4000
+            timeoutInMilliseconds: 5000
 
 management:
   endpoints:
     web:
       exposure:
         include: hystrix.stream
+
+server:
+  port: 8080
