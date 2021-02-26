@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 /*
 The Microservice User-Management is responsible to check the Username_Unique-Constraint.
@@ -33,6 +34,7 @@ public class UserEntity {
             nullable = false,
             columnDefinition = "TEXT"
     )
+    @NotBlank(message = "Username must be not empty")
     private String username;
 
     @Column(
@@ -40,6 +42,7 @@ public class UserEntity {
             nullable = false,
             columnDefinition = "TEXT"
     )
+    @NotBlank(message = "Password must be not empty")
     private String password;
 
     @Column(
@@ -48,6 +51,7 @@ public class UserEntity {
             columnDefinition = "TEXT"
     )
     @Enumerated(EnumType.STRING)
+    @NotBlank(message = "UserRole must be not empty")
     private UserRole userRole;
 
     @Column(
@@ -55,6 +59,7 @@ public class UserEntity {
             nullable = false,
             columnDefinition = "TEXT"
     )
+    @NotBlank(message = "AuthorizationToken must be not empty")
     private String authorizationToken;
 
     public UserEntity(String username, UserRole userRole, String authorizationToken) {

@@ -96,7 +96,7 @@ public class UserMeetingSearchService {
             UserMeetingEntity[] userMeetingEntityArray = responseEntity.getBody();
 
             List<UserMeetingEntity> userMeetingEntityList = Arrays.stream(userMeetingEntityArray)
-                    .map(userMeetingEntity -> new UserMeetingEntity(userMeetingEntity.getMeetingName()))
+                    .map(userMeetingEntity -> new UserMeetingEntity(userMeetingEntity.getMeetingName(), userMeetingEntity.getCommunicationLink()))
                     .collect(Collectors.toList());
 
             /*

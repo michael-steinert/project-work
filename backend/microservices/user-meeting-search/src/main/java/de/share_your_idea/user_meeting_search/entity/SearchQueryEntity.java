@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Entity(name = "SearchQueryEntity")
@@ -29,6 +30,7 @@ public class SearchQueryEntity {
             nullable = false,
             columnDefinition = "TEXT"
     )
+    @NotBlank(message = "SearchQuery must be not empty")
     private String searchQuery;
 
     @Column(
