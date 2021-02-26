@@ -2,6 +2,7 @@ package de.share_your_idea.user_management.service;
 
 import de.share_your_idea.user_management.entity.UserEntity;
 import de.share_your_idea.user_management.entity.UserRole;
+import de.share_your_idea.user_management.exception.CustomNotFoundException;
 import de.share_your_idea.user_management.repository.UserEntityRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +48,7 @@ public class UserService {
                 return userEntity;
             }
         }
-        return null;
+        throw new CustomNotFoundException(String.format("UserEntity with Username like %s and Password %s not found.", username, password));
     }
 
     public List<UserEntity> findAllUsers() {

@@ -5,10 +5,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.share_your_idea.user_meeting_search.entity.SearchQueryEntity;
 import de.share_your_idea.user_meeting_search.entity.UserEntity;
 import de.share_your_idea.user_meeting_search.entity.UserMeetingEntity;
+import de.share_your_idea.user_meeting_search.exception.CustomNotFoundException;
 import de.share_your_idea.user_meeting_search.repository.SearchQueryEntityRepository;
 import de.share_your_idea.user_meeting_search.repository.UserEntityRepository;
 import de.share_your_idea.user_meeting_search.repository.UserMeetingEntityRepository;
-import javassist.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -45,7 +45,7 @@ public class UserMeetingSearchService {
     if the User-Management-Service is not available for the next Search-Query, the last retrieved Result can be displayed instead.
     */
 
-    public SearchQueryEntity searchUserEntityBySearchQuery(String searchQuery) throws JsonProcessingException, NotFoundException {
+    public SearchQueryEntity searchUserEntityBySearchQuery(String searchQuery) throws JsonProcessingException, CustomNotFoundException {
         log.info("UserMeetingSearch-Service: SearchUserEntityBySearchQuery-Method is called");
 
         String resourceUrl = "http://USER-MANAGEMENT-SERVICE/user-management/fetch-all-users";
@@ -79,10 +79,10 @@ public class UserMeetingSearchService {
             log.info("UserMeetingSearch-Service: SearchUserEntityBySearchQuery-Method saved SearchQueryEntity : {}", new ObjectMapper().writeValueAsString(searchQueryEntity));
             return searchQueryEntity;
         }
-        throw new NotFoundException("UserEntity with Username like " + searchQuery + " not found.");
+        throw new CustomNotFoundException(String.format("UserEntity with Username like %s not found.", searchQuery));
     }
 
-    public SearchQueryEntity searchUserMeetingEntityBySearchQuery(String searchQuery) throws JsonProcessingException, NotFoundException {
+    public SearchQueryEntity searchUserMeetingEntityBySearchQuery(String searchQuery) throws JsonProcessingException, CustomNotFoundException {
         log.info("UserMeetingSearch-Service: SearchUserMeetingEntityBySearchQuery-Method is called");
         /*
         Request Data from another Service.
@@ -115,10 +115,10 @@ public class UserMeetingSearchService {
             log.info("UserMeetingSearch-Service: SearchUserMeetingEntityBySearchQuery-Method saved SearchQueryEntity : {}", new ObjectMapper().writeValueAsString(searchQueryEntity));
             return searchQueryEntity;
         }
-        throw new NotFoundException("UserMeetingEntity with MeetingName like " + searchQuery + " not found.");
+        throw new CustomNotFoundException(String.format("UserMeetingEntity with MeetingName like %s not found.", searchQuery));
     }
 
-    public UserEntity findUserByUsername(String username) throws JsonProcessingException, NotFoundException {
+    public UserEntity findUserByUsername(String username) throws JsonProcessingException, CustomNotFoundException {
         log.info("User-Meeting-Search-Service: FindUserByUsername-Method is called");
         if (username != null) {
             String resourceUrl = "http://USER-MANAGEMENT-SERVICE/user-management/fetch-user-by-username/";
@@ -132,7 +132,7 @@ public class UserMeetingSearchService {
                 return userEntity;
             }
         }
-        throw new NotFoundException("UserEntity with Username " + username + " not found.");
+        throw new CustomNotFoundException(String.format("UserEntity with Username %s not found.", username));
     }
 
     public List<SearchQueryEntity> findAllSearchQueries() {

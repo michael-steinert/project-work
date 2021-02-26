@@ -4,9 +4,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.share_your_idea.user_meeting.entity.UserMeetingEntity;
 import de.share_your_idea.user_meeting.entity.UserEntity;
+import de.share_your_idea.user_meeting.exception.CustomNotFoundException;
 import de.share_your_idea.user_meeting.repository.MeetingEntityRepository;
 import de.share_your_idea.user_meeting.repository.UserEntityRepository;
-import javassist.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +23,9 @@ public class UserMeetingService {
     private final RestTemplate restTemplate;
 
     @Autowired
-    public UserMeetingService(UserEntityRepository userEntityRepository, MeetingEntityRepository meetingEntityRepository, RestTemplate restTemplate) {
+    public UserMeetingService(UserEntityRepository userEntityRepository,
+                              MeetingEntityRepository meetingEntityRepository,
+                              RestTemplate restTemplate) {
         this.userEntityRepository = userEntityRepository;
         this.meetingEntityRepository = meetingEntityRepository;
         this.restTemplate = restTemplate;
@@ -58,7 +60,7 @@ public class UserMeetingService {
         return userEntityRepository.save(userEntity);
     }
 
-    public UserEntity findUserByUsername(String username) throws JsonProcessingException, NotFoundException {
+    public UserEntity findUserByUsername(String username) throws JsonProcessingException, CustomNotFoundException {
         log.info("User-Meeting-Search-Service: FindUserByUsername-Method is called");
         if (username != null) {
             String resourceUrl = "http://USER-MANAGEMENT-SERVICE/user-management/fetch-user-by-username/";
@@ -73,7 +75,7 @@ public class UserMeetingService {
                 return userEntity;
             }
         }
-        throw new NotFoundException("UserEntity with Username " + username + " not found.");
+        throw new CustomNotFoundException(String.format("UserEntity with Username %s not found.", username));
     }
 
     public List<UserEntity> findAllUsers() {
