@@ -51,7 +51,6 @@ public class UserEntity {
             columnDefinition = "TEXT"
     )
     @Enumerated(EnumType.STRING)
-    @NotBlank(message = "UserRole must be not empty")
     private UserRole userRole;
 
     @Column(

@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +34,6 @@ public class UserMeetingEntity {
             nullable = false,
             columnDefinition = "TEXT"
     )
-    @NotBlank(message = "MeetingName must be not empty")
     private String meetingName;
 
     @Column(
@@ -43,7 +41,6 @@ public class UserMeetingEntity {
             nullable = false,
             columnDefinition = "TEXT"
     )
-    @NotBlank(message = "CommunicationLink must be not empty")
     private String communicationLink;
 
     @JsonIgnore

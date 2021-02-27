@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.share_your_idea.user_meeting.entity.UserMeetingEntity;
 import de.share_your_idea.user_meeting.entity.UserEntity;
 import de.share_your_idea.user_meeting.exception.CustomNotFoundException;
+import de.share_your_idea.user_meeting.http_client.HTTPClient;
 import de.share_your_idea.user_meeting.repository.MeetingEntityRepository;
 import de.share_your_idea.user_meeting.repository.UserEntityRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -21,14 +22,17 @@ public class UserMeetingService {
     private final UserEntityRepository userEntityRepository;
     private final MeetingEntityRepository meetingEntityRepository;
     private final RestTemplate restTemplate;
+    private final HTTPClient httpClient;
 
     @Autowired
     public UserMeetingService(UserEntityRepository userEntityRepository,
                               MeetingEntityRepository meetingEntityRepository,
-                              RestTemplate restTemplate) {
+                              RestTemplate restTemplate,
+                              HTTPClient httpClient) {
         this.userEntityRepository = userEntityRepository;
         this.meetingEntityRepository = meetingEntityRepository;
         this.restTemplate = restTemplate;
+        this.httpClient = httpClient;
     }
 
     public UserMeetingEntity saveMeeting(UserMeetingEntity userMeetingEntity) {
@@ -59,7 +63,7 @@ public class UserMeetingService {
         log.info("User-Meeting-Service: SaveUser-Method is called");
         return userEntityRepository.save(userEntity);
     }
-
+/*
     public UserEntity findUserByUsername(String username) throws JsonProcessingException, CustomNotFoundException {
         log.info("User-Meeting-Search-Service: FindUserByUsername-Method is called");
         if (username != null) {
@@ -71,6 +75,21 @@ public class UserMeetingService {
                 Long result = userEntityRepository.deleteUserEntityByUsername(userEntity.getUsername());
                 log.info("User-Meeting-Search-Service: FindUserByUsername-Method deleted UserEntity with Result : {}", new ObjectMapper().writeValueAsString(result));
 
+                userEntityRepository.save(userEntity);
+                return userEntity;
+            }
+        }
+        throw new CustomNotFoundException(String.format("UserEntity with Username %s not found.", username));
+    }
+*/
+    public UserEntity findUserByUsername(String username) throws JsonProcessingException, CustomNotFoundException {
+        log.info("User-Meeting-Search-Service: FindUserByUsername-Method is called");
+        if (username != null) {
+            ResponseEntity<UserEntity> responseEntity = httpClient.fetchUserByUsername(username);
+            if (responseEntity != null && responseEntity.hasBody()) {
+                UserEntity userEntity = responseEntity.getBody();
+                Long result = userEntityRepository.deleteUserEntityByUsername(userEntity.getUsername());
+                log.info("User-Meeting-Search-Service: FindUserByUsername-Method deleted UserEntity with Result : {}", new ObjectMapper().writeValueAsString(result));
                 userEntityRepository.save(userEntity);
                 return userEntity;
             }

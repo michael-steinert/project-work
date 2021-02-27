@@ -14,6 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @Slf4j
 @Controller
 public class MainController {
@@ -37,7 +39,7 @@ public class MainController {
 
     @GetMapping(value = {"/userList"})
     public String userList(Model model) throws JsonProcessingException {
-        log.info("Main Controller: PersonList Method is called");
+        log.info("Main Controller: UserList Method is called");
         List<UserEntity> users = userService.findAllUsers();
         model.addAttribute("users", users);
         log.info("Main Controller: Index Method created ServiceName : {}", new ObjectMapper().writeValueAsString(users));
@@ -52,7 +54,7 @@ public class MainController {
     }
 
     @PostMapping(value = {"/addUser"})
-    public String saveUser(Model model, @ModelAttribute("userEntity") UserEntity userEntity) throws JsonProcessingException {
+    public String saveUser(Model model, @ModelAttribute("userEntity") @Valid UserEntity userEntity) throws JsonProcessingException {
         log.info("Main Controller: SaveUser Method is called");
         userService.saveUser(userEntity);
         log.info("Main Controller: SaveUser Method created and saved UserEntity : {}", new ObjectMapper().writeValueAsString(userEntity));
