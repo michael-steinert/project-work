@@ -8,13 +8,6 @@ import org.springframework.web.client.RestTemplate;
 
 @Configuration
 public class ControllerConfig {
-
-    @Bean
-    @LoadBalanced
-    public RestTemplate getRestTemplate() {
-        return new RestTemplate();
-    }
-
     @Bean
     public Sampler defaultSampler() {
         return Sampler.ALWAYS_SAMPLE;

@@ -6,6 +6,8 @@ import de.share_your_idea.user_meeting_search.entity.SearchQueryEntity;
 import de.share_your_idea.user_meeting_search.entity.UserEntity;
 import de.share_your_idea.user_meeting_search.entity.UserMeetingEntity;
 import de.share_your_idea.user_meeting_search.exception.CustomNotFoundException;
+import de.share_your_idea.user_meeting_search.http_client.UserManagementServiceHTTPClient;
+import de.share_your_idea.user_meeting_search.http_client.UserMeetingServiceHTTPClient;
 import de.share_your_idea.user_meeting_search.repository.SearchQueryEntityRepository;
 import de.share_your_idea.user_meeting_search.repository.UserEntityRepository;
 import de.share_your_idea.user_meeting_search.repository.UserMeetingEntityRepository;
@@ -13,11 +15,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -25,17 +24,20 @@ public class UserMeetingSearchService {
     private final SearchQueryEntityRepository searchQueryEntityRepository;
     private final UserEntityRepository userEntityRepository;
     private final UserMeetingEntityRepository userMeetingEntityRepository;
-    private final RestTemplate restTemplate;
+    private final UserManagementServiceHTTPClient userManagementServiceHttpClient;
+    private final UserMeetingServiceHTTPClient userMeetingServiceHttpClient;
 
     @Autowired
     public UserMeetingSearchService(SearchQueryEntityRepository searchQueryEntityRepository,
                                     UserEntityRepository userEntityRepository,
                                     UserMeetingEntityRepository userMeetingEntityRepository,
-                                    RestTemplate restTemplate) {
+                                    UserManagementServiceHTTPClient userManagementServiceHttpClient,
+                                    UserMeetingServiceHTTPClient userMeetingServiceHttpClient) {
         this.searchQueryEntityRepository = searchQueryEntityRepository;
         this.userEntityRepository = userEntityRepository;
         this.userMeetingEntityRepository = userMeetingEntityRepository;
-        this.restTemplate = restTemplate;
+        this.userManagementServiceHttpClient = userManagementServiceHttpClient;
+        this.userMeetingServiceHttpClient = userMeetingServiceHttpClient;
     }
 
     /*
@@ -47,37 +49,35 @@ public class UserMeetingSearchService {
 
     public SearchQueryEntity searchUserEntityBySearchQuery(String searchQuery) throws JsonProcessingException, CustomNotFoundException {
         log.info("UserMeetingSearch-Service: SearchUserEntityBySearchQuery-Method is called");
-
-        String resourceUrl = "http://USER-MANAGEMENT-SERVICE/user-management/fetch-all-users";
-        ResponseEntity<UserEntity[]> responseEntity = restTemplate.getForEntity(resourceUrl, UserEntity[].class);
-
-        if (responseEntity != null && responseEntity.hasBody()) {
+        if(!searchQuery.isBlank()) {
             /*
-            Request Data from another Service.
+            Request Data from another Service - Microservice UserManagementService.
             */
-            UserEntity[] userEntityArray = responseEntity.getBody();
+            ResponseEntity<List<UserEntity>> responseEntityList = userManagementServiceHttpClient.fetchAllUsers();
             /*
             Check if the Request to the other Service has delivered Data, otherwise an Exception is handled.
             */
-            List<UserEntity> userEntityList = Arrays.stream(userEntityArray)
-                    .map(userEntity -> new UserEntity(userEntity.getUsername(), userEntity.getUserRole(), userEntity.getAuthorizationToken()))
-                    .collect(Collectors.toList());
-
-            /*
-            The retrieved Data is stored in the own Database in case a reconnection to the other Service is not possible.
-            This increases the Resilience of this Service.
-            */
-            userEntityRepository.deleteAll();
-            userEntityRepository.saveAll(userEntityList);
-            List<UserEntity> searchQueryResult = userEntityRepository.findUserEntityByUsernameContaining(searchQuery);
-            SearchQueryEntity searchQueryEntity = new SearchQueryEntity();
-            searchQueryEntity.setSearchQuery(searchQuery);
-            searchQueryEntity.setUserEntityResult(searchQueryResult);
-            searchQueryEntityRepository.save(searchQueryEntity);
-            log.info("UserMeetingSearch-Service: SearchUserEntityBySearchQuery-Method fetched UserEntityList : {}", new ObjectMapper().writeValueAsString(userEntityList));
-            log.info("UserMeetingSearch-Service: SearchUserEntityBySearchQuery-Method founded SearchQueryResult : {}", new ObjectMapper().writeValueAsString(searchQueryResult));
-            log.info("UserMeetingSearch-Service: SearchUserEntityBySearchQuery-Method saved SearchQueryEntity : {}", new ObjectMapper().writeValueAsString(searchQueryEntity));
-            return searchQueryEntity;
+            if (responseEntityList != null && responseEntityList.hasBody()) {
+                List<UserEntity> userEntityList = responseEntityList.getBody();
+                /*
+                The retrieved Data is stored in the own Database in case a reconnection to the other Service is not possible. (Caching)
+                This increases the Resilience of this Service.
+                */
+                userEntityRepository.deleteAll();
+                userEntityRepository.saveAll(userEntityList);
+                /*
+                Searching UserEntity in the own Data with SearchQuery
+                */
+                List<UserEntity> searchQueryResult = userEntityRepository.findUserEntityByUsernameContaining(searchQuery);
+                SearchQueryEntity searchQueryEntity = new SearchQueryEntity();
+                searchQueryEntity.setSearchQuery(searchQuery);
+                searchQueryEntity.setUserEntityResult(searchQueryResult);
+                searchQueryEntityRepository.save(searchQueryEntity);
+                log.info("UserMeetingSearch-Service: SearchUserEntityBySearchQuery-Method fetched UserEntityList : {}", new ObjectMapper().writeValueAsString(userEntityList));
+                log.info("UserMeetingSearch-Service: SearchUserEntityBySearchQuery-Method founded SearchQueryResult : {}", new ObjectMapper().writeValueAsString(searchQueryResult));
+                log.info("UserMeetingSearch-Service: SearchUserEntityBySearchQuery-Method saved SearchQueryEntity : {}", new ObjectMapper().writeValueAsString(searchQueryEntity));
+                return searchQueryEntity;
+            }
         }
         throw new CustomNotFoundException(String.format("UserEntity with Username like %s not found.", searchQuery));
     }
@@ -85,26 +85,23 @@ public class UserMeetingSearchService {
     public SearchQueryEntity searchUserMeetingEntityBySearchQuery(String searchQuery) throws JsonProcessingException, CustomNotFoundException {
         log.info("UserMeetingSearch-Service: SearchUserMeetingEntityBySearchQuery-Method is called");
         /*
-        Request Data from another Service.
+        Request Data from another Service - Microservice UserMeetingService.
         */
-        String resourceUrl = "http://USER-MEETING-SERVICE/user-meeting/fetch-all-user-meetings";
-        ResponseEntity<UserMeetingEntity[]> responseEntity = restTemplate.getForEntity(resourceUrl, UserMeetingEntity[].class);
+        ResponseEntity<List<UserMeetingEntity>> responseEntity = userMeetingServiceHttpClient.fetchAllUserMeetings();
         /*
         Check if the Request to the other Service has delivered Data, otherwise an Exception is handled.
         */
         if (responseEntity != null && responseEntity.hasBody()) {
-            UserMeetingEntity[] userMeetingEntityArray = responseEntity.getBody();
-
-            List<UserMeetingEntity> userMeetingEntityList = Arrays.stream(userMeetingEntityArray)
-                    .map(userMeetingEntity -> new UserMeetingEntity(userMeetingEntity.getMeetingName(), userMeetingEntity.getCommunicationLink()))
-                    .collect(Collectors.toList());
-
+            List<UserMeetingEntity> userMeetingEntityList = responseEntity.getBody();
             /*
             The retrieved Data is stored in the own Database in case a reconnection to the other Service is not possible.
             This increases the Resilience of this Service.
             */
             userMeetingEntityRepository.deleteAll();
             userMeetingEntityRepository.saveAll(userMeetingEntityList);
+            /*
+            Searching UserEntity in the own Data with SearchQuery
+            */
             List<UserMeetingEntity> searchQueryResult = userMeetingEntityRepository.findUserMeetingEntityByMeetingNameContaining(searchQuery);
             SearchQueryEntity searchQueryEntity = new SearchQueryEntity();
             searchQueryEntity.setSearchQuery(searchQuery);
@@ -120,10 +117,8 @@ public class UserMeetingSearchService {
 
     public UserEntity findUserByUsername(String username) throws JsonProcessingException, CustomNotFoundException {
         log.info("User-Meeting-Search-Service: FindUserByUsername-Method is called");
-        if (username != null) {
-            String resourceUrl = "http://USER-MANAGEMENT-SERVICE/user-management/fetch-user-by-username/";
-            ResponseEntity<UserEntity> responseEntity = restTemplate.getForEntity(resourceUrl + username, UserEntity.class);
-
+        if (!username.isBlank()) {
+            ResponseEntity<UserEntity> responseEntity = userManagementServiceHttpClient.fetchUserByUsername(username);
             if (responseEntity != null && responseEntity.hasBody()) {
                 UserEntity userEntity = responseEntity.getBody();
                 Long result = userEntityRepository.deleteUserEntityByUsername(userEntity.getUsername());
