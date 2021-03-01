@@ -68,7 +68,14 @@ public class UserMeetingService {
                 UserEntity userEntity = responseEntity.getBody();
                 Long result = userEntityRepository.deleteUserEntityByUsername(userEntity.getUsername());
                 log.info("User-Meeting-Search-Service: FindUserByUsername-Method deleted UserEntity with Result : {}", new ObjectMapper().writeValueAsString(result));
-                userEntityRepository.save(userEntity);
+                /*
+                Here the UserEntity is cached to ensure that even if the Microservice UserManagement is not available,
+                the existing UserEntity is returned from the Repository.
+                */
+                if (result != 0) {
+                    userEntityRepository.save(userEntity);
+                    userEntity = userEntityRepository.findUserEntityByUsername(userEntity.getUsername());
+                }
                 return userEntity;
             }
         }
