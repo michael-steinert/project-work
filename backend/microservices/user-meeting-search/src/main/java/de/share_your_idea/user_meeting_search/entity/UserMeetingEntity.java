@@ -6,6 +6,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.Objects;
 
 /*
 Entity contains only the Properties specific to the Domain.
@@ -44,8 +45,11 @@ public class UserMeetingEntity {
     @NotBlank(message = "CommunicationLink must be not empty")
     private String communicationLink;
 
-    public UserMeetingEntity(String meetingName, String communicationLink) {
-        this.meetingName = meetingName;
-        this.communicationLink = communicationLink;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserMeetingEntity that = (UserMeetingEntity) o;
+        return Objects.equals(meetingName, that.meetingName) && Objects.equals(communicationLink, that.communicationLink);
     }
 }

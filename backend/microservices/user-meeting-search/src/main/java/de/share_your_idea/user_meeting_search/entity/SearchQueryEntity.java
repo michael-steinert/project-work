@@ -46,4 +46,8 @@ public class SearchQueryEntity {
     )
     @Convert(converter = UserMeetingEntityStringListConverter.class)
     private List<UserMeetingEntity> userMeetingEntityResult;
+
+    public SearchQueryEntity(String searchQuery) {
+        this.searchQuery = searchQuery;
+    }
 }

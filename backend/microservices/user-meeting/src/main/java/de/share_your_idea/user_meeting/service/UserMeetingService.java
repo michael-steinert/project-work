@@ -68,17 +68,17 @@ public class UserMeetingService {
             if (responseEntity != null && responseEntity.hasBody()) {
                 UserEntity userEntity = responseEntity.getBody();
                 UserEntity userEntityFromRepository = userEntityRepository.findUserEntityByUsername(userEntity.getUsername());
-                if (!userEntity.equals(userEntityFromRepository)) {
-                    /*
-                    Server-side Caching:
+                /*
+                Server-side Caching:
                     Here the UserEntity is cached to ensure that even if the Microservice UserManagement is not available,
-                    the existing UserEntity is returned from the Repository.
-                    */
+                    or the UserEntity is the same, the existing UserEntity is returned from the Repository.
+                    This increases the Resilience and Performance of this Service.
+                */
+                if (!userEntity.equals(userEntityFromRepository)) {
                     Long result = userEntityRepository.deleteUserEntityByUsername(userEntity.getUsername());
                     log.info("User-Meeting-Search-Service: FindUserByUsername-Method deleted UserEntity with Result : {}", new ObjectMapper().writeValueAsString(result));
                     if (result != 0) {
-                        userEntityRepository.save(userEntity);
-                        userEntity = userEntityRepository.findUserEntityByUsername(userEntity.getUsername());
+                        userEntity = userEntityRepository.save(userEntity);
                     }
                 }
                 return userEntity;

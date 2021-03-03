@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Slf4j
 @Service
@@ -60,19 +61,23 @@ public class UserMeetingSearchService {
             if (responseEntityList != null && responseEntityList.hasBody()) {
                 List<UserEntity> userEntityList = responseEntityList.getBody();
                 /*
-                The retrieved Data is stored in the own Database in case a reconnection to the other Service is not possible. (Caching)
-                This increases the Resilience of this Service.
+                Server-side Caching:
+                    Here the List<UserEntity> is cached to ensure that even if the Microservice UserManagement is not available,
+                    or the List<UserEntity> is the same, the existing List<UserEntity> is returned from the Repository.
+                    This increases the Resilience and Performance of this Service.
                 */
-                userEntityRepository.deleteAll();
-                userEntityRepository.saveAll(userEntityList);
+                List<UserEntity> userEntityListFromRepository = userEntityRepository.findAll();
+                if(!Objects.equals(userEntityList, userEntityListFromRepository)) {
+                    userEntityRepository.deleteAll();
+                    userEntityList = userEntityRepository.saveAll(userEntityList);
+                }
                 /*
-                Searching UserEntity in the own Data with SearchQuery
+                Searching UserEntity in the own Repository with SearchQuery
                 */
                 List<UserEntity> searchQueryResult = userEntityRepository.findUserEntityByUsernameContaining(searchQuery);
-                SearchQueryEntity searchQueryEntity = new SearchQueryEntity();
-                searchQueryEntity.setSearchQuery(searchQuery);
+                SearchQueryEntity searchQueryEntity = new SearchQueryEntity(searchQuery);
                 searchQueryEntity.setUserEntityResult(searchQueryResult);
-                searchQueryEntityRepository.save(searchQueryEntity);
+                searchQueryEntity = searchQueryEntityRepository.save(searchQueryEntity);
                 log.info("UserMeetingSearch-Service: SearchUserEntityBySearchQuery-Method fetched UserEntityList : {}", new ObjectMapper().writeValueAsString(userEntityList));
                 log.info("UserMeetingSearch-Service: SearchUserEntityBySearchQuery-Method founded SearchQueryResult : {}", new ObjectMapper().writeValueAsString(searchQueryResult));
                 log.info("UserMeetingSearch-Service: SearchUserEntityBySearchQuery-Method saved SearchQueryEntity : {}", new ObjectMapper().writeValueAsString(searchQueryEntity));
@@ -93,18 +98,22 @@ public class UserMeetingSearchService {
         */
         if (responseEntity != null && responseEntity.hasBody()) {
             List<UserMeetingEntity> userMeetingEntityList = responseEntity.getBody();
-            /*
-            The retrieved Data is stored in the own Database in case a reconnection to the other Service is not possible.
-            This increases the Resilience of this Service.
+          /*
+            Server-side Caching:
+                Here the List<UserMeetingEntity> is cached to ensure that even if the Microservice UserMeeting is not available,
+                or the List<UserMeetingEntity> is the same, the existing List<UserMeetingEntity> is returned from the Repository.
+                This increases the Resilience and Performance of this Service.
             */
-            userMeetingEntityRepository.deleteAll();
-            userMeetingEntityRepository.saveAll(userMeetingEntityList);
+            List<UserMeetingEntity> userMeetingEntityListFromRepository = userMeetingEntityRepository.findAll();
+            if(!Objects.equals(userMeetingEntityList, userMeetingEntityRepository)) {
+                userMeetingEntityRepository.deleteAll();
+                userMeetingEntityList = userMeetingEntityRepository.saveAll(userMeetingEntityList);
+            }
             /*
-            Searching UserEntity in the own Data with SearchQuery
+            Searching UserMeetingEntity in the own Repository with SearchQuery
             */
             List<UserMeetingEntity> searchQueryResult = userMeetingEntityRepository.findUserMeetingEntityByMeetingNameContaining(searchQuery);
-            SearchQueryEntity searchQueryEntity = new SearchQueryEntity();
-            searchQueryEntity.setSearchQuery(searchQuery);
+            SearchQueryEntity searchQueryEntity = new SearchQueryEntity(searchQuery);
             searchQueryEntity.setUserMeetingEntityResult(searchQueryResult);
             searchQueryEntityRepository.save(searchQueryEntity);
             log.info("UserMeetingSearch-Service: SearchUserMeetingEntityBySearchQuery-Method fetched UserMeetingEntityList : {}", new ObjectMapper().writeValueAsString(userMeetingEntityList));

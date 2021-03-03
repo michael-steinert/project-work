@@ -6,12 +6,14 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.Objects;
 
 /*
 The Microservice User-Management is responsible to check the Username_Unique-Constraint.
 Entity contains only the Properties specific to the Domain.
 There is no Relation between User and Meeting, because it is not needed in the Domain of User-Meeting-Search.
 Target of the DDD is an Entity customized to their Domain.
+The Equals-Method does not contain the Relationship between UserMeetingEntity
 */
 
 @Entity(name = "UserEntity")
@@ -61,9 +63,11 @@ public class UserEntity {
     @NotBlank(message = "AuthorizationToken must be not empty")
     private String authorizationToken;
 
-    public UserEntity(String username, UserRole userRole, String authorizationToken) {
-        this.username = username;
-        this.userRole = userRole;
-        this.authorizationToken = authorizationToken;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserEntity that = (UserEntity) o;
+        return Objects.equals(username, that.username) && Objects.equals(password, that.password) && userRole == that.userRole && Objects.equals(authorizationToken, that.authorizationToken);
     }
 }
