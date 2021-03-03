@@ -1,8 +1,8 @@
 package de.share_your_idea.user_meeting.exception;
 
-public class CustomNotFoundException extends RuntimeException {
+public class CustomEmptyInputException extends RuntimeException {
     /* Unchecked Exceptions are checked at Runtime */
-    public CustomNotFoundException(String message) {
+    public CustomEmptyInputException(String message) {
         super(message);
     }
 }

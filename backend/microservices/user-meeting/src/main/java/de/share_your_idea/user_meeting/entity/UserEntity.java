@@ -7,6 +7,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.Objects;
 
 /*
 Entity contains only the Properties specific to the Domain.
@@ -70,4 +71,12 @@ public class UserEntity {
             updatable = true
     )
     private UserMeetingEntity userMeetingEntity;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserEntity that = (UserEntity) o;
+        return Objects.equals(username, that.username) && Objects.equals(password, that.password) && userRole == that.userRole && Objects.equals(authorizationToken, that.authorizationToken) && Objects.equals(userMeetingEntity, that.userMeetingEntity);
+    }
 }

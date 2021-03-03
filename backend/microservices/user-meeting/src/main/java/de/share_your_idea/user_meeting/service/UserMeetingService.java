@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.share_your_idea.user_meeting.entity.UserMeetingEntity;
 import de.share_your_idea.user_meeting.entity.UserEntity;
+import de.share_your_idea.user_meeting.exception.CustomEmptyInputException;
 import de.share_your_idea.user_meeting.exception.CustomNotFoundException;
 import de.share_your_idea.user_meeting.http_client.UserManagementServiceHTTPClient;
 import de.share_your_idea.user_meeting.repository.MeetingEntityRepository;
@@ -66,20 +67,25 @@ public class UserMeetingService {
             ResponseEntity<UserEntity> responseEntity = userManagementServiceHttpClient.fetchUserByUsername(username);
             if (responseEntity != null && responseEntity.hasBody()) {
                 UserEntity userEntity = responseEntity.getBody();
-                Long result = userEntityRepository.deleteUserEntityByUsername(userEntity.getUsername());
-                log.info("User-Meeting-Search-Service: FindUserByUsername-Method deleted UserEntity with Result : {}", new ObjectMapper().writeValueAsString(result));
-                /*
-                Here the UserEntity is cached to ensure that even if the Microservice UserManagement is not available,
-                the existing UserEntity is returned from the Repository.
-                */
-                if (result != 0) {
-                    userEntityRepository.save(userEntity);
-                    userEntity = userEntityRepository.findUserEntityByUsername(userEntity.getUsername());
+                UserEntity userEntityFromRepository = userEntityRepository.findUserEntityByUsername(userEntity.getUsername());
+                if (!userEntity.equals(userEntityFromRepository)) {
+                    /*
+                    Server-side Caching:
+                    Here the UserEntity is cached to ensure that even if the Microservice UserManagement is not available,
+                    the existing UserEntity is returned from the Repository.
+                    */
+                    Long result = userEntityRepository.deleteUserEntityByUsername(userEntity.getUsername());
+                    log.info("User-Meeting-Search-Service: FindUserByUsername-Method deleted UserEntity with Result : {}", new ObjectMapper().writeValueAsString(result));
+                    if (result != 0) {
+                        userEntityRepository.save(userEntity);
+                        userEntity = userEntityRepository.findUserEntityByUsername(userEntity.getUsername());
+                    }
                 }
                 return userEntity;
             }
+            throw new CustomNotFoundException(String.format("UserEntity with Username %s not found.", username));
         }
-        throw new CustomNotFoundException(String.format("UserEntity with Username %s not found.", username));
+        throw new CustomEmptyInputException("The Username is empty.");
     }
 
     public List<UserEntity> findAllUsers() {

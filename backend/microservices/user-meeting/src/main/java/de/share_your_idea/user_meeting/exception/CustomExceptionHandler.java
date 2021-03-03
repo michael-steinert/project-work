@@ -16,4 +16,11 @@ public class CustomExceptionHandler {
                 new CustomException(customNotFoundException.getMessage(), HttpStatus.NOT_FOUND, ZonedDateTime.now());
         return new ResponseEntity<>(customException, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(value = CustomEmptyInputException.class)
+    public ResponseEntity<Object> handleEmptyInputException(CustomEmptyInputException customEmptyInputException) {
+        CustomException customException =
+                new CustomException(customEmptyInputException.getMessage(), HttpStatus.NO_CONTENT, ZonedDateTime.now());
+        return new ResponseEntity<>(customException, HttpStatus.BAD_REQUEST);
+    }
 }
