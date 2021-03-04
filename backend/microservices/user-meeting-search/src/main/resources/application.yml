@@ -4,6 +4,15 @@ app:
     username: postgres
     password: postgres
 
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+
 spring:
   application:
     name: USER-MEETING-SEARCH-SERVICE
