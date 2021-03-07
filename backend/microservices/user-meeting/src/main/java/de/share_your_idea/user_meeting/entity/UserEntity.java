@@ -1,9 +1,7 @@
 package de.share_your_idea.user_meeting.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -17,8 +15,10 @@ The Target of the DDD is an Entity customized to their Domain.
 
 @Entity(name = "UserEntity")
 @Table(name = "user_entity")
-@Data
+@AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 @ToString
 public class UserEntity {
 

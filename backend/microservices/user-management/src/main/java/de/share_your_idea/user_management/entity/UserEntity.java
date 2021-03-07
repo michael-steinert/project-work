@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity(name = "UserEntity")
 @Table(
-        name = "user_table",
+        name = "user_entity",
         uniqueConstraints = {
                 @UniqueConstraint(name = "username_unique", columnNames = "username")
         }
@@ -54,9 +54,4 @@ public class UserEntity {
             columnDefinition = "TEXT"
     )
     private String authorizationToken;
-
-    public UserEntity(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
 }

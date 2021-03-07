@@ -1,9 +1,7 @@
 package de.share_your_idea.user_meeting.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -16,8 +14,10 @@ import java.util.List;
                 @UniqueConstraint(name = "meeting_name_unique", columnNames = "meeting_name")
         }
 )
-@Data
+@AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 @ToString
 public class UserMeetingEntity {
 

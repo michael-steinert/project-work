@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -40,7 +41,8 @@ public class UserMeetingService {
     public UserMeetingEntity findMeetingByMeetingName(String meetingName) {
         log.info("User-Meeting-Service: FindMeetingByMeetingName-Method is called");
         if (!meetingName.isBlank()) {
-            UserMeetingEntity userMeetingEntity = meetingEntityRepository.findMeetingEntityByMeetingName(meetingName);
+            Optional<UserMeetingEntity> userMeetingEntityOptional = meetingEntityRepository.findMeetingEntityByMeetingName(meetingName);
+            UserMeetingEntity userMeetingEntity = userMeetingEntityOptional.get();
             return userMeetingEntity;
         }
         return null;
@@ -67,7 +69,8 @@ public class UserMeetingService {
             ResponseEntity<UserEntity> responseEntity = userManagementServiceHttpClient.fetchUserByUsername(username);
             if (responseEntity != null && responseEntity.hasBody()) {
                 UserEntity userEntity = responseEntity.getBody();
-                UserEntity userEntityFromRepository = userEntityRepository.findUserEntityByUsername(userEntity.getUsername());
+                Optional<UserEntity> userEntityOptional = userEntityRepository.findUserEntityByUsername(userEntity.getUsername());
+                UserEntity userEntityFromRepository = userEntityOptional.get();
                 /*
                 Server-side Caching:
                     Here the UserEntity is cached to ensure that even if the Microservice UserManagement is not available,
