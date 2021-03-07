@@ -2,6 +2,7 @@ package de.share_your_idea.user_management.service;
 
 import de.share_your_idea.user_management.entity.UserEntity;
 import de.share_your_idea.user_management.entity.UserRole;
+import de.share_your_idea.user_management.exception.CustomEmptyInputException;
 import de.share_your_idea.user_management.exception.CustomNotFoundException;
 import de.share_your_idea.user_management.repository.UserEntityRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -10,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -34,10 +36,10 @@ public class UserService {
     public UserEntity findByUsername(String username) {
         log.info("User Service: FindByUsername Method is called");
         if (username != null) {
-            UserEntity userEntity = userEntityRepository.findUserEntityByUsername(username);
-            return userEntity;
+            Optional<UserEntity> userEntityOptional = userEntityRepository.findUserEntityByUsername(username);
+            return userEntityOptional.orElseThrow(()-> new CustomNotFoundException(String.format("UserEntity with Username like %s not found.", username)));
         }
-        return null;
+        throw new CustomEmptyInputException("The Username is empty.");
     }
 
     public UserEntity findByUsernameAndPassword(String username, String password) {

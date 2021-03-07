@@ -1,8 +1,6 @@
 package de.share_your_idea.user_management.entity;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -13,8 +11,10 @@ import javax.persistence.*;
                 @UniqueConstraint(name = "username_unique", columnNames = "username")
         }
 )
-@Data
+@AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 @ToString
 public class UserEntity {
 

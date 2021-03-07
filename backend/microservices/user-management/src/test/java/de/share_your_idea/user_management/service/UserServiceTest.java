@@ -5,22 +5,26 @@ import de.share_your_idea.user_management.repository.UserEntityRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.List;
+import java.util.Optional;
 
+import static de.share_your_idea.user_management.entity.UserRole.ROLE_USER;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.verify;
+import static org.mockito.BDDMockito.then;
 
 class UserServiceTest {
     @Mock
     private UserEntityRepository userEntityRepository;
     @Mock
     private PasswordEncoder passwordEncoder;
+    @Captor
+    private ArgumentCaptor<UserEntity> userEntityArgumentCaptor;
     private UserService userService;
 
     @BeforeEach
@@ -30,59 +34,37 @@ class UserServiceTest {
     }
 
     @Test
-    void shouldSaveUserEntity() {
-        UserEntity userEntity = new UserEntity();
-        userEntity.setUsername("Michael");
-        userEntity.setPassword("Password");
-        userEntity.setUser_role("ROLE_USER");
-
+    void itShouldSaveUserEntity() {
+        /* Given */
+        UserEntity userEntity = new UserEntity(1L, "Michael", "testPassword", ROLE_USER, "testAuthorizationToken");
+        /* Mocking the Return if Method save() is called */
         given(userEntityRepository.save(any(UserEntity.class))).willReturn(any(UserEntity.class));
-
-        ArgumentCaptor<UserEntity> captor = ArgumentCaptor.forClass(UserEntity.class);
-
+        /* When */
         UserEntity insertResult = userService.saveUser(userEntity);
-
-        verify(userEntityRepository).save(captor.capture());
-
-        UserEntity newUserEntity = captor.getValue();
-
-        assertThat(newUserEntity.getUsername()).isEqualTo("Michael");
-        assertThat(newUserEntity.getPassword()).isEqualTo(passwordEncoder.encode(userEntity.getPassword()));
-        assertThat(newUserEntity.getUser_role()).isEqualTo("ROLE_USER");
+        /* Then */
+        then(userEntityRepository).should().save(userEntityArgumentCaptor.capture());
+        UserEntity userEntityFromService = userEntityArgumentCaptor.getValue();
+        assertThat(userEntityFromService.getUserId()).isEqualTo(userEntity.getUserId());
+        assertThat(userEntityFromService.getUsername()).isEqualTo(userEntity.getUsername());
+        assertThat(userEntityFromService.getPassword()).isEqualTo(passwordEncoder.encode(userEntity.getPassword()));
+        assertThat(userEntityFromService.getUserRole()).isEqualTo(userEntity.getUserRole());
         assertThat(insertResult).isEqualTo(any(UserEntity.class));
     }
 
     @Test
     void shouldFindUserEntityByUsername() {
-        UserEntity userEntity = new UserEntity();
-        userEntity.setUsername("Michael");
-        userEntity.setPassword("Password");
-        userEntity.setUser_role("ROLE_USER");
-        given(userEntityRepository.findUserEntityByUsername(userEntity.getUsername())).willReturn(userEntity);
-
-        UserEntity newUserEntity = userService.findByUsername(userEntity.getUsername());
-        assertThat(newUserEntity.getUsername()).isEqualTo("Michael");
-        assertThat(newUserEntity.getUser_role()).isEqualTo("ROLE_USER");
-    }
-
-    @Test
-    void shouldFindAllUserEntities() {
-        UserEntity userEntity1 = new UserEntity();
-        userEntity1.setUsername("Michael");
-        userEntity1.setPassword("Password");
-        userEntity1.setUser_role("ROLE_USER");
-        UserEntity userEntity2 = new UserEntity();
-        userEntity2.setUsername("Marie");
-        userEntity2.setPassword("Password");
-        userEntity2.setUser_role("ROLE_ADMIN");
-        List<UserEntity> userEntityList = List.of(userEntity1, userEntity2);
-
-        given(userEntityRepository.findAll()).willReturn(userEntityList);
-
-        List<UserEntity> newUserEntityList = userService.findAllUsers();
-        assertThat(newUserEntityList).hasSize(2);
-        UserEntity newUserEntity = newUserEntityList.get(0);
-        assertThat(newUserEntity.getUsername()).isEqualTo("Michael");
-        assertThat(newUserEntity.getUser_role()).isEqualTo("ROLE_USER");
+        /* Given */
+        UserEntity userEntity = new UserEntity(1L, "Michael", "testPassword", ROLE_USER, "testAuthorizationToken");
+        /* Mocking the Return if Method save() is called */
+        given(userEntityRepository.findUserEntityByUsername(userEntity.getUsername())).willReturn(Optional.of(userEntity));
+        /* When */
+        userService.saveUser(userEntity);
+        /* Then */
+        Optional<UserEntity> userEntityOptional = then(userEntityRepository).should().findUserEntityByUsername(userEntity.getUsername());
+        UserEntity userEntityFromService = userEntityOptional.get();
+        assertThat(userEntityFromService.getUserId()).isEqualTo(userEntity.getUserId());
+        assertThat(userEntityFromService.getUsername()).isEqualTo(userEntity.getUsername());
+        assertThat(userEntityFromService.getPassword()).isEqualTo(passwordEncoder.encode(userEntity.getPassword()));
+        assertThat(userEntityFromService.getUserRole()).isEqualTo(userEntity.getUserRole());
     }
 }
