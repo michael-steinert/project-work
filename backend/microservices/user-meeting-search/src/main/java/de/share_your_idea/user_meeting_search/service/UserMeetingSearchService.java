@@ -54,7 +54,7 @@ public class UserMeetingSearchService {
             /*
             Request Data from another Service - Microservice UserManagementService.
             */
-            ResponseEntity<List<UserEntity>> responseEntityList = userManagementServiceHttpClient.fetchAllUsers();
+            ResponseEntity<List<UserEntity>> responseEntityList = userManagementServiceHttpClient.findAllUserEntities();
             /*
             Check if the Request to the other Service has delivered Data, otherwise an Exception is handled.
             */
@@ -92,7 +92,7 @@ public class UserMeetingSearchService {
         /*
         Request Data from another Service - Microservice UserMeetingService.
         */
-        ResponseEntity<List<UserMeetingEntity>> responseEntity = userMeetingServiceHttpClient.fetchAllUserMeetings();
+        ResponseEntity<List<UserMeetingEntity>> responseEntity = userMeetingServiceHttpClient.findAllUserMeetingEntities();
         /*
         Check if the Request to the other Service has delivered Data, otherwise an Exception is handled.
         */
@@ -127,7 +127,7 @@ public class UserMeetingSearchService {
     public UserEntity findUserByUsername(String username) throws JsonProcessingException, CustomNotFoundException {
         log.info("User-Meeting-Search-Service: FindUserByUsername-Method is called");
         if (!username.isBlank()) {
-            ResponseEntity<UserEntity> responseEntity = userManagementServiceHttpClient.fetchUserByUsername(username);
+            ResponseEntity<UserEntity> responseEntity = userManagementServiceHttpClient.findUserEntityByUsername(username);
             if (responseEntity != null && responseEntity.hasBody()) {
                 UserEntity userEntity = responseEntity.getBody();
                 Long result = userEntityRepository.deleteUserEntityByUsername(userEntity.getUsername());

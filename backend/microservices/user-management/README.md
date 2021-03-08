@@ -15,10 +15,12 @@ http://localhost:8081/user-management/
 
 | HTTP-Method | URL | Result |
 | --- | --- | --- |
-| POST | /register | Registers a new User in the System |
-| POST | /authenticate | Authenticates a existing User in the System and returns an Authentication-Token |
-| GET | /fetch-user-by-username/{username} | Returns a User with the corresponding Username |
-| GET | /fetch-all-users | Returns all existing Users |
+| POST | /register-a-new-user | Registers a new User in the System |
+| POST | /authenticate-an-existing-user | Authenticates a existing User in the System and returns an Authentication-Token |
+| POST | /update-an-existing-user | Updates an existing User in the System |
+| POST | /update-all-existing-users | Updates all existing Users in the System |
+| GET | /find-user-by-username/{username} | Returns a User with the corresponding Username |
+| GET | /find-all-users | Returns all existing Users |
 ___
 
 ## Einrichtung

@@ -10,6 +10,6 @@ import java.util.List;
 @FeignClient("http://USER-MEETING-SERVICE/user-meeting/")
 public interface UserMeetingServiceHTTPClient {
 
-    @GetMapping("fetch-all-user-meetings")
-    ResponseEntity<List<UserMeetingEntity>> fetchAllUserMeetings();
+    @GetMapping("find-all-user-meetings")
+    ResponseEntity<List<UserMeetingEntity>> findAllUserMeetingEntities();
 }

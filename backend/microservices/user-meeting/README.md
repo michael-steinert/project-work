@@ -19,8 +19,8 @@ http://localhost:8082/user-meeting/
 | GET | /unregister-meeting/{meetingName} | Deletes a existing Meeting and returns Result |
 | POST | /register-to-meeting/{meetingName} | Registers an User to a Meeting with MeetingName and returns the Meeting |
 | POST | /unregister-from-meeting/{meetingName} | Unregisters an User from a Meeting with MeetingName and returns the Meeting |
-| GET | /fetch-all-user-meetings | Returns all existing Meetings |
-| GET | /fetch-user-by-username/{username} | Returns an User with existing Username |
+| GET | /find-all-user-meetings | Returns all existing Meetings |
+| GET | /find-user-by-username/{username} | Returns an User with existing Username |
 ___
 
 ## Einrichtung

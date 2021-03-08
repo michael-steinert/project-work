@@ -40,7 +40,7 @@ class UserServiceTest {
         /* Mocking the Return if Method save() is called */
         given(userEntityRepository.save(any(UserEntity.class))).willReturn(any(UserEntity.class));
         /* When */
-        UserEntity insertResult = userService.saveUser(userEntity);
+        UserEntity insertResult = userService.saveUserEntity(userEntity);
         /* Then */
         then(userEntityRepository).should().save(userEntityArgumentCaptor.capture());
         UserEntity userEntityFromService = userEntityArgumentCaptor.getValue();
@@ -58,7 +58,7 @@ class UserServiceTest {
         /* Mocking the Return if Method save() is called */
         given(userEntityRepository.findUserEntityByUsername(userEntity.getUsername())).willReturn(Optional.of(userEntity));
         /* When */
-        userService.saveUser(userEntity);
+        userService.saveUserEntity(userEntity);
         /* Then */
         Optional<UserEntity> userEntityOptional = then(userEntityRepository).should().findUserEntityByUsername(userEntity.getUsername());
         UserEntity userEntityFromService = userEntityOptional.get();

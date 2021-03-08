@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.share_your_idea.user_meeting.entity.UserMeetingEntity;
 import de.share_your_idea.user_meeting.entity.UserEntity;
+import de.share_your_idea.user_meeting.entity.UserRole;
 import de.share_your_idea.user_meeting.exception.CustomEmptyInputException;
 import de.share_your_idea.user_meeting.exception.CustomNotFoundException;
 import de.share_your_idea.user_meeting.http_client.UserManagementServiceHTTPClient;
@@ -13,7 +14,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,6 +42,19 @@ public class UserMeetingService {
         return meetingEntityRepository.save(userMeetingEntity);
     }
 
+    public UserMeetingEntity saveNewMeeting(UserMeetingEntity userMeetingEntity, UserEntity userEntity) {
+        log.info("User-Meeting-Service: SaveMeeting-Method is called");
+        if(userMeetingEntity != null && userEntity != null) {
+            /* Set UserEntity as Owner of the Meeting */
+            userMeetingEntity.addUserEntity(userEntity);
+            userEntity.setUserRole(UserRole.ROLE_OWNER);
+            UserEntity userEntityFromRepository = userEntityRepository.save(userEntity);
+            userManagementServiceHttpClient.saveAnExistingUserEntity(userEntityFromRepository);
+            return meetingEntityRepository.save(userMeetingEntity);
+        }
+        throw new CustomNotFoundException(String.format("UserMeetingEntity with MeetingName %s or UserEntity with Username %s not found.",userMeetingEntity.getMeetingName(), userEntity.getUsername()));
+    }
+
     public UserMeetingEntity findMeetingByMeetingName(String meetingName) {
         log.info("User-Meeting-Service: FindMeetingByMeetingName-Method is called");
         if (!meetingName.isBlank()) {
@@ -45,7 +62,7 @@ public class UserMeetingService {
             UserMeetingEntity userMeetingEntity = userMeetingEntityOptional.get();
             return userMeetingEntity;
         }
-        return null;
+        throw new CustomNotFoundException(String.format("UserMeetingEntity with MeetingName %s not found.",meetingName));
     }
 
     public List<UserMeetingEntity> findAllMeetings() {
@@ -53,9 +70,51 @@ public class UserMeetingService {
         return meetingEntityRepository.findAll();
     }
 
-    public int deleteMeetingByMeetingName(String meetingName) {
+    public UserMeetingEntity registerUserToMeeting(String meetingName, UserEntity userEntity) {
+        log.info("User-Meeting-Service: RegisterUserToMeeting-Method is called");
+        UserMeetingEntity userMeetingEntity = findMeetingByMeetingName(meetingName);
+        if (userMeetingEntity != null && userEntity != null) {
+            userEntity.setUserMeetingEntity(userMeetingEntity);
+            UserEntity userEntityFromRepository = userEntityRepository.save(userEntity);
+            userMeetingEntity.addUserEntity(userEntityFromRepository);
+            return meetingEntityRepository.save(userMeetingEntity);
+        }
+        throw new CustomNotFoundException(String.format("UserMeetingEntity with MeetingName %s not found.",meetingName));
+    }
+
+    public UserMeetingEntity unregisterUserToMeeting(String meetingName, UserEntity userEntity) {
+        log.info("User-Meeting-Service: RegisterUserToMeeting-Method is called");
+        UserMeetingEntity userMeetingEntity = findMeetingByMeetingName(meetingName);
+        if (userMeetingEntity != null && userEntity != null) {
+            userEntity.setUserMeetingEntity(null);
+            UserEntity userEntityFromRepository = userEntityRepository.save(userEntity);
+            userMeetingEntity.removeUserEntity(userEntityFromRepository);
+            return meetingEntityRepository.save(userMeetingEntity);
+        }
+        throw new CustomNotFoundException(String.format("UserMeetingEntity with MeetingName %s not found.",meetingName));
+    }
+
+    public int deleteMeetingByMeetingName(String meetingName, UserEntity userEntity) {
         log.info("User-Meeting-Service: DeleteMeetingByMeetingName-Method is called");
-        return meetingEntityRepository.deleteMeetingEntityByMeetingName(meetingName);
+        if(!meetingName.isBlank() && userEntity != null && userEntity.getUserRole().name().equals(UserRole.ROLE_OWNER)) {
+            userEntity.setUserMeetingEntity(null);
+            userEntity.setUserRole(UserRole.ROLE_USER);
+            userManagementServiceHttpClient.saveAnExistingUserEntity(userEntity);
+            /* Delete all User from Meeting [if there are any] */
+            Optional<UserMeetingEntity> userMeetingEntityOptional = meetingEntityRepository.findMeetingEntityByMeetingName(meetingName);
+            if(userMeetingEntityOptional.isPresent()) {
+                List<UserEntity> userEntityList = new ArrayList<>();
+                UserMeetingEntity userMeetingEntity = userMeetingEntityOptional.get();
+                List<UserEntity> userEntityFromRepositoryList = userEntityRepository.findUserEntitiesByUserMeetingEntity(userMeetingEntity);
+                for(UserEntity userEntityFromRepository : userEntityFromRepositoryList) {
+                    userEntityFromRepository.setUserMeetingEntity(null);
+                    userEntityList.add(userEntityFromRepository);
+                }
+                userManagementServiceHttpClient.saveAllExistingUserEntities(userEntityList);
+            }
+            return meetingEntityRepository.deleteMeetingEntityByMeetingName(meetingName);
+        }
+        throw new CustomNotFoundException(String.format("UserMeetingEntity with MeetingName %s or UserEntity with Username %s not found.", meetingName, userEntity.getUsername()));
     }
 
     public UserEntity saveUser(UserEntity userEntity) {
@@ -66,7 +125,7 @@ public class UserMeetingService {
     public UserEntity findUserByUsername(String username) throws JsonProcessingException, CustomNotFoundException {
         log.info("User-Meeting-Search-Service: FindUserByUsername-Method is called");
         if (!username.isBlank()) {
-            ResponseEntity<UserEntity> responseEntity = userManagementServiceHttpClient.fetchUserByUsername(username);
+            ResponseEntity<UserEntity> responseEntity = userManagementServiceHttpClient.findUserEntityByUsername(username);
             if (responseEntity != null && responseEntity.hasBody()) {
                 UserEntity userEntity = responseEntity.getBody();
                 Optional<UserEntity> userEntityOptional = userEntityRepository.findUserEntityByUsername(userEntity.getUsername());

@@ -29,17 +29,17 @@ public class UserMeetingController {
     }
 
     @PostMapping("/register-meeting")
-    public ResponseEntity<UserMeetingEntity> registerMeeting(@RequestBody @Valid UserMeetingEntity userMeetingEntity) throws JsonProcessingException {
+    public ResponseEntity<UserMeetingEntity> registerMeeting(@RequestBody @Valid UserMeetingEntity userMeetingEntity, @RequestBody @Valid UserEntity userEntity) throws JsonProcessingException {
         log.info("Meeting-Controller: RegisterMeeting-Method is called");
-        UserMeetingEntity savedUserMeetingEntity = userMeetingService.saveMeeting(userMeetingEntity);
+        UserMeetingEntity savedUserMeetingEntity = userMeetingService.saveNewMeeting(userMeetingEntity, userEntity);
         log.info("Meeting-Controller: RegisterMeeting-Method saved MeetingEntity : {}", new ObjectMapper().writeValueAsString(savedUserMeetingEntity));
         return new ResponseEntity<>(savedUserMeetingEntity, HttpStatus.OK);
     }
 
     @GetMapping("/unregister-meeting/{meetingName}")
-    public ResponseEntity<Integer> unregisterMeeting(@PathVariable("meetingName") String meetingName) throws JsonProcessingException {
+    public ResponseEntity<Integer> unregisterMeeting(@PathVariable("meetingName") String meetingName,  @RequestBody @Valid UserEntity userEntity) throws JsonProcessingException {
         log.info("Meeting-Controller: UnregisterMeeting-Method is called");
-        int deleteResult = userMeetingService.deleteMeetingByMeetingName(meetingName);
+        int deleteResult = userMeetingService.deleteMeetingByMeetingName(meetingName, userEntity);
         log.info("Meeting-Controller: UnregisterMeeting-Method deleted MeetingEntity with Result : {}", new ObjectMapper().writeValueAsString(deleteResult));
         return new ResponseEntity<>(deleteResult, HttpStatus.OK);
     }
@@ -47,48 +47,32 @@ public class UserMeetingController {
     @PostMapping("/register-to-meeting/{meetingName}")
     public ResponseEntity<UserMeetingEntity> registerUserToMeeting(@PathVariable("meetingName") String meetingName, @RequestBody @Valid UserEntity userEntity) throws JsonProcessingException {
         log.info("Meeting-Controller: RegisterUserToMeeting-Method is called");
-        UserMeetingEntity userMeetingEntity = userMeetingService.findMeetingByMeetingName(meetingName);
-        UserMeetingEntity savedUserMeetingEntity = null;
-        UserEntity savedUserEntity = null;
-        if (userMeetingEntity != null && userEntity != null) {
-            savedUserEntity = userMeetingService.saveUser(userEntity);
-            userMeetingEntity.addUserEntity(savedUserEntity);
-            savedUserMeetingEntity = userMeetingService.saveMeeting(userMeetingEntity);
-        }
-        log.info("Meeting-Controller: RegisterUserToMeeting-Method saved UserEntity : {}", new ObjectMapper().writeValueAsString(savedUserEntity));
-        log.info("Meeting-Controller: RegisterUserToMeeting-Method saved MeetingEntity : {}", new ObjectMapper().writeValueAsString(savedUserMeetingEntity));
-        return new ResponseEntity<>(savedUserMeetingEntity, HttpStatus.OK);
+        UserMeetingEntity userMeetingEntity = userMeetingService.registerUserToMeeting(meetingName, userEntity);
+        log.info("Meeting-Controller: RegisterUserToMeeting-Method saved MeetingEntity : {}", new ObjectMapper().writeValueAsString(userMeetingEntity));
+        return new ResponseEntity<>(userMeetingEntity, HttpStatus.OK);
     }
 
     @PostMapping("/unregister-from-meeting/{meetingName}")
     public ResponseEntity<UserMeetingEntity> unregisterUserFromMeeting(@PathVariable("meetingName") String meetingName, @RequestBody @Valid UserEntity userEntity) throws JsonProcessingException {
         log.info("Meeting-Controller: UnregisterUserFromMeeting-Method is called");
-        UserMeetingEntity userMeetingEntity = userMeetingService.findMeetingByMeetingName(meetingName);
-        UserEntity savedUserEntity = null;
-        UserMeetingEntity savedUserMeetingEntity = null;
-        if (userMeetingEntity != null) {
-            savedUserEntity = userMeetingService.saveUser(userEntity);
-            userMeetingEntity.removeUserEntity(savedUserEntity);
-            savedUserMeetingEntity = userMeetingService.saveMeeting(userMeetingEntity);
-        }
-        log.info("Meeting-Controller: UnregisterUserToMeeting-Method saved UserEntity : {}", new ObjectMapper().writeValueAsString(savedUserEntity));
-        log.info("Meeting-Controller: UnregisterUserToMeeting-Method saved MeetingEntity : {}", new ObjectMapper().writeValueAsString(savedUserMeetingEntity));
-        return new ResponseEntity<>(savedUserMeetingEntity, HttpStatus.OK);
+        UserMeetingEntity userMeetingEntity = userMeetingService.unregisterUserToMeeting(meetingName, userEntity);
+        log.info("Meeting-Controller: UnregisterUserToMeeting-Method saved MeetingEntity : {}", new ObjectMapper().writeValueAsString(userMeetingEntity));
+        return new ResponseEntity<>(userMeetingEntity, HttpStatus.OK);
     }
 
-    @GetMapping(path = {"/fetch-all-user-meetings"})
-    public ResponseEntity<List<UserMeetingEntity>> fetchAllUserMeetings() throws JsonProcessingException {
-        log.info("Meeting-Controller: FetchAllUserMeetings-Method is called");
+    @GetMapping(path = {"/find-all-user-meetings"})
+    public ResponseEntity<List<UserMeetingEntity>> findAllUserMeetingEntities() throws JsonProcessingException {
+        log.info("Meeting-Controller: FindAllUserMeetingEntities-Method is called");
         List<UserMeetingEntity> userMeetingEntityList = userMeetingService.findAllMeetings();
-        log.info("Meeting-Controller: FetchAllUserMeetings-Method created UserMeetingEntityList : {}", new ObjectMapper().writeValueAsString(userMeetingEntityList));
+        log.info("Meeting-Controller: FindAllUserMeetingEntities-Method created UserMeetingEntityList : {}", new ObjectMapper().writeValueAsString(userMeetingEntityList));
         return new ResponseEntity<>(userMeetingEntityList, HttpStatus.OK);
     }
 
-    @GetMapping(path = "/fetch-user-by-username/{username}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UserEntity> fetchUserByUsername(@PathVariable("username") String username) throws JsonProcessingException, NotFoundException {
-        log.info("Search-Query-Controller: FetchUserByUsername-Method is called");
+    @GetMapping(path = "/find-user-by-username/{username}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<UserEntity> findUserByUsername(@PathVariable("username") String username) throws JsonProcessingException, NotFoundException {
+        log.info("Search-Query-Controller: FindUserByUsername-Method is called");
         UserEntity userEntity = userMeetingService.findUserByUsername(username);
-        log.info("Search-Query-Controller: FetchUserByUsername-Method created UserEntity : {}", new ObjectMapper().writeValueAsString(userEntity));
+        log.info("Search-Query-Controller: FindUserByUsername-Method created UserEntity : {}", new ObjectMapper().writeValueAsString(userEntity));
         return new ResponseEntity<>(userEntity, HttpStatus.OK);
     }
 }

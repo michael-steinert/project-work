@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,15 +27,49 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public UserEntity saveUser(UserEntity userEntity) {
-        log.info("User Service: SaveUser Method is called");
+    public UserEntity saveUserEntity(UserEntity userEntity) {
+        log.info("User Service: SaveUserEntity Method is called");
         userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
         userEntity.setUserRole(UserRole.ROLE_USER);
         return userEntityRepository.save(userEntity);
     }
 
-    public UserEntity findByUsername(String username) {
-        log.info("User Service: FindByUsername Method is called");
+    public UserEntity saveAnExistingUserEntity(UserEntity userEntity) {
+        log.info("User Service: SaveAnExistingUserEntity Method is called");
+        Optional<UserEntity> userEntityOptional = userEntityRepository.findUserEntityByUsername(userEntity.getUsername());
+        if(userEntityOptional.isPresent()) {
+            /* Using the existing ID to save UserEntity */
+            UserEntity userEntityFromRepository = userEntityOptional.get();
+            userEntityFromRepository.setUsername(userEntity.getUsername());
+            userEntityFromRepository.setPassword(userEntity.getPassword());
+            userEntityFromRepository.setAuthorizationToken(userEntity.getAuthorizationToken());
+            userEntityFromRepository.setUserRole(userEntity.getUserRole());
+            return userEntityRepository.save(userEntityFromRepository);
+        }
+        throw new CustomNotFoundException(String.format("UserEntity with Username like %s not found.", userEntity.getUsername()));
+    }
+
+    public List<UserEntity> saveAllExistingUserEntities(List<UserEntity> userEntityList) {
+        log.info("User Service: SaveAllExistingUserEntities Method is called");
+        if(!userEntityList.isEmpty()) {
+            List<UserEntity> userEntityListFromRepository = new ArrayList<>();
+            /* Using the existing ID to save UserEntity */
+            for(UserEntity userEntity : userEntityList) {
+                Optional<UserEntity> userEntityOptional = userEntityRepository.findUserEntityByUsername(userEntity.getUsername());
+                UserEntity userEntityFromRepository = userEntityOptional.get();
+                userEntityFromRepository.setUsername(userEntity.getUsername());
+                userEntityFromRepository.setPassword(userEntity.getPassword());
+                userEntityFromRepository.setAuthorizationToken(userEntity.getAuthorizationToken());
+                userEntityFromRepository.setUserRole(userEntity.getUserRole());
+                userEntityListFromRepository.add(userEntityFromRepository);
+            }
+            return userEntityRepository.saveAll(userEntityListFromRepository);
+        }
+        throw new CustomNotFoundException("UserEntityList was empty.");
+    }
+
+    public UserEntity findUserEntityByUsername(String username) {
+        log.info("User Service: FindUserEntityByUsername Method is called");
         if (username != null) {
             Optional<UserEntity> userEntityOptional = userEntityRepository.findUserEntityByUsername(username);
             return userEntityOptional.orElseThrow(()-> new CustomNotFoundException(String.format("UserEntity with Username like %s not found.", username)));
@@ -42,9 +77,9 @@ public class UserService {
         throw new CustomEmptyInputException("The Username is empty.");
     }
 
-    public UserEntity findByUsernameAndPassword(String username, String password) {
-        log.info("User Service: FindByUsernameAndPassword Method is called");
-        UserEntity userEntity = findByUsername(username);
+    public UserEntity findUserEntityByUsernameAndPassword(String username, String password) {
+        log.info("User Service: FindUserEntityByUsernameAndPassword Method is called");
+        UserEntity userEntity = findUserEntityByUsername(username);
         if (userEntity != null) {
             if (passwordEncoder.matches(password, userEntity.getPassword())) {
                 return userEntity;
@@ -53,8 +88,8 @@ public class UserService {
         throw new CustomNotFoundException(String.format("UserEntity with Username like %s and Password %s not found.", username, password));
     }
 
-    public List<UserEntity> findAllUsers() {
-        log.info("User Service: FindAllUsers Method is called");
+    public List<UserEntity> findAllUserEntities() {
+        log.info("User Service: FindAllUserEntities Method is called");
         return userEntityRepository.findAll();
     }
 }

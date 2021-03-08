@@ -40,7 +40,7 @@ public class MainController {
     @GetMapping(value = {"/userList"})
     public String userList(Model model) throws JsonProcessingException {
         log.info("Main Controller: UserList Method is called");
-        List<UserEntity> users = userService.findAllUsers();
+        List<UserEntity> users = userService.findAllUserEntities();
         model.addAttribute("users", users);
         log.info("Main Controller: Index Method created ServiceName : {}", new ObjectMapper().writeValueAsString(users));
         return "userList";
@@ -56,7 +56,7 @@ public class MainController {
     @PostMapping(value = {"/addUser"})
     public String saveUser(Model model, @ModelAttribute("userEntity") @Valid UserEntity userEntity) throws JsonProcessingException {
         log.info("Main Controller: SaveUser Method is called");
-        userService.saveUser(userEntity);
+        userService.saveUserEntity(userEntity);
         log.info("Main Controller: SaveUser Method created and saved UserEntity : {}", new ObjectMapper().writeValueAsString(userEntity));
         return "addUser";
     }

@@ -80,7 +80,7 @@ public class MainController {
     @PostMapping(value = {"/addUserMeeting"})
     public String showAddUserMeeting(@ModelAttribute("userMeetingEntity") UserMeetingEntity userMeetingEntity) throws JsonProcessingException {
         log.info("Main-Controller: ShowAddUserMeeting-Method is called");
-        userMeetingService.saveMeeting(userMeetingEntity);
+        userMeetingService.saveNewMeeting(userMeetingEntity, null);
         log.info("Main-Controller: ShowAddUserMeeting-Method created and saved UserMeetingEntity : {}", new ObjectMapper().writeValueAsString(userMeetingEntity));
         return "addUserMeeting";
     }

@@ -9,12 +9,12 @@ const api = axios.create({
 
 /* Queries for Microservice UserManagement */
 export const registerUser = async (userEntity) => {
-    return await api.post('/user-management/register', userEntity)
+    return await api.post('/user-management/register-a-new-user', userEntity)
         .then(response => response.data).catch((error) => console.log("Error:", error));
 }
 
 export const authenticateUser = async (userEntity) => {
-    return await api.post('/user-management/authenticate', userEntity)
+    return await api.post('/user-management/authenticate-an-existing-user', userEntity)
         .then(response => response.data).catch((error) => console.log("Error:", error));
 }
 
@@ -34,7 +34,7 @@ export const registerUserMeeting = async (userMeetingEntity) => {
 }
 
 export const fetchAllMeetings = async () => {
-    return await api.get('/user-meeting/fetch-all-user-meetings')
+    return await api.get('/user-meeting/find-all-user-meetings')
         .then(response => response.data).catch((error) => console.log("Error:", error));
 }
 

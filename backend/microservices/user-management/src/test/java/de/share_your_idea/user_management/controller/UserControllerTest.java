@@ -25,9 +25,9 @@ class UserControllerTest {
         /* Given */
         UserEntity userEntity = new UserEntity(1L, "Michael", "testPassword", ROLE_USER, "testAuthorizationToken");
         /* When */
-        userController.registerUser(userEntity);
+        userController.saveNewUserEntity(userEntity);
         /* Then */
-        UserEntity userEntityFromController = userController.fetchUserByUsername(userEntity.getUsername()).getBody();
+        UserEntity userEntityFromController = userController.findUserEntityByUsername(userEntity.getUsername()).getBody();
         assertThat(userEntityFromController.getUserId()).isEqualTo(userEntity.getUserId());
         assertThat(userEntityFromController.getUsername()).isEqualTo(userEntity.getUsername());
         assertThat(userEntityFromController.getPassword()).isEqualTo(passwordEncoder.encode(userEntity.getPassword()));

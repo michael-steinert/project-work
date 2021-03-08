@@ -11,9 +11,9 @@ import java.util.List;
 @FeignClient("http://USER-MANAGEMENT-SERVICE/user-management/")
 public interface UserManagementServiceHTTPClient {
 
-    @GetMapping("fetch-all-users")
-    ResponseEntity<List<UserEntity>> fetchAllUsers();
+    @GetMapping("find-all-users")
+    ResponseEntity<List<UserEntity>> findAllUserEntities();
 
-    @GetMapping("fetch-user-by-username/{username}")
-    ResponseEntity<UserEntity> fetchUserByUsername(@PathVariable("username") String username);
+    @GetMapping("find-user-by-username/{username}")
+    ResponseEntity<UserEntity> findUserEntityByUsername(@PathVariable("username") String username);
 }
