@@ -56,12 +56,16 @@ public class UserService {
             /* Using the existing ID to save UserEntity */
             for(UserEntity userEntity : userEntityList) {
                 Optional<UserEntity> userEntityOptional = userEntityRepository.findUserEntityByUsername(userEntity.getUsername());
-                UserEntity userEntityFromRepository = userEntityOptional.get();
-                userEntityFromRepository.setUsername(userEntity.getUsername());
-                userEntityFromRepository.setPassword(userEntity.getPassword());
-                userEntityFromRepository.setAuthorizationToken(userEntity.getAuthorizationToken());
-                userEntityFromRepository.setUserRole(userEntity.getUserRole());
-                userEntityListFromRepository.add(userEntityFromRepository);
+                if(userEntityOptional.isPresent()) {
+                    UserEntity userEntityFromRepository = userEntityOptional.get();
+                    userEntityFromRepository.setUsername(userEntity.getUsername());
+                    userEntityFromRepository.setPassword(userEntity.getPassword());
+                    userEntityFromRepository.setAuthorizationToken(userEntity.getAuthorizationToken());
+                    userEntityFromRepository.setUserRole(userEntity.getUserRole());
+                    userEntityListFromRepository.add(userEntityFromRepository);
+                } else {
+                    userEntityListFromRepository.add(userEntity);
+                }
             }
             return userEntityRepository.saveAll(userEntityListFromRepository);
         }
