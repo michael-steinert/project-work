@@ -7,15 +7,28 @@ const api = axios.create({
     }
 });
 
+/*
+    The async and await Keywords makes the Function wait until the Promise returns a Result,
+    and the Function returns a Promise
+*/
+
 /* Queries for Microservice UserManagement */
 export const registerUser = async (userEntity) => {
-    return await api.post('/user-management/register-a-new-user', userEntity)
-        .then(response => response.data).catch((error) => console.log("Error:", error));
+    try {
+        return await api.post('/user-management/register-a-new-user', userEntity)
+            .then(response => response.data).catch((error) => console.log(`Error while RegisterUser: ${error}`));
+    } catch (error) {
+        console.log(`Error while RegisterUser: ${error}`);
+    }
 }
 
 export const authenticateUser = async (userEntity) => {
-    return await api.post('/user-management/authenticate-an-existing-user', userEntity)
-        .then(response => response.data).catch((error) => console.log("Error:", error));
+    try {
+        return await api.post('/user-management/authenticate-an-existing-user', userEntity)
+            .then(response => response.data).catch((error) => console.log(`Error while AuthenticateUser: ${error}`));
+    } catch (error) {
+        console.log(`Error while RegisterUser: ${error}`);
+    }
 }
 
 /*
@@ -29,32 +42,56 @@ export const searchUser = async (userEntity) => {
 
 /* Queries for Microservice UserMeeting */
 export const registerUserMeeting = async (userMeetingEntity) => {
-    return await api.post('/user-meeting/register-meeting', userMeetingEntity)
-        .then(response => response.data).catch((error) => console.log("Error:", error));
+    try {
+        return await api.post('/user-meeting/register-meeting', userMeetingEntity)
+            .then(response => response.data).catch((error) => console.log(`Error while RegisterUserMeeting: ${error}`));
+    } catch (error) {
+        console.log(`Error while RegisterUser: ${error}`);
+    }
 }
 
 export const fetchAllMeetings = async () => {
-    return await api.get('/user-meeting/find-all-user-meetings')
-        .then(response => response.data).catch((error) => console.log("Error:", error));
+    try {
+        return await api.get('/user-meeting/find-all-user-meetings')
+            .then(response => response.data).catch((error) => console.log(`Error while FetchAllMeetings: ${error}`));
+    } catch (error) {
+        console.log(`Error while RegisterUser: ${error}`);
+    }
 }
 
 export const registerUserToUserMeeting = async (meetingName, userEntity) => {
-    return await api.post('/user-meeting/register-to-meeting/' + meetingName, userEntity)
-        .then(response => response.data).catch((error) => console.log("Error:", error));
+    try {
+        return await api.post('/user-meeting/register-to-meeting/' + meetingName, userEntity)
+            .then(response => response.data).catch((error) => console.log(`Error while RegisterUserToUserMeeting: ${error}`));
+    } catch (error) {
+        console.log(`Error while RegisterUser: ${error}`);
+    }
 }
 
 export const unregisterUserToUserMeeting = async (meetingName, userEntity) => {
-    return await api.post('/user-meeting/unregister-from-meeting/' + meetingName, userEntity)
-        .then(response => response.data).catch((error) => console.log("Error:", error));
+    try {
+        return await api.post('/user-meeting/unregister-from-meeting/' + meetingName, userEntity)
+            .then(response => response.data).catch((error) => console.log(`Error while UnregisterUserToUserMeeting: ${error}`));
+    } catch (error) {
+        console.log(`Error while RegisterUser: ${error}`);
+    }
 }
 
 /* Queries for Microservice UserMeetingSearch */
 export const searchUserWithSearchQuery = async (searchQuery) => {
-    return await api.get('/user-meeting-search/search-user/' + searchQuery)
-        .then(response => response.data).catch((error) => console.log("Error:", error));
+    try {
+        return await api.get('/user-meeting-search/search-user/' + searchQuery)
+            .then(response => response.data).catch((error) => console.log(`Error while SearchUserWithSearchQuery: ${error}`));
+    } catch (error) {
+        console.log(`Error while RegisterUser: ${error}`);
+    }
 }
 
 export const searchUserMeetingWithSearchQuery = async (searchQuery) => {
-    return await api.get('/user-meeting-search/search-meeting/' + searchQuery)
-        .then(response => response.data).catch((error) => console.log("Error:", error));
+    try {
+        return await api.get('/user-meeting-search/search-meeting/' + searchQuery)
+            .then(response => response.data).catch((error) => console.log(`Error while SearchUserMeetingWithSearchQuery: ${error}`));
+    } catch (error) {
+        console.log(`Error while RegisterUser: ${error}`);
+    }
 }
