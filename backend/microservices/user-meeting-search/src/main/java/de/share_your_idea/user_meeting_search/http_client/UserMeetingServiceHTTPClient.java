@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 
-@FeignClient("http://USER-MEETING-SERVICE/user-meeting/")
+@FeignClient("http://USER-MEETING-SERVICE/api/v1/user-meeting/")
 public interface UserMeetingServiceHTTPClient {
 
     @GetMapping("find-all-user-meetings")

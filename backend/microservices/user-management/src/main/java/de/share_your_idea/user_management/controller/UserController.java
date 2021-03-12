@@ -16,7 +16,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Slf4j
-@RequestMapping("user-management")
+@RequestMapping("api/v1/user-management")
 @RestController
 public class UserController {
 

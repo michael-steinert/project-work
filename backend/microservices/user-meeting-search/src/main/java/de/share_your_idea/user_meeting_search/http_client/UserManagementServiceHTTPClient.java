@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
-@FeignClient("http://USER-MANAGEMENT-SERVICE/user-management/")
+@FeignClient("http://USER-MANAGEMENT-SERVICE/api/v1/user-management/")
 public interface UserManagementServiceHTTPClient {
 
     @GetMapping("find-all-users")

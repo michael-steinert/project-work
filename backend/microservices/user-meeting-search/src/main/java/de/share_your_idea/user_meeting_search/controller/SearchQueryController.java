@@ -14,7 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
-@RequestMapping("user-meeting-search")
+@RequestMapping("api/v1/user-meeting-search")
 @RestController
 public class SearchQueryController {
 

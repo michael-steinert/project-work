@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import javax.validation.Valid;
 import java.util.List;
 
-@FeignClient("http://USER-MANAGEMENT-SERVICE/user-management/")
+@FeignClient("http://USER-MANAGEMENT-SERVICE/api/v1/user-management/")
 public interface UserManagementServiceHTTPClient {
 
     @GetMapping("find-user-by-username/{username}")

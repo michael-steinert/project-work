@@ -17,7 +17,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Slf4j
-@RequestMapping("user-meeting")
+@RequestMapping("api/v1/user-meeting")
 @RestController
 public class UserMeetingController {
 
