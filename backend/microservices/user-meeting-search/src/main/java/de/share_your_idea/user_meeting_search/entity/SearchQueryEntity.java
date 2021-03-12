@@ -2,17 +2,17 @@ package de.share_your_idea.user_meeting_search.entity;
 
 import de.share_your_idea.user_meeting_search.util.UserEntityStringListConverter;
 import de.share_your_idea.user_meeting_search.util.UserMeetingEntityStringListConverter;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity(name = "SearchQueryEntity")
 @Table(name = "search_query_entity")
-@Data
+@AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 @ToString
 public class SearchQueryEntity {
 

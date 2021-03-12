@@ -1,8 +1,6 @@
 package de.share_your_idea.user_meeting_search.entity;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -16,8 +14,10 @@ Target of the DDD is an Entity customized to their Domain.
 
 @Entity(name = "MeetingEntity")
 @Table(name = "meeting_entity")
-@Data
+@AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 @ToString
 public class UserMeetingEntity {
 
