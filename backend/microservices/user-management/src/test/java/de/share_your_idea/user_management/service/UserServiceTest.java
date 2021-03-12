@@ -21,6 +21,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 
+/* Unit-Test for UserService */
 class UserServiceTest {
     @Mock
     private UserEntityRepository userEntityRepository;

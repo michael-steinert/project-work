@@ -11,6 +11,7 @@ import java.util.Optional;
 import static de.share_your_idea.user_management.entity.UserRole.ROLE_USER;
 import static org.assertj.core.api.Assertions.assertThat;
 
+/* Unit-Test for UserEntityRepository */
 /* To trigger the Annotations from UserEntity the following Property is necessary */
 /* For Example @Column(nullable = false) */
 @DataJpaTest(properties = "spring.jpa.properties.javax.persistence.validation.mode=none")
