@@ -19,5 +19,5 @@ public interface UserEntityRepository extends JpaRepository<UserEntity, Long> {
 
     @Modifying
     @Transactional(readOnly = false)
-    Long deleteUserEntityByUsername(String username);
+    int deleteUserEntityByUsername(String username);
 }

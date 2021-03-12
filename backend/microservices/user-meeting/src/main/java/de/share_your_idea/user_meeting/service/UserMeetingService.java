@@ -137,7 +137,7 @@ public class UserMeetingService {
                     This increases the Resilience and Performance of this Service.
                 */
                 if (!userEntity.equals(userEntityFromRepository)) {
-                    Long result = userEntityRepository.deleteUserEntityByUsername(userEntity.getUsername());
+                    int result = userEntityRepository.deleteUserEntityByUsername(userEntity.getUsername());
                     log.info("User-Meeting-Search-Service: FindUserByUsername-Method deleted UserEntity with Result : {}", new ObjectMapper().writeValueAsString(result));
                     if (result != 0) {
                         userEntity = userEntityRepository.save(userEntity);
