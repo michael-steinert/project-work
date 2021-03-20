@@ -21,7 +21,6 @@
         <maven.compiler.target>11</maven.compiler.target>
         <maven.compiler.source>11</maven.compiler.source>
         <spring-cloud.version>Hoxton.SR10</spring-cloud.version>
-        <maven.test.skip>true</maven.test.skip>
     </properties>
 
     <dependencies>
