@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Repository
 @Transactional(readOnly = true)
-public interface MeetingEntityRepository extends JpaRepository<UserMeetingEntity, Long> {
+public interface UserMeetingEntityRepository extends JpaRepository<UserMeetingEntity, Long> {
     Optional<UserMeetingEntity> findMeetingEntityByMeetingName(String meetingName);
 
     @Modifying

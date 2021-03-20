@@ -18,13 +18,13 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 @DataJpaTest(properties = "spring.jpa.properties.javax.persistence.validation.mode=none")
 @PropertySource("classpath:application.yml")
 @PropertySource("classpath:bootstrap.yml")
-class MeetingEntityRepositoryTest {
+class UserMeetingEntityRepositoryTest {
     @Autowired
-    MeetingEntityRepository meetingEntityRepository;
+    UserMeetingEntityRepository userMeetingEntityRepository;
 
     @AfterEach
     void tearDown() {
-        meetingEntityRepository.deleteAll();
+        userMeetingEntityRepository.deleteAll();
     }
 
     @Test
@@ -32,9 +32,9 @@ class MeetingEntityRepositoryTest {
         /* Given */
         UserMeetingEntity userMeetingEntity = new UserMeetingEntity(1L, "testMeetingName", "testCommunicationLink", null);
         /* When */
-        meetingEntityRepository.save(userMeetingEntity);
+        userMeetingEntityRepository.save(userMeetingEntity);
         /* Then */
-        Optional<UserMeetingEntity> userMeetingEntityOptional = meetingEntityRepository.findMeetingEntityByMeetingName(userMeetingEntity.getMeetingName());
+        Optional<UserMeetingEntity> userMeetingEntityOptional = userMeetingEntityRepository.findMeetingEntityByMeetingName(userMeetingEntity.getMeetingName());
         assertThat(userMeetingEntityOptional).isPresent().hasValueSatisfying(userMeetingEntityFromRepository -> {
             assertThat(userMeetingEntityFromRepository.getMeetingName()).isEqualTo(userMeetingEntity.getMeetingName());
             assertThat(userMeetingEntityFromRepository.getCommunicationLink()).isEqualTo(userMeetingEntity.getCommunicationLink());
@@ -47,11 +47,11 @@ class MeetingEntityRepositoryTest {
         /* Given */
         UserMeetingEntity userMeetingEntity = new UserMeetingEntity(1L, "testMeetingName", "testCommunicationLink", null);
         /* When */
-        meetingEntityRepository.save(userMeetingEntity);
+        userMeetingEntityRepository.save(userMeetingEntity);
         /* Then */
-        int result = meetingEntityRepository.deleteMeetingEntityByMeetingName(userMeetingEntity.getMeetingName());
+        int result = userMeetingEntityRepository.deleteMeetingEntityByMeetingName(userMeetingEntity.getMeetingName());
         assertThat(result).isEqualTo(1);
-        Optional<UserMeetingEntity> userMeetingEntityOptional = meetingEntityRepository.findById(userMeetingEntity.getMeetingId());
+        Optional<UserMeetingEntity> userMeetingEntityOptional = userMeetingEntityRepository.findById(userMeetingEntity.getMeetingId());
         assertThat(userMeetingEntityOptional).isEmpty();
     }
 }

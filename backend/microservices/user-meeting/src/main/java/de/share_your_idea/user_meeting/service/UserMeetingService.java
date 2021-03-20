@@ -8,15 +8,13 @@ import de.share_your_idea.user_meeting.entity.UserRole;
 import de.share_your_idea.user_meeting.exception.CustomEmptyInputException;
 import de.share_your_idea.user_meeting.exception.CustomNotFoundException;
 import de.share_your_idea.user_meeting.http_client.UserManagementServiceHTTPClient;
-import de.share_your_idea.user_meeting.repository.MeetingEntityRepository;
+import de.share_your_idea.user_meeting.repository.UserMeetingEntityRepository;
 import de.share_your_idea.user_meeting.repository.UserEntityRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
-import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -25,21 +23,21 @@ import java.util.Optional;
 @Service
 public class UserMeetingService {
     private final UserEntityRepository userEntityRepository;
-    private final MeetingEntityRepository meetingEntityRepository;
+    private final UserMeetingEntityRepository userMeetingEntityRepository;
     private final UserManagementServiceHTTPClient userManagementServiceHttpClient;
 
     @Autowired
     public UserMeetingService(UserEntityRepository userEntityRepository,
-                              MeetingEntityRepository meetingEntityRepository,
+                              UserMeetingEntityRepository userMeetingEntityRepository,
                               UserManagementServiceHTTPClient userManagementServiceHttpClient) {
         this.userEntityRepository = userEntityRepository;
-        this.meetingEntityRepository = meetingEntityRepository;
+        this.userMeetingEntityRepository = userMeetingEntityRepository;
         this.userManagementServiceHttpClient = userManagementServiceHttpClient;
     }
 
     public UserMeetingEntity saveMeeting(UserMeetingEntity userMeetingEntity) {
         log.info("User-Meeting-Service: SaveMeeting-Method is called");
-        return meetingEntityRepository.save(userMeetingEntity);
+        return userMeetingEntityRepository.save(userMeetingEntity);
     }
 
     public UserMeetingEntity saveNewMeeting(UserMeetingEntity userMeetingEntity, UserEntity userEntity) {
@@ -50,7 +48,7 @@ public class UserMeetingService {
             userEntity.setUserRole(UserRole.ROLE_OWNER);
             UserEntity userEntityFromRepository = userEntityRepository.save(userEntity);
             userManagementServiceHttpClient.saveAnExistingUserEntity(userEntityFromRepository);
-            return meetingEntityRepository.save(userMeetingEntity);
+            return userMeetingEntityRepository.save(userMeetingEntity);
         }
         throw new CustomNotFoundException(String.format("UserMeetingEntity with MeetingName %s or UserEntity with Username %s not found.",userMeetingEntity.getMeetingName(), userEntity.getUsername()));
     }
@@ -58,7 +56,7 @@ public class UserMeetingService {
     public UserMeetingEntity findMeetingByMeetingName(String meetingName) {
         log.info("User-Meeting-Service: FindMeetingByMeetingName-Method is called");
         if (!meetingName.isBlank()) {
-            Optional<UserMeetingEntity> userMeetingEntityOptional = meetingEntityRepository.findMeetingEntityByMeetingName(meetingName);
+            Optional<UserMeetingEntity> userMeetingEntityOptional = userMeetingEntityRepository.findMeetingEntityByMeetingName(meetingName);
             UserMeetingEntity userMeetingEntity = userMeetingEntityOptional.get();
             return userMeetingEntity;
         }
@@ -67,7 +65,7 @@ public class UserMeetingService {
 
     public List<UserMeetingEntity> findAllMeetings() {
         log.info("User-Meeting-Service: FindAllMeetings-Method is called");
-        return meetingEntityRepository.findAll();
+        return userMeetingEntityRepository.findAll();
     }
 
     public UserMeetingEntity registerUserToMeeting(String meetingName, UserEntity userEntity) {
@@ -77,7 +75,7 @@ public class UserMeetingService {
             userEntity.setUserMeetingEntity(userMeetingEntity);
             UserEntity userEntityFromRepository = userEntityRepository.save(userEntity);
             userMeetingEntity.addUserEntity(userEntityFromRepository);
-            return meetingEntityRepository.save(userMeetingEntity);
+            return userMeetingEntityRepository.save(userMeetingEntity);
         }
         throw new CustomNotFoundException(String.format("UserMeetingEntity with MeetingName %s not found.",meetingName));
     }
@@ -89,7 +87,7 @@ public class UserMeetingService {
             userEntity.setUserMeetingEntity(null);
             UserEntity userEntityFromRepository = userEntityRepository.save(userEntity);
             userMeetingEntity.removeUserEntity(userEntityFromRepository);
-            return meetingEntityRepository.save(userMeetingEntity);
+            return userMeetingEntityRepository.save(userMeetingEntity);
         }
         throw new CustomNotFoundException(String.format("UserMeetingEntity with MeetingName %s not found.",meetingName));
     }
@@ -101,7 +99,7 @@ public class UserMeetingService {
             userEntity.setUserRole(UserRole.ROLE_USER);
             userManagementServiceHttpClient.saveAnExistingUserEntity(userEntity);
             /* Delete all User from Meeting [if there are any] */
-            Optional<UserMeetingEntity> userMeetingEntityOptional = meetingEntityRepository.findMeetingEntityByMeetingName(meetingName);
+            Optional<UserMeetingEntity> userMeetingEntityOptional = userMeetingEntityRepository.findMeetingEntityByMeetingName(meetingName);
             if(userMeetingEntityOptional.isPresent()) {
                 List<UserEntity> userEntityList = new ArrayList<>();
                 UserMeetingEntity userMeetingEntity = userMeetingEntityOptional.get();
@@ -112,7 +110,7 @@ public class UserMeetingService {
                 }
                 userManagementServiceHttpClient.saveAllExistingUserEntities(userEntityList);
             }
-            return meetingEntityRepository.deleteMeetingEntityByMeetingName(meetingName);
+            return userMeetingEntityRepository.deleteMeetingEntityByMeetingName(meetingName);
         }
         throw new CustomNotFoundException(String.format("UserMeetingEntity with MeetingName %s or UserEntity with Username %s not found.", meetingName, userEntity.getUsername()));
     }
