@@ -15,11 +15,12 @@ import java.util.List;
 import java.util.Optional;
 
 import static de.share_your_idea.user_management.entity.UserRole.ROLE_USER;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
+import static org.mockito.Mockito.verify;
 
 /* Unit-Test for UserService */
 class UserServiceTest {
@@ -50,7 +51,9 @@ class UserServiceTest {
         /* When */
         userService.saveUserEntity(userEntity);
         /* Then */
-        then(userEntityRepository).should().save(userEntityArgumentCaptor.capture());
+        /* The Method verify() verifies that the Method save() is invoked in the Repository */
+        /* The Method capture() captures the Value in the Method save() */
+        verify(userEntityRepository).save(userEntityArgumentCaptor.capture());
         UserEntity userEntityFromService = userEntityArgumentCaptor.getValue();
         assertThat(userEntityFromService.getUserId()).isEqualTo(userEntity.getUserId());
         assertThat(userEntityFromService.getUsername()).isEqualTo(userEntity.getUsername());
@@ -79,7 +82,9 @@ class UserServiceTest {
         /* When */
         userService.saveAllExistingUserEntities(userEntityList);
         /* Then */
-        then(userEntityRepository).should().saveAll(userEntityListArgumentCaptor.capture());
+        /* The Method verify() verifies that the Method saveAll() is invoked in the Repository */
+        /* The Method capture() captures the Value in the Method saveAll() */
+        verify(userEntityRepository).saveAll(userEntityListArgumentCaptor.capture());
         List<UserEntity> userEntityListFromService = userEntityListArgumentCaptor.getValue();
         assertThat(userEntityListFromService).isEqualTo(userEntityList);
     }
@@ -93,7 +98,9 @@ class UserServiceTest {
         /* When */
         UserEntity userEntityFromService = userService.findUserEntityByUsername(userEntity.getUsername());
         /* Then */
-        then(userEntityRepository).should().findUserEntityByUsername(stringArgumentCaptor.capture());
+        /* The Method verify() verifies that the Method findUserEntityByUsername() is invoked in the Repository */
+        /* The Method capture() captures the Value in the Method findUserEntityByUsername() */
+        verify(userEntityRepository).findUserEntityByUsername(stringArgumentCaptor.capture());
         String usernameArgumentCaptorValue = stringArgumentCaptor.getValue();
         assertThat(usernameArgumentCaptorValue).isEqualTo(userEntity.getUsername());
         assertThat(userEntityFromService.getUserId()).isEqualTo(userEntity.getUserId());
