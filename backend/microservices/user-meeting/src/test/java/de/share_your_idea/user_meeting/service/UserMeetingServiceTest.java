@@ -1,6 +1,5 @@
 package de.share_your_idea.user_meeting.service;
 
-import de.share_your_idea.user_meeting.entity.UserEntity;
 import de.share_your_idea.user_meeting.entity.UserMeetingEntity;
 import de.share_your_idea.user_meeting.http_client.UserManagementServiceHTTPClient;
 import de.share_your_idea.user_meeting.repository.MeetingEntityRepository;
@@ -11,16 +10,13 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Optional;
 
-import static de.share_your_idea.user_meeting.entity.UserRole.ROLE_USER;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.then;
+import static org.mockito.Mockito.verify;
 
 class UserMeetingServiceTest {
     @Mock
@@ -50,7 +46,9 @@ class UserMeetingServiceTest {
         /* When */
         UserMeetingEntity insertResult = userMeetingService.saveMeeting(userMeetingEntity);
         /* Then */
-        then(meetingEntityRepository).should().save(userMeetingEntityArgumentCaptor.capture());
+        /* The Method verify() verifies that the Method save() is invoked in the Repository */
+        /* The Method capture() captures the Value in the Method save() */
+        verify(meetingEntityRepository).save(userMeetingEntityArgumentCaptor.capture());
         UserMeetingEntity userMeetingEntityFromService = userMeetingEntityArgumentCaptor.getValue();
         assertThat(userMeetingEntityFromService.getMeetingId()).isEqualTo(userMeetingEntity.getMeetingId());
         assertThat(userMeetingEntityFromService.getMeetingName()).isEqualTo(userMeetingEntity.getMeetingName());
@@ -68,7 +66,9 @@ class UserMeetingServiceTest {
         /* When */
         UserMeetingEntity userMeetingEntityFromService = userMeetingService.findMeetingByMeetingName(userMeetingEntity.getMeetingName());
         /* Then */
-        then(meetingEntityRepository).should().findMeetingEntityByMeetingName(stringArgumentCaptor.capture());
+        /* The Method verify() verifies that the Method findMeetingEntityByMeetingName() is invoked in the Repository */
+        /* The Method capture() captures the Value in the Method findMeetingEntityByMeetingName() */
+        verify(meetingEntityRepository).findMeetingEntityByMeetingName(stringArgumentCaptor.capture());
         String userMeetingArgumentCaptorValue = stringArgumentCaptor.getValue();
         assertThat(userMeetingArgumentCaptorValue).isEqualTo(userMeetingEntity.getMeetingName());
         assertThat(userMeetingEntityFromService.getMeetingId()).isEqualTo(userMeetingEntity.getMeetingId());

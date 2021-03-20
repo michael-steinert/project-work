@@ -1,6 +1,7 @@
 package de.share_your_idea.user_meeting.repository;
 
 import de.share_your_idea.user_meeting.entity.UserEntity;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -9,7 +10,7 @@ import org.springframework.context.annotation.PropertySource;
 import java.util.Optional;
 
 import static de.share_your_idea.user_meeting.entity.UserRole.ROLE_USER;
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 /* Unit-Test for UserEntityRepository */
 /* To trigger the Annotations from UserEntity the following Property is necessary */
@@ -20,6 +21,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 class UserEntityRepositoryTest {
     @Autowired
     private UserEntityRepository userEntityRepository;
+
+    @AfterEach
+    void tearDown() {
+        userEntityRepository.deleteAll();
+    }
 
     @Test
     void itShouldFindUserEntityByUsername() {
