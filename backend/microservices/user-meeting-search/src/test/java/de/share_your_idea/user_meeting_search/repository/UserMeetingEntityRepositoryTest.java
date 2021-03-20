@@ -8,7 +8,7 @@ import org.springframework.context.annotation.PropertySource;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 /* Unit-Test for UserMeetingEntityRepository */
 /* To trigger the Annotations from UserEntity the following Property is necessary */
@@ -29,6 +29,6 @@ class UserMeetingEntityRepositoryTest {
         /* Then */
         List<UserMeetingEntity> userMeetingEntityList = userMeetingEntityRepository.findUserMeetingEntityByMeetingNameContaining(userMeetingEntity.getMeetingName());
         assertThat(userMeetingEntityList.isEmpty()).isFalse();
-
+        assertThat(userMeetingEntityList).isEqualTo(List.of(userMeetingEntity));
     }
 }

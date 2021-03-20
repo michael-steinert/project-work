@@ -10,7 +10,7 @@ import org.springframework.context.annotation.PropertySource;
 import java.util.Optional;
 
 import static de.share_your_idea.user_meeting.entity.UserRole.ROLE_USER;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 /* Unit-Test for UserEntityRepository */
 /* To trigger the Annotations from UserEntity the following Property is necessary */
