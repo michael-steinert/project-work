@@ -19,17 +19,6 @@ http://localhost:8083/user-meeting-search/
 | GET | /search-meeting/{searchQuery} | Returns all existing Meetings that match the Search Query |
 | GET | /fetch-all-users | Returns all existing Users |
 ___
-### Jib Maven Plugin
-*Jib is a deamonless Maven Plugin for building Docker and OCI Images for Java Applications.*
-
-* Build an Image with Jib and store it locally
-    * docker login
-    * mvnw clean install -P jib-push-to-local
-
-* Build an Image with Jib and push it to Docker Hub
-    * docker login
-    * mvnw clean install -P jib-push-to-dockerhub
-___
 
 ## Einrichtung
 ### Anwendungsserver:

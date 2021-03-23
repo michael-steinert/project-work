@@ -22,17 +22,6 @@ http://localhost:8081/user-management/
 | GET | /find-user-by-username/{username} | Returns a User with the corresponding Username |
 | GET | /find-all-users | Returns all existing Users |
 ___
-### Jib Maven Plugin
-*Jib is a deamonless Maven Plugin for building Docker and OCI Images for Java Applications.*
-
-* Build an Image with Jib and store it locally
-    * docker login
-    * mvnw clean install -P jib-push-to-local
-
-* Build an Image with Jib and push it to Docker Hub
-    * docker login
-    * mvnw clean install -P jib-push-to-dockerhub
-___
 
 ## Einrichtung
 ### Anwendungsserver:
