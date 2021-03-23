@@ -30,7 +30,7 @@ const Search = () => {
 
     function handleSubmitUserSearchQuery() {
         searchUserWithSearchQuery(userSearchQueryUser).then(data => {
-            setUserList(data);
+            setUserList(data.userEntityResult);
             console.log('The Search-API returns for User: ');
             console.log(data);
         });
@@ -38,7 +38,7 @@ const Search = () => {
 
     function handleSubmitUserMeetingSearch() {
         searchUserWithSearchQuery(userMeetingSearchQueryUser).then(data => {
-            setUserMeetingList(data);
+            setUserMeetingList(data.userMeetingEntityResult);
             console.log('The Search-API returns for UserMeetings: ');
             console.log(data);
         });
@@ -71,8 +71,8 @@ const Search = () => {
                     </Paper>
                     <br/>
                     <Paper className={classes.paper}>
-                        {userList.length > 0 && <UserCardList userList = {userList} />}
-                        {userList.length === 0 && <Typography variant="body2">Es wurden keine User gefunden oder Suche gestartet!</Typography>}
+                        {userList && (userList.length > 0) && <UserCardList userList = {userList} />}
+                        {userList && (userList.length === 0) && <Typography variant="body2">Es wurden keine User gefunden oder Suche gestartet!</Typography>}
                     </Paper>
                 </Grid>
                 <Grid item xs={6}>
@@ -84,8 +84,8 @@ const Search = () => {
                     </Paper>
                     <br/>
                     <Paper className={classes.paper}>
-                        {userMeetingList.length > 0 && <UserMeetingCardList userMeetingList = {userMeetingList} />}
-                        {userMeetingList.length === 0 && <Typography variant="body2">Es wurden keine UserMeetings gefunden oder Suche gestartet!</Typography>}
+                        {userMeetingList && (userMeetingList.length > 0) && <UserMeetingCardList userMeetingList = {userMeetingList} />}
+                        {userMeetingList && (userMeetingList.length === 0) && <Typography variant="body2">Es wurden keine UserMeetings gefunden oder Suche gestartet!</Typography>}
                     </Paper>
                 </Grid>
             </Grid>
