@@ -13,7 +13,6 @@
             <h1 class="text-center">User List</h1>
             <div class="row">
                 <div class="col text-center">
-                    <a href="addUser">Add Person</a>
                     <table border="1">
                         <tr>
                             <th>Username</th>
@@ -28,6 +27,9 @@
                             <td th:utext="${user.authorizationToken}">No Value for Token</td>
                         </tr>
                     </table>
+                    <hr>
+                    <a th:href="@{/addUser}">Add User</a><br>
+                    <a th:href="@{/index}">Index</a>
                 </div>
             </div>
         </div>
