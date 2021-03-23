@@ -18,12 +18,30 @@ spring:
         - id: user_management_route
           uri: lb://USER-MANAGEMENT-SERVICE
           predicates:
-            - Path=/user-management/**
+            - Path=/api/v1/user-management/**
           filters:
             - name: CircuitBreaker
               args:
                 name: USER-MANAGEMENT-SERVICE-FALLBACK
                 fallbackuri: forward:/userManagementServiceFallBack
+        - id: user_meeting_route
+          uri: lb://USER-MEETING-SERVICE
+          predicates:
+            - Path=/api/v1/user-meeting/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: USER-MEETING-SERVICE-FALLBACK
+                fallbackuri: forward:/userMeetingServiceFallBack
+        - id: user_meeting_search_route
+          uri: lb://USER-MEETING-SEARCH-SERVICE
+          predicates:
+            - Path=/api/v1/user-meeting-search/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: USER-MEETING-SEARCH-SERVICE-FALLBACK
+                fallbackuri: forward:/userMeetingSearchServiceFallBack
 
 hystrix:
   command:
