@@ -59,13 +59,13 @@ services:
       - service-discovery
       - config-server
 
-  tracing-system:
-    image: openzipkin/zipkin-slim
-    container_name: tracing-system
-    networks:
-      - share-your-idea-network
-    ports:
-      - "9411:9411"
+#  tracing-system:
+#    image: openzipkin/zipkin-slim
+#    container_name: tracing-system
+#    networks:
+#      - share-your-idea-network
+#    ports:
+#      - "9411:9411"
 
   user-management-service:
     image: user-management:0.0.1-SNAPSHOT
