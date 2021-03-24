@@ -87,7 +87,7 @@ services:
       - config-server
       - gateway-service
       - database-server
-      - tracing-system
+#      - tracing-system
 #      - kibana
 
   user-meeting-service:
@@ -110,7 +110,7 @@ services:
       - config-server
       - gateway-service
       - database-server
-      - tracing-system
+#      - tracing-system
 #      - kibana
 
   user-meeting-search-service:
@@ -133,7 +133,7 @@ services:
       - config-server
       - gateway-service
       - database-server
-      - tracing-system
+#      - tracing-system
 #      - kibana
 
 #  filebeat:

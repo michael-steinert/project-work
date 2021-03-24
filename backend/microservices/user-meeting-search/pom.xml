@@ -21,6 +21,7 @@
         <maven.compiler.target>11</maven.compiler.target>
         <maven.compiler.source>11</maven.compiler.source>
         <spring-cloud.version>Hoxton.SR10</spring-cloud.version>
+        <start-class>de.share_your_idea.user_meeting_search.UserMeetingSearchApplication</start-class>
     </properties>
 
     <dependencies>
@@ -130,7 +131,6 @@
                     </excludes>
                 </configuration>
             </plugin>
-
             <plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>dockerfile-maven-plugin</artifactId>

@@ -1,4 +1,4 @@
-package de.share_your_idea.gatewayservice;
+package de.share_your_idea.gateway_service;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
