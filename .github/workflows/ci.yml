@@ -69,7 +69,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: ./Dockerfile
+          file: ./dockerfile
           
       - name: Messaging Slack
         uses: 8398a7/action-slack@v3
