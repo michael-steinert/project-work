@@ -59,9 +59,8 @@ jobs:
           username: ${{ env.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
           
-    
-       
-       - name: Push to Docker Hub
+ 
+      - name: Push to Docker Hub
         uses: docker/build-push-action@v1
         with:
           username: ${{ env.DOCKER_HUB_USERNAME }}
