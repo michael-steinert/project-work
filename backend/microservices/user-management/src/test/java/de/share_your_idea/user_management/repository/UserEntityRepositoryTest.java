@@ -21,11 +21,11 @@ import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 @PropertySource("classpath:bootstrap.yml")
 class UserEntityRepositoryTest {
     @Autowired
-    private UserEntityRepository userEntityRepository;
+    private UserEntityRepository underTest;
 
     @AfterEach
     void tearDown() {
-        userEntityRepository.deleteAll();
+        underTest.deleteAll();
     }
 
     @Test
@@ -33,9 +33,9 @@ class UserEntityRepositoryTest {
         /* Given */
         UserEntity userEntity = new UserEntity(1L, "Michael", "testPassword", ROLE_USER, "testAuthorizationToken");
         /* When */
-        userEntityRepository.save(userEntity);
+        underTest.save(userEntity);
         /* Then */
-        Optional<UserEntity> userEntityOptional = userEntityRepository.findUserEntityByUsername(userEntity.getUsername());
+        Optional<UserEntity> userEntityOptional = underTest.findUserEntityByUsername(userEntity.getUsername());
         assertThat(userEntityOptional).isPresent().hasValueSatisfying(userEntityFromRepository -> {
             assertThat(userEntityFromRepository.getUserId()).isEqualTo(userEntity.getUserId());
             assertThat(userEntityFromRepository.getUsername()).isEqualTo(userEntity.getUsername());
@@ -49,11 +49,11 @@ class UserEntityRepositoryTest {
         /* Given */
         UserEntity userEntity = new UserEntity(1L, "Michael", "testPassword", ROLE_USER, "testAuthorizationToken");
         /* When */
-        userEntityRepository.save(userEntity);
+        underTest.save(userEntity);
         /* Then */
-        int result = userEntityRepository.deleteUserEntityByUsername(userEntity.getUsername());
+        int result = underTest.deleteUserEntityByUsername(userEntity.getUsername());
         assertThat(result).isEqualTo(1);
-        Optional<UserEntity> userEntityOptional = userEntityRepository.findById(userEntity.getUserId());
+        Optional<UserEntity> userEntityOptional = underTest.findById(userEntity.getUserId());
         assertThat(userEntityOptional).isEmpty();
     }
 }
