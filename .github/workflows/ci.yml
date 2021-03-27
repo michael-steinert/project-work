@@ -59,9 +59,17 @@ jobs:
           username: ${{ env.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
           
-      - name: Build image
-        run: docker build . --file Dockerfile --tag ${{ env.APPLICATION_NAME }}:latest
-        
+    
+       
+       - name: Push to Docker Hub
+        uses: docker/build-push-action@v1
+        with:
+          username: ${{ env.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+          repository: ${{ env.DOCKER_HUB_USERNAME }}/${{ env.APPLICATION_NAME }}
+          tag_with_ref: true
+          
+          
       - name: Messaging Slack
         uses: 8398a7/action-slack@v3
         with:
