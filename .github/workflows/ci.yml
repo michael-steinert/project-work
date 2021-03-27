@@ -71,8 +71,6 @@ jobs:
           username: ${{ env.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
           context: .
-          tag_with_ref: true
-          
           
       - name: Messaging Slack
         uses: 8398a7/action-slack@v3
