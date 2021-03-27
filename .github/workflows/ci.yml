@@ -62,7 +62,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
-          context: ./project-work/backend/microservices/user-management
+          context: .
           push: true
           tags: ${{ env.DOCKER_HUB_USERNAME }}/${{ env.APPLICATION_NAME }}:latest
           
