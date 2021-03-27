@@ -62,7 +62,7 @@ jobs:
       - name: Push to Docker Hub
         uses: docker/build-push-action@v2
         with:
-          file: backend/microservices/user-management/Dockerfile
+          file: ./project-work/backend/microservices/user-management/Dockerfile
           
       - name: Messaging Slack
         uses: 8398a7/action-slack@v3
