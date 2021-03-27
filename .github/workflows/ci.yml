@@ -46,8 +46,9 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
         with:
-          repository: michael-steinert-repository
+          repository: michael-steinert-repository/project-work
           path: project-work/backend/microservices/user-management
+          submodules: true
       - name: Setup Java JDK
         uses: actions/setup-java@v1.4.3
         with:
