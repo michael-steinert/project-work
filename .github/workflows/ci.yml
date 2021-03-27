@@ -59,6 +59,7 @@ jobs:
           registry: docker.io
           username: ${{ env.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+          working-directory: ./project-work/backend/microservices/user-management
       - name: Messaging Slack
         uses: 8398a7/action-slack@v3
         with:
