@@ -45,9 +45,7 @@ jobs:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
       - name: Checkout Repository
         uses: actions/checkout@v2.3.4
-        with:
-          repository: michael-steinert-repository/project-work
-          path: backend/microservices/user-management
+        
       - name: Setup Java JDK
         uses: actions/setup-java@v1.4.3
         with:
