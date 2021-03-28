@@ -16,3 +16,6 @@
 [submodule "backend/microservices/user-management"]
 	path = backend/microservices/user-management
 	url = https://github.com/michael-steinert-repository/project-work-user-management.git
+[submodule "backend/microservices/user-meeting"]
+	path = backend/microservices/user-meeting
+	url = https://github.com/michael-steinert-repository/project-work-user-meeting.git
