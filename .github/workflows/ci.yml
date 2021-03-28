@@ -80,7 +80,6 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2.3.4
         with:
-          repository: michael-steinert-repository/project-work
           path: project-work/backend/service-discovery
         
       - name: Setup Java JDK
@@ -96,10 +95,10 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
           
       - name: Grant Execute Permission for mvnw
-        run: chmod +x ./project-work/backend/service-discovery/mvnw
+        run: chmod +x ./mvnw
           
       - name: Maven Clean Package and Push to Dockerhub
-        run: ./project-work/backend/service-discovery/mvnw --no-transfer-progress clean package -P build-and-push-container-to-dockerhub
+        run: ./mvnw --no-transfer-progress clean package -P build-and-push-container-to-dockerhub
 
       - name: Messaging Slack
         uses: 8398a7/action-slack@v3
