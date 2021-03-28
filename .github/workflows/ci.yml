@@ -80,7 +80,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2.3.4
         with:
-          path: project-work/backend/service-discovery
+          path: backend/service-discovery
         
       - name: Setup Java JDK
         uses: actions/setup-java@v1.4.3
