@@ -104,6 +104,7 @@ jobs:
           
       - name: Maven Clean Package and Push to Dockerhub
         run: |
+            chmod +x ./backend/service-discovery/mvnw
           ./backend/service-discovery/mvnw --no-transfer-progress clean package -P build-and-push-container-to-dockerhub
 
       - name: Messaging Slack
