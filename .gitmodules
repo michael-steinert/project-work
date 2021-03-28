@@ -13,3 +13,6 @@
 [submodule "backend/config-repository"]
 	path = backend/config-repository
 	url = https://github.com/michael-steinert-repository/project-work-config-repository.git
+[submodule "backend/microservices/user-management"]
+	path = backend/microservices/user-management
+	url = https://github.com/michael-steinert-repository/project-work-user-management.git
