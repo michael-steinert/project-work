@@ -1,3 +1,6 @@
 [submodule "backend/service-discovery1"]
 	path = backend/service-discovery1
 	url = https://github.com/michael-steinert-repository/project-work-service-discovery.git
+[submodule "backend/service-discovery"]
+	path = backend/service-discovery
+	url = https://github.com/michael-steinert-repository/project-work-service-discovery.git
