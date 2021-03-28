@@ -7,3 +7,6 @@
 [submodule "backend/config-server"]
 	path = backend/config-server
 	url = https://github.com/michael-steinert-repository/project-work-config-server.git
+[submodule "backend/gateway-service"]
+	path = backend/gateway-service
+	url = https://github.com/michael-steinert-repository/project-work-gateway-service.git
