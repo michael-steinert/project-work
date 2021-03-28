@@ -19,3 +19,6 @@
 [submodule "backend/microservices/user-meeting"]
 	path = backend/microservices/user-meeting
 	url = https://github.com/michael-steinert-repository/project-work-user-meeting.git
+[submodule "backend/microservices/user-meeting-search"]
+	path = backend/microservices/user-meeting-search
+	url = https://github.com/michael-steinert-repository/project-work-user-meeting-search.git
