@@ -92,11 +92,11 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
           
       - name: Grant Execute Permission for mvnw
-        run: chmod +x ./backend/service-discovery/mvnw
+        run: chmod +x ./backend/service-discovery/mvn
 
       - name: Maven Clean Package and Push to Dockerhub
         run: |
-          ./backend/service-discovery/mvnw clean package -P build-and-push-container-to-dockerhub
+          ./backend/service-discovery/mvn clean package -P build-and-push-container-to-dockerhub
 
       - name: Messaging Slack
         uses: 8398a7/action-slack@v3
