@@ -1,7 +1,5 @@
 # Project Work
 
-* The Goal of this Project Work is to achieve the academic Degree Master of Science in Computer Science.*
-
 * The Goal of the Application is to provide a Platform for People to work collaboratively on shared Ideas.
 
 * The Application is based on a Microservice Architecture and the Zoom Interface to enable Users to work well together.
